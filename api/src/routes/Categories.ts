@@ -4,7 +4,12 @@ const route:Router=Router()
 
 
 route.get("/", async(req, res) => {
-    
+    try {
+        let cats:object=await Category.find();
+        res.send(cats)
+    } catch (error) {
+        res.send({error: "no hay categorias"})
+    }
 })
 
 
