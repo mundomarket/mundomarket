@@ -9,7 +9,7 @@ import config from "./config"
     //   userUnifiedTypology:true
     // }
       
-    const db= await mongoose.connect(`mongodb://${config.MONGO_HOST}/${config.MONGO_DATABASE}`,{
+    const db= await mongoose.connect(`mongodb+srv://mundomarket:${config.MONGO_PASSWORD}@cluster0.tqn5t.mongodb.net/${config.MONGO_DATABASE}?retryWrites=true&w=majority`,{
             
     });
       console.log("connect to database to:", db.connection.name);

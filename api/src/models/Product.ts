@@ -34,7 +34,7 @@ const productSchema=new Schema({
     },
     rating:{
         type:Number,
-        require:true,
+        required:true,
         default:0
     },
     category:{
