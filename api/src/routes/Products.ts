@@ -5,8 +5,15 @@ const route: Router = Router()
 
 
 route.get("/", async (req, res) => {
-
+    try{
+        const infoDb=await Product.find()
+        res.json(infoDb.length ? infoDb : "No hay productos para mostrar")
+    }catch(e){
+        console.log(e)
+    }
+    
 });
+
 
 route.post('/', async (req, res) => {
 
