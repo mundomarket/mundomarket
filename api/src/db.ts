@@ -12,7 +12,7 @@ import config from "./config"
     const db= await mongoose.connect(`mongodb+srv://mundomarket:${config.MONGO_PASSWORD}@cluster0.tqn5t.mongodb.net/${config.MONGO_DATABASE}?retryWrites=true&w=majority`,{
             
     });
-      console.log("connect to database to:", db.connection.name);
+      console.log("connected to database :", db.connection.name);
   }catch(error)
    {  console.error(error)}
 })();
