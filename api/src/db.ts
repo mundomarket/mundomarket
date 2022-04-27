@@ -12,7 +12,7 @@ import config from "./config"
     const db= await mongoose.connect(`mongodb://${config.MONGO_HOST}/${config.MONGO_DATABASE}`,{
             
     });
-      console.log("connect to database to:", db.connection.name);
+      console.log("connected to database :", db.connection.name);
   }catch(error)
    {  console.error(error)}
 })();
