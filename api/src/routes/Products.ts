@@ -5,9 +5,16 @@ const route: Router = Router()
 
 
 route.get("/", async (req, res) => {
+    let {name}=req.query;
     try{
+    if (name?.length) {// si me llega algo por query entonces hago el filtrado por name
+        const regexp = new RegExp(`.*${name}.*`) //convirtiendo a expresion regular
+        const infoDb=await Product.find({"name": regexp })
+        res.json(infoDb.length ? infoDb : "No hay productos para mostrar")
+    }else{
         const infoDb=await Product.find()
         res.json(infoDb.length ? infoDb : "No hay productos para mostrar")
+    }
     }catch(e){
         console.log(e)
     }
