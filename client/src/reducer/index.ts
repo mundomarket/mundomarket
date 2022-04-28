@@ -1,13 +1,15 @@
-import { createAction, createReducer } from '@reduxjs/toolkit'
+import { createReducer } from '@reduxjs/toolkit'
 import * as actions from '../actions/index'
 
-
-const initialState = { value: [] } 
+interface Estado{
+  productos:any
+}
+const initialState = { productos:[] } as Estado
 
 const rootReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase('2', (state, action) => {
-      state.value=state.value
+    .addCase(actions.GETPRODUCTS.fulfilled, (state, action) => {
+      state.productos=action.payload
     })
 })
 
