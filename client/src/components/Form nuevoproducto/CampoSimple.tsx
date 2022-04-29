@@ -8,7 +8,7 @@ export default function CampoSimple(props:any) {
     <Box
       component="form"
       sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
+        '& .MuiTextField-root': { m: 1, width: '20vw' },
       }}
       noValidate
       autoComplete="off"

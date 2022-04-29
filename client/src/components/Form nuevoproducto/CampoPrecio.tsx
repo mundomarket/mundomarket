@@ -11,7 +11,7 @@ export default function InputAdornments() {
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
         <div>
-        <FormControl fullWidth sx={{ m: 1, width: '25ch' }}>
+        <FormControl fullWidth sx={{ m: 1, width: '20vw' }}>
           <InputLabel htmlFor="outlined-adornment-amount">Precio</InputLabel>
           <OutlinedInput
             id="outlined-adornment-amount"
