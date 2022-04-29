@@ -1,5 +1,5 @@
 //import { ShopLayout } from '../components/layouts';
-import { Typography,Grid, CardActionArea,Card, CardMedia } from '@mui/material';
+import { Typography,Grid, CardActionArea,Card, CardMedia, Box } from '@mui/material';
 import NavBar from '../../components/ui/NavBar/NavBar'
 import { initialData } from '../../database/products';
 import { ProductList } from '../../components/products';
@@ -13,11 +13,14 @@ export default function Home() {
 
   return (
     <div>
-        <NavBar/>
+        <Box position='fixed' width='100%' sx={{ zIndex: 'tooltip' }}>
+          <NavBar/>
+        </Box>
+        
         <Typography variant='h1' component='h1'> Tienda </Typography>
         <Typography variant='h2' sx={{marginBottom: 1}}> Todos los productos </Typography>
 
-        <ProductList 
+        <ProductList
             products={initialData.products as any}
         />
     </div>
