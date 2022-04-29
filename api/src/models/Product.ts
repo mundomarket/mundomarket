@@ -5,6 +5,10 @@ const productSchema=new Schema({
     name:{
         type:String,
         required:true, 
+
+        required:true,
+        unique: true        
+
     },
     price:{
         type:Number,
@@ -32,7 +36,7 @@ const productSchema=new Schema({
     },
     rating:{
         type:Number,
-        require:true,
+        required:true,
         default:0
     },
     category:{
