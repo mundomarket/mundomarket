@@ -11,7 +11,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(router);
-app.use((req, res, next) => {
+app.use((req:any, res:any, next:any) => {
     const error: any = new Error("Not found");
     error.status = 404;
     next(error);
