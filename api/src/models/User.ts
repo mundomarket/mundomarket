@@ -14,7 +14,6 @@ const userSchema=new Schema({
     password:{
         type:String,
         required:true,
-
     },
     avatar:{
         type:String,   
@@ -30,14 +29,15 @@ const userSchema=new Schema({
     role:{
         type:Number, //normal or admin
         default:0
-    
     },
     history:{  //historial del usuario
         type:Array,
         default:[]
+    },
+    localidad:{
+        type: String,
+        required: true
     }
-  
-
 })
 
 const User=model("User", userSchema)
