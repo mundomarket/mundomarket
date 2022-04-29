@@ -4,14 +4,17 @@ import { initialData } from '../../database/products';
 import { ProductSlideshow } from '../../components/products';
 import { ItemCounter } from '../../components/ui';
 import { SizeSelector } from '../../components/products/SizeSelector';
+import NavBar from '../../components/ui/NavBar/NavBar'
 
 const product =  initialData.products[0];
 
 const ProductPage = () => {
     return (
         //<ShopLayout title = {product.title} pageDescription={product.description} imageFullUrl="any">
-
-            <Grid container spacing={3}>
+        <>
+            <NavBar/>
+            <Grid container spacing={2} mt={3}>
+                
                 <Grid item xs={12} sm={7}>
                     <ProductSlideshow
                         images={product.images}
@@ -30,6 +33,7 @@ const ProductPage = () => {
                         <Box sx={{my:2}}>
                             <Typography variant='subtitle2'>Cantidad </Typography>
                             <ItemCounter/>
+                            
                             {/*<SizeSelector 
                                 //selectedSize={product.sizes[0]} 
                                 sizes={product.sizes}/>*/}
@@ -56,9 +60,9 @@ const ProductPage = () => {
 
             </Grid>
 
-        //</ShopLayout>
+      
 
-       
+    </>
     )
 }
 
