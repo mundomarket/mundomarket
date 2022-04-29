@@ -4,9 +4,7 @@ import {model,Schema,Types} from "mongoose"
 const productSchema=new Schema({
     name:{
         type:String,
-        required:true,
-        
-        
+        required:true, 
     },
     price:{
         type:Number,
@@ -18,7 +16,7 @@ const productSchema=new Schema({
         required:true,
         maxLength: 1000
     },
-      stock:{ //QUANTITY
+    stock:{ //QUANTITY
         type:Number,
         required:true,
         default:0
@@ -38,12 +36,12 @@ const productSchema=new Schema({
         default:0
     },
     category:{
-        type: Schema.Types.ObjectId,
+        type: String,
         ref:"Category",
         required:true
     },
     envio:{
-        type:Boolean,
+        type:String,
         required:false
     }
 })
