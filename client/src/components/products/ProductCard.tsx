@@ -9,11 +9,14 @@ import {Grid,Card,CardActionArea,CardMedia, Typography, Box} from '@mui/material
 
 import {IProduct} from '../../interfaces'
 
+
 interface Props{
     product: IProduct;
 }
 
 export const ProductCard: FC <Props> = ( {product}) =>{
+
+//export default function ProductCard({product:string}){
 
     const [isHovered, setIsHovered] = useState (false);
 
@@ -23,6 +26,7 @@ export const ProductCard: FC <Props> = ( {product}) =>{
         : `products/${product.images[0]}`
          
     },[isHovered,product.images])
+
 
 
 
