@@ -1,4 +1,4 @@
-import e, {Router} from "express";
+import {Router} from "express";
 import Product from "../models/Product"
 const route:Router=Router()
 
