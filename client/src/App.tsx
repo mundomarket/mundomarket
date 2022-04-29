@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
 import {Route,Routes} from 'react-router-dom'
-import Landing from './pages/Landing';
-import Home from './pages/Home'
+import Landing from './pages/landing';
+import Home from './pages/home'
 
 function App() {
   return (
