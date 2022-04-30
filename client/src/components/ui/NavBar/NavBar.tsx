@@ -19,6 +19,8 @@ import { useDispatch } from 'react-redux';
 import {GETPRODUCTS} from  '../../../actions'
 import { AppDispatch } from '../../../store';
 import MenuCategorias from './MenuCategorias'
+import { CardMedia} from '@mui/material';
+import { Wallpaper } from '@mui/icons-material';
 
 
 
@@ -61,6 +63,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+
+const logo = './wallpaper.jpg'
 
 export default function PrimarySearchAppBar() {
   const useAppDispatch = () => useDispatch<AppDispatch>();
@@ -168,7 +172,7 @@ export default function PrimarySearchAppBar() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1 }} position='fixed' width='100%' z-index='10000' top='0px'>
       <AppBar position="static" sx={{ bgcolor: "#232324" }} >
         <Toolbar>
           {/* <IconButton
@@ -190,6 +194,12 @@ export default function PrimarySearchAppBar() {
           >
             MundoMarket
           </Typography>
+
+          <img
+              src={'wallpaper.jpg'}
+              alt='logo'
+                            />
+
           <Box sx={{ flexGrow: 1 }} />
           <Search>
             <SearchIconWrapper>

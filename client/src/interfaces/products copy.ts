@@ -1,14 +1,15 @@
 export interface IProduct {
     _id: string;
-    name: string;
-    price: number;
     description: string;
-    stock: number;
-    imageProduct: string;
-    review: number;
-    rating: number;
-    category: string;
-    envio: string;
+    images: string[];
+    inStock: number;
+    price: number;
+    sizes: ISize[];
+    slug: string;
+    tags: string[];
+    title: string;
+    type: IType;
+    gender: 'men'|'women'|'kid'|'unisex'
 
     createdAt: string;
     UpdatedAt: string;
