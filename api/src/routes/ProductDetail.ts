@@ -1,10 +1,10 @@
 import {Router} from "express";
 import Product from "../models/Product"
-const route:Router=Router()
+const route=Router()
 
 
 
-route.get("/:id", async (req, res) => {
+route.get("/:id", async(req:any, res:any) => {
     let id:string=req.params.id;
     try {
         let resultado:any[]|null=await Product.findById(id)
@@ -14,8 +14,5 @@ route.get("/:id", async (req, res) => {
     }
  
 });
-
-
-
 
 export default route

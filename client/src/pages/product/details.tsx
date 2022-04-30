@@ -5,27 +5,51 @@ import { ProductSlideshow } from '../../components/products';
 import { ItemCounter } from '../../components/ui';
 import { SizeSelector } from '../../components/products/SizeSelector';
 import NavBar from '../../components/ui/NavBar/NavBar'
+import {useParams} from "react-router-dom"
 
-const product =  initialData.products[0];
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { AppDispatch,RootState } from '../../store/index';
+import {GETDETAIL} from '../../actions'
+import { TypedUseSelectorHook } from "react-redux";
+const useAppDispatch = () => useDispatch<AppDispatch>();
+
+
+//const product =  initialData.products[0];
 
 const ProductPage = () => {
+
+    const {id} = useParams()
+    const dispatch=useAppDispatch()
+
+    useEffect(()=>{
+      dispatch(GETDETAIL(id))
+    },[dispatch])// eslint-disable-line
+    
+    //const products = useSelector((State) => State.products);
+    const product=useSelector((State:RootState) => State.rootReducer.detail); 
+
+    
     return (
         //<ShopLayout title = {product.title} pageDescription={product.description} imageFullUrl="any">
         <>
             <NavBar/>
+
+            
+
             <Grid container spacing={2} mt={3}>
-                
+                {/*
                 <Grid item xs={12} sm={7}>
                     <ProductSlideshow
                         images={product.images}
                     />
 
                 </Grid>
-
+                */}
                 <Grid item xs={12} sm={5}>
                     <Box display='flex' flexDirection='column'>
 
-                        <Typography variant='h1' component='h1'> {product.title}</Typography>
+                        <Typography variant='h1' component='h1'> {product.name}</Typography>
                         <Typography variant='subtitle1' component='h2'> {`$${product.price}`}</Typography>
 
                         

@@ -22,16 +22,17 @@ function App() {
       <ThemeProvider theme={lightTheme}>
       <CssBaseline/>
       <Routes>
-        <Route path='/' element={Landing()}/>
-        <Route path='/home' element={Home()}/>
-        <Route path='/product/:id' element={Product()}/>
+        <Route path='/' element={<Landing/>}/>
+        <Route path='/home' element={<Home/>}/>
+        <Route path='/product/:id' element={<Product/>}/>
+        {/*<Route path='/detail/:id' render={(props)=><Product id={props.match.params.id}/>}/>*/}
 
-        <Route path='/summary' element={Summary()}/>
-        <Route path='/history' element={History()}/>
-        <Route path='/cart' element={Cart()}/>
-        <Route path='/login' element={Login()}/>
-        <Route path='/register' element={Register()}/>
-        <Route path='/NewProduct' element={FormP()}/>
+        <Route path='/summary' element={<Summary/>}/>
+        <Route path='/history' element={<History/>}/>
+        <Route path='/cart' element={<Cart/>}/>
+        <Route path='/login' element={<Login/>}/>
+        <Route path='/register' element={<Register/>}/>
+        <Route path='/NewProduct' element={<FormP/>}/>
       </Routes>
       </ThemeProvider>
     </div>

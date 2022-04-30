@@ -2,19 +2,21 @@ import {Router} from "express";
 
 import product from "./Products";
 import category from "./Categories";
+import productCart from "./ProductCart";
 import user from "./Users";
 import productdetail from "./ProductDetail";
-import productDelete from "./ProductDelete";
+//import productDelete from "./ProductDelete";
 
 
-const route:Router=Router() ;//tipo de objeto Route
+const route=Router() ;//tipo de objeto Route
 
 
 route.use("/users", user)
 route.use("/products", product)
+route.use("/products-cart", productCart)
 route.use("/categories",category)
-route.use("/detail",productdetail)
-route.use("/delete",productDelete)
+route.use("/products",productdetail)
+//route.use("/delete",productDelete)
 
 
 
