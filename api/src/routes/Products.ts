@@ -76,23 +76,19 @@ route.post('/', async (req, res) => {
             const found = await Product.findOne({ name: req.body.name })
 
         if (found) {
-            res.send(301).json({ message: 'You can´t post the same product twice' })
+            res.send('You can´t post the same product twice')
         }
         else {
 
             const newProduct = new Product(req.body);
             console.log(newProduct)
             await newProduct.save()
-
+            return res.send('Product created')
         }
         
     } catch (err) {
-        res.status(500).json({ message: err })
+        res.send(err)
     }
-
-
-
-
 
 })
 
