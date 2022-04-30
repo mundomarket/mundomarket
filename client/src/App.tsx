@@ -24,6 +24,7 @@ function App() {
         <Route path='/' element={Landing()}/>
         <Route path='/home' element={Home()}/>
         <Route path='/product/:id' element={Product()}/>
+        {/*<Route path='/detail/:id' render={(props)=><Product id={props.match.params.id}/>}/>*/}
 
         <Route path='/summary' element={Summary()}/>
         <Route path='/history' element={History()}/>

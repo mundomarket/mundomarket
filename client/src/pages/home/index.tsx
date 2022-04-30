@@ -17,16 +17,16 @@ const useAppDispatch = () => useDispatch<AppDispatch>();
 
 export default function Home() {
   
-  useEffect(()=>{
-    dispatch(GETPRODUCTS())
-  })
-  //const products = useSelector((State) => State.products);
   const dispatch=useAppDispatch()
 
+  useEffect(()=>{
+    dispatch(GETPRODUCTS())
+  },[dispatch])
+  //const products = useSelector((State) => State.products);
   const productos=useSelector((State:RootState) => State.rootReducer.productos); 
 
-  console.log(productos)
-
+  
+  
   return (
     <div>
         <Box position='fixed' width='100%' sx={{ zIndex: 'tooltip' }}>
@@ -37,8 +37,8 @@ export default function Home() {
         <Typography variant='h2' sx={{marginBottom: 1}}> Todos los productos </Typography>
 
         <ProductList
-            products={initialData.products as any}
-          // products={productos}
+           // products={initialData.products as any}
+           products={productos}
         />
     </div>
   )
