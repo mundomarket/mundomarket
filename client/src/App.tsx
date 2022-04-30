@@ -13,6 +13,7 @@ import History from './pages/orders/history'
 import Cart from './pages/cart'
 import Login from './pages/auth/login'
 import Register from './pages/auth/register'
+import FormP from './components/Form nuevoproducto';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         <Route path='/cart' element={Cart()}/>
         <Route path='/login' element={Login()}/>
         <Route path='/register' element={Register()}/>
+        <Route path='/NewProduct' element={FormP()}/>
       </Routes>
       </ThemeProvider>
     </div>
