@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-const api = "http://localhost:3000";
+const api = "http://localhost:3000"
+
 
 // export const GETFILTER = createAsyncThunk("GET_FILTER", async (paraman) => {
 //   const result = await axios(
@@ -10,18 +11,17 @@ const api = "http://localhost:3000";
 //   return result.data;
 // });
 
-export const GETPRODUCTS = createAsyncThunk("GET_PRODUCTS", async () => {
-  const result = await axios(`${api}/products`);
-  return result.data;
-});
+export const GETPRODUCTS=createAsyncThunk('GET_PRODUCTS',async ()=>{
+    const result=await axios(`${api}/products`)
+    return result.data
+})
 
-export const GETDETAIL = createAsyncThunk(
-  "GET_DETAIL",
-  async (id: string | undefined) => {
-    const result = await axios(`${api}/products/${id}`);
-    return result.data;
-  }
-);
+export const GETDETAIL=createAsyncThunk('GET_DETAIL',async (id: string | undefined)=>{
+    const result=await axios(`${api}/products/${id}`) 
+    return result.data
+})
+
+
 
 /*
 
@@ -33,4 +33,5 @@ export function geProducts() {
         payload: json.data,
       });
     };
-}*/
+}
+
