@@ -24,7 +24,7 @@ const productSchema=new Schema({
         default:0
     },
     imageProduct:{
-        type:String
+        type:Array
     },
     review:{
         type:Number,
