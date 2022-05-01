@@ -45,4 +45,62 @@ route.post('/:id', async(req,res,next)=>{
     }
 });
 
+
+route.put("/:productId", async (req, res)=>{
+  const { productId } = req.params;
+  const { query } = req.query;
+  const body = req.body;
+
+  const productBuscado = await Cart.findById(productId);
+
+  if (!query) {
+    res.status(404).json({ mensaje: "Debes enviar una query" });
+
+  } else if (productBuscado && query === "add") {
+    body.amount = body.amount + 1;
+
+    await Cart.findByIdAndUpdate(productId, body, {
+      new: true,
+    }).then((product : any) => {
+      res.json({
+        mensaje: `El producto: ${Cart.name} fue actualizado`,
+        product,
+      });
+    });
+
+  } else if (productBuscado && query === "del") {
+    body.amount = body.amount - 1;
+
+    await Cart.findByIdAndUpdate(productId, body, {
+      new: true,
+    }).then((product : any) =>
+      res.json({
+        mensaje: `El producto: ${Cart.name} fue actualizado`,
+        product,
+      })
+    );
+  } else {
+    res.status(400).json({ mensaje: "Ocurrio un error" });
+  }
+});
+
+route.delete("/:productId", async (req, res)=>{
+    const {productId} = req.params;
+    const productInCart = await Cart.findById(productId);
+    const { name, img, price, _id } = await Product.findOne({
+      "name": productInCart.name,
+    });
+    await Cart.findByIdAndDelete(productId);
+    await Product.findByIdAndUpdate(
+      _id,
+      { inCart: false, name, img, price },
+      { new: true }
+    )
+      .then((product:{}) => {
+        res.json({
+          mensaje: `El producto ${name} fue eliminado del carrito`,
+        });
+      })
+      .catch((error:string) => res.json({ mensaje: "Hubo un error" }));
+    });
 export default route;

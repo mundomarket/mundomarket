@@ -1,11 +1,12 @@
+import axios from "axios";
 import { Router } from "express";
 import Product from "../models/Product"
-const route: Router = Router()
+const route= Router()
 
 
 
 
-route.get("/", async (req, res,next) => {
+route.get("/", async (req:any, res:any,next:any) => {
 
     const {name, names, sort, filterName, filterOrder} = req.query
     
@@ -52,25 +53,8 @@ route.get("/", async (req, res,next) => {
    
 });
 
-route.get("/", async (req, res) => {
-    let {name}=req.query;
-    try{
-    if (name?.length) {// si me llega algo por query entonces hago el filtrado por name
-        const regexp = new RegExp(`.*${name}.*`) //convirtiendo a expresion regular
-        const infoDb=await Product.find({"name": regexp })
-        res.json(infoDb.length ? infoDb : "No hay productos para mostrar")
-    }else{
-        const infoDb=await Product.find()
-        res.json(infoDb.length ? infoDb : "No hay productos para mostrar")
-    }
-    }catch(e){
-        console.log(e)
-    }
-    
-});
 
-
-route.post('/', async (req, res) => {
+route.post('/', async (req:any, res:any) => {
 
     try {        
             const found = await Product.findOne({ name: req.body.name })
@@ -89,7 +73,6 @@ route.post('/', async (req, res) => {
     } catch (err) {
         res.send(err)
     }
-
 })
 
 

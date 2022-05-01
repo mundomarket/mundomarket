@@ -1,11 +1,19 @@
-import {Router} from "express";
-import Product from "../models/Product"
-const route:Router=Router()
+// import {Router} from "express";
+// import Product from "../models/Product"
+// const route=Router()
 
-route.delete("/:id", async (req, res)=>{
-    const productFound = await Product.findByIdAndDelete(req.params.id)
-    if(!productFound) return res.status(204).json();
-    return res.json(productFound)
-});
+// route.delete("/:id", async (req:any, res:any, next:any)=>{
+//    try {
+//        const id = req.query.id
+//        if(id){
+//            await Product.findByIdAndDelete(id)
+//        return res.send("remove")
+//        }
+//        res.send("no")
 
-export default route
+//    } catch (error) {
+//        next(error)
+//    }
+// });
+
+// export default route
