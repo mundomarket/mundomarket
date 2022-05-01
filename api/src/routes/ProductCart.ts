@@ -45,26 +45,4 @@ route.post('/:id', async(req,res,next)=>{
     }
 });
 
-// route.put('/:id', async(req,res,next)=>{
-//     try{
-//         const { id } = req.params;
-//         const { query } = req.query;
-//         const body = req.body;
-
-//         const found = Cart.findById(id);
-
-//         !query && res.send('Query required');
-
-//         found && query === ''
-
-
-
-
-
-//     }catch(err){
-//         next(err)
-//     }
-// })
-
-
 export default route;
