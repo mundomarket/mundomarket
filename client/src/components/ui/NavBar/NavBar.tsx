@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
@@ -19,10 +18,11 @@ import { useDispatch } from 'react-redux';
 import {GETSEARCHBYNAME} from  '../../../actions'
 import { AppDispatch } from '../../../store';
 import MenuCategorias from './MenuCategorias'
-import { CardMedia} from '@mui/material';
+import { CardMedia, Icon} from '@mui/material';
 import { Wallpaper } from '@mui/icons-material';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 
 
 
@@ -196,11 +196,17 @@ export default function PrimarySearchAppBar() {
             noWrap
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' },fontFamily:'reboto' }}
+            color="secondary"
           >
             <Link to='/home'>
             MundoMarket
             </Link>
           </Typography>
+          
+
+          <Link to='/crearproducto'>
+            <ArrowCircleUpIcon color="secondary"/>
+          </Link>
 
           {/* <img
               src={'wallpaper.jpg'}

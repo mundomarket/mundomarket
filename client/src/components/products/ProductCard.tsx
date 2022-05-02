@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import {Grid,Card,CardActionArea,CardMedia, Typography, Box} from '@mui/material'
 
 import {IProduct} from '../../interfaces'
+import { ProductSlideshow } from './ProductSlideshow';
+
 
 
 interface Props{
@@ -19,19 +21,20 @@ export const ProductCard: FC <Props> = ( {product}) =>{
 //export default function ProductCard({product:string}){
 
     const [isHovered, setIsHovered] = useState (false);
-/*
+
     const productImage = useMemo(()=>{
         return isHovered
-        ? `products/${product.images[1]}`
-        : `products/${product.images[0]}`
+        ? `${product.imageProduct[1]}`
+        : `${product.imageProduct[0]}`
          
-    },[isHovered,product.images])
-*/
+    },[isHovered,product.imageProduct])
+
 
 
 
     return(
         <Grid 
+            
             item xs={6} 
             sm={3} 
             key = {product._id} 
@@ -39,13 +42,16 @@ export const ProductCard: FC <Props> = ( {product}) =>{
             onMouseLeave={()=> setIsHovered(false)}
         >
             <Link to={`/product/${product._id}`}>
-              <Card>
+              {<Card>
 
                         <CardActionArea>
                             <CardMedia
+                                //sx={{width: 500 }}
+                                height={'300'}
+                                //height={'100%'}
                                 component='img'
                                 className='fadeIn'
-                                image={product.imageProduct[0]}
+                                image={productImage}
                                 alt={product.name}
                                 onLoad={()=>console.log('cargo')}
                             />
@@ -53,10 +59,25 @@ export const ProductCard: FC <Props> = ( {product}) =>{
 
 
               </Card>
+            }
+              {/*
+                product.imageProduct?
+                    <Grid item xs={12} sm={5}>
+                        <ProductSlideshow
+                            
+                            images={product.imageProduct}
+                            duration={10000}
+                            
+                        />
+                    </Grid>:null
+*/ }
+
+
+
             </Link>
 
             <Box sx={{mt:1}} className='fadeIn'>
-                <Typography fontWeight={700}>{product.name}</Typography>
+                <Typography fontSize={30} fontWeight={700}>{product.name}</Typography>
                 <Typography fontWeight={700}>{`$${product.price}`}</Typography>
 
             </Box>
