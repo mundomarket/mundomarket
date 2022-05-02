@@ -50,7 +50,6 @@ const ProductPage = () => {
                     </Grid>:null
                 }
 
-
                 <Grid item xs={12} sm={5}>
                     <Box display='flex' flexDirection='column'>
 
@@ -71,14 +70,14 @@ const ProductPage = () => {
                         
 
                         <Button color ="secondary" className='circular-btn'>
-                            agregar al carrito
+                            Agregar al carrito
                         </Button>
 
                         {/*<Chip label ="no hay disponibles" color="error" variant='outlined'/>*/}
 
                         <Box sx={{mt:3}}>
                         
-                            <Typography variant='subtitle2'>Descripcioón</Typography>
+                            <Typography variant='subtitle2'>Descripción</Typography>
                             
                             <Typography variant='body2'>{product.description}</Typography>
                         </Box>

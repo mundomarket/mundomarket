@@ -18,8 +18,6 @@ const rootReducer = createReducer(initialState, (builder) => {
 
     .addCase(actions.GETDETAIL.fulfilled, (state, action) => {
       state.detail=action.payload
-      
-      console.log("viendo",state.detail)
     })
 
     .addCase(actions.POSTPRODUCT.fulfilled, (state, action) => {
@@ -36,33 +34,8 @@ const rootReducer = createReducer(initialState, (builder) => {
       
     })
 
+
 })
 
 
-
 export default rootReducer
-
-/*
-const initialStates = {
-  products: [],
-
-};
-
-
-function rootReducer(state = initialStates, action:any) {
-  
-  switch (action.type) {
-
-    
-    case "GET_PRODUCTS":
-      return {
-        ...state,
-        products: action.payload,
-      };
-
-
-  }
-}
-
-export default rootReducer;
-*/
