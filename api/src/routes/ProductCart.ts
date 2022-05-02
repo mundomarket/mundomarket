@@ -61,7 +61,7 @@ route.put("/:productId", async (req, res)=>{
 
     await Cart.findByIdAndUpdate(productId, body, {
       new: true,
-    }).then((product) => {
+    }).then((product : any) => {
       res.json({
         mensaje: `El producto: ${Cart.name} fue actualizado`,
         product,
@@ -73,7 +73,7 @@ route.put("/:productId", async (req, res)=>{
 
     await Cart.findByIdAndUpdate(productId, body, {
       new: true,
-    }).then((product) =>
+    }).then((product : any) =>
       res.json({
         mensaje: `El producto: ${Cart.name} fue actualizado`,
         product,

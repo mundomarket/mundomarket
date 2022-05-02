@@ -42,6 +42,12 @@ const productSchema=new Schema({
         ref:"Category",
         required:true
     },
+
+    inCart : {
+        type : Boolean,
+        default : false
+    },
+    
     envio:{
         type:String,
         required:false

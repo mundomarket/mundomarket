@@ -1,8 +1,8 @@
 import {Router} from "express";
 
 import product from "./Products";
-import category from "./Categories";
 import productCart from "./ProductCart";
+import category from "./Categories";
 import user from "./Users";
 import productdetail from "./ProductDetail";
 //import productDelete from "./ProductDelete";
