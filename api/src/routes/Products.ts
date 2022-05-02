@@ -67,7 +67,7 @@ route.post('/', async (req:any, res:any) => {
             const newProduct = new Product(req.body);
             console.log(newProduct)
             await newProduct.save()
-
+            res.send('ok')
         }
         
     } catch (err) {

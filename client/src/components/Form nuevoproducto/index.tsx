@@ -2,6 +2,7 @@ import * as React from 'react';
 import { TextField,Box,InputLabel,OutlinedInput,InputAdornment,MenuItem } from '@mui/material';
 import './index.css'
 import { useState } from 'react';
+import axios from 'axios';
 
 const regex=/^[0-9]+$/
 
@@ -24,7 +25,7 @@ export default function FormP() {
       label: 'Deportes',
     },
   ];
-  const [input,setInput]=useState({title:'',price:'',category:'Select',description:''})
+  const [input,setInput]=useState({title:'',price:'',category:'Select',description:'',stock:0,imageProduct:[''],review:0,rating:0,envio:'coordinar'})
 
   const validate=(e:any)=>{
     if(e.target.name==='title'){
@@ -39,6 +40,9 @@ export default function FormP() {
     if(e.target.name==='category'){
       setInput((input)=>({...input,category:e.target.value}))
     }
+    if(e.target.name==='category'){
+      setInput((input)=>({...input,imageProduct:[e.target]}))
+    }
   }
 
   return (
@@ -50,6 +54,9 @@ export default function FormP() {
             }}
             noValidate
             autoComplete="off"
+            onSubmit={()=>{
+              axios.post('localhost:3000/products',input)
+            }}
           >
             <TextField id="formtitle" label="Nombre" variant="outlined" name='title' value={input.title}
             onChange={(e)=>validate(e)}/>
@@ -81,7 +88,9 @@ export default function FormP() {
 
             <TextField id="formdesc" label="Descripcion" variant="outlined" name='description' value={input.description}
             onChange={(e)=>validate(e)}/>
-            <input type="file" name="imagen" />
+
+            <button type='submit' >Subir</button>
+
           </Box>
       </div>
   );
