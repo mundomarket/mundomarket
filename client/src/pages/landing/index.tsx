@@ -1,11 +1,13 @@
-import React from 'react';
+import React from "react";
 //import { ShopLayout } from '../components/layouts/ShopLayout';
+
 import { Grid, Box , Typography, Button, Container, TextField} from '@mui/material';
 //import { initialData } from '../../database/products';
-import { ProductSlideshow } from '../../components/products';
+import { ProductSlideshow } from "../../components/products";
 import { Link } from "react-router-dom";
 //import { ItemCounter } from '../../components/ui';
 //import { SizeSelector } from '../../components/products/SizeSelector';
+
 
 import Login from '../auth/login'
 
