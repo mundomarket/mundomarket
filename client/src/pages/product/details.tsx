@@ -25,10 +25,10 @@ const ProductPage = () => {
     useEffect(()=>{
       dispatch(GETDETAIL(id))
     },[dispatch])// eslint-disable-line
-    
+
     //const products = useSelector((State) => State.products);
     const product=useSelector((State:RootState) => State.rootReducer.detail); 
-
+    console.log(product)
     
     return (
         //<ShopLayout title = {product.title} pageDescription={product.description} imageFullUrl="any">
@@ -73,7 +73,7 @@ const ProductPage = () => {
                         {/*<Chip label ="no hay disponibles" color="error" variant='outlined'/>*/}
 
                         <Box sx={{mt:3}}>
-                            <Typography variant='subtitle2'>Descripcioón</Typography>
+                            <Typography variant='subtitle2'>Descripción</Typography>
                             <Typography variant='body2'>{product.description}</Typography>
                         </Box>
 

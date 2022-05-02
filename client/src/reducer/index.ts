@@ -21,6 +21,11 @@ const rootReducer = createReducer(initialState, (builder) => {
       
     })
 
+    .addCase(actions.GETSEARCHBYNAME.fulfilled, (state, action) => {
+      state.productos=action.payload
+      
+    })
+
 })
 
 

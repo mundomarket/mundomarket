@@ -4,7 +4,7 @@ export interface IProduct {
     price: number;
     description: string;
     stock: number;
-    imageProduct: string;
+    imageProduct: any;
     review: number;
     rating: number;
     category: string;

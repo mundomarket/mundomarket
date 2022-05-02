@@ -12,5 +12,8 @@ export const GETDETAIL=createAsyncThunk('GET_DETAIL',async (id: string | undefin
     return result.data
 })
 
-
+export const GETSEARCHBYNAME=createAsyncThunk('GET_SEARCHNAME',async (name: string | undefined)=>{
+    const result=await axios(`${api}/products?name=${name}`) 
+    return result.data
+})
 
