@@ -34,7 +34,7 @@ export default function Home() {
         </Box>
         
         <Typography variant='h1' component='h1'> Tienda </Typography>
-        <Typography variant='h2' sx={{marginBottom: 1}}> Todos los productos </Typography>
+        <Typography variant='h1' sx={{marginBottom: 1}}> PRODUCTOS </Typography>
 
         <ProductList
            // products={initialData.products as any}

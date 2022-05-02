@@ -12,7 +12,7 @@ export const ProductList: FC<Props>=({products})=>{
 
 
     return(
-        <Grid container spacing ={10} >
+        products[0]?<Grid container spacing ={10} >
             {
                 
                 products.map(product =>(
@@ -23,6 +23,6 @@ export const ProductList: FC<Props>=({products})=>{
                 ))
 
             }
-        </Grid>
+        </Grid>:<div><h1>No hay productos para esta busqueda</h1></div>
     )
 }
