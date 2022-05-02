@@ -13,11 +13,7 @@ import History from './pages/orders/history'
 import Cart from './pages/cart'
 import Login from './pages/auth/login'
 import Register from './pages/auth/register'
-<<<<<<< HEAD
-import FormP from './components/Form nuevoproducto';
-=======
 import CrearProducto from './pages/formNuevoProdcto'
->>>>>>> 0b41db299014a1ec172b42e899c4bef7286c9045
 
 
 function App() {

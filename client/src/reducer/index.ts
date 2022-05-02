@@ -18,8 +18,6 @@ const rootReducer = createReducer(initialState, (builder) => {
 
     .addCase(actions.GETDETAIL.fulfilled, (state, action) => {
       state.detail=action.payload
-      
-      console.log("viendo",state.detail)
     })
 
     .addCase(actions.POSTPRODUCT.fulfilled, (state, action) => {
@@ -36,15 +34,6 @@ const rootReducer = createReducer(initialState, (builder) => {
       
     })
 
-    .addCase(actions.GETSEARCHBYNAME.fulfilled, (state, action) => {
-      state.productos=action.payload
-      
-    })
-
-    .addCase(actions.GETSEARCHBYCATEGORY.fulfilled, (state, action) => {
-      state.productos=action.payload
-      
-    })
 
 })
 
