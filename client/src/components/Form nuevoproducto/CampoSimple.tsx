@@ -5,22 +5,10 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 export default function CampoSimple(props:any) {
   return (
-    <Box
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 1, width: '20vw' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <div>
         <TextField
           //error
-          id="outlined-error"
+          id="camposimple"
           label={props.nombre}
           defaultValue=""
-        />
-      </div>
-    </Box>
-  );
+        />)
 }

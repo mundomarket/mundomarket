@@ -38,14 +38,14 @@ const ProductPage = () => {
             
 
             <Grid container spacing={2} mt={3}>
-                {/*
-                <Grid item xs={12} sm={7}>
+                
+                {product.imageProduct?<Grid item xs={12} sm={7}>
                     <ProductSlideshow
-                        images={product.images}
+                        images={product.imageProduct}
                     />
 
-                </Grid>
-                */}
+                </Grid>:null}
+               
                 <Grid item xs={12} sm={5}>
                     <Box display='flex' flexDirection='column'>
 

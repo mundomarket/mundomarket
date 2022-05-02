@@ -40,7 +40,7 @@ export default function CampoCategoria() {
     >
       <div>
         <TextField
-          id="outlined-select-currency"
+          id="campocategoria"
           select
           label="Categoria"
           value={currency}

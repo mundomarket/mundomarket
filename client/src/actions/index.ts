@@ -17,3 +17,8 @@ export const GETSEARCHBYNAME=createAsyncThunk('GET_SEARCHNAME',async (name: stri
     return result.data
 })
 
+export const GETSEARCHBYCATEGORY=createAsyncThunk('GET_SEARCHCAT',async (name: string | undefined)=>{
+    const result=await axios(`${api}/products?filterName=category&filterOrder=${name?.toLocaleLowerCase()}&names=stock&sort=1`) 
+    return result.data
+})
+

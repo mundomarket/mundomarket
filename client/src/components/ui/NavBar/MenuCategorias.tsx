@@ -9,6 +9,9 @@ import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
 import CheckroomIcon from '@mui/icons-material/Checkroom';
 import MenuIcon from '@mui/icons-material/Menu';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
+import { useDispatch } from 'react-redux';
+import {GETSEARCHBYCATEGORY} from  '../../../actions'
+import { AppDispatch } from '../../../store';
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -52,12 +55,17 @@ const StyledMenu = styled((props: MenuProps) => (
 }));
 
 export default function CustomizedMenus() {
+
+  const useAppDispatch = () => useDispatch<AppDispatch>();
+  const dispatch=useAppDispatch()
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleClose = (e:any) => {
+    dispatch(GETSEARCHBYCATEGORY(e.target.innerText))
     setAnchorEl(null);
   };
 
@@ -72,7 +80,7 @@ export default function CustomizedMenus() {
         disableElevation
         onClick={handleClick}
         // endIcon={<KeyboardArrowDownIcon />}
-        sx={{bgcolor:'transparent'}}
+        sx={{bgcolor:'transparent',color:'common.white'}}
       >
         <MenuIcon/>
       </Button>
@@ -83,27 +91,27 @@ export default function CustomizedMenus() {
         }}
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}
+        onClose={(e)=>handleClose(e)}
       >
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem onClick={(e)=>handleClose(e)} disableRipple>
           <TvIcon />
-          Electronica
+          Tecnologia
         </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem onClick={(e)=>handleClose(e)} disableRipple>
           <SportsBasketballIcon />
-          Deportes
+          Deporte
         </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple>
+        {/* <MenuItem onClick={(e)=>handleClose(e)} disableRipple>
           <ChairIcon />
           Muebles y Decoracion
-        </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple>
+        </MenuItem> */}
+        <MenuItem onClick={(e)=>handleClose(e)} disableRipple>
           <CheckroomIcon />
           Ropa
         </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem onClick={(e)=>handleClose(e)} disableRipple>
           <VolunteerActivismIcon />
-          Cuidado Personal
+          Cuidado personal
         </MenuItem>
       </StyledMenu>
     </div>

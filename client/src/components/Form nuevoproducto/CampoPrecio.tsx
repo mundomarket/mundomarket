@@ -14,7 +14,7 @@ export default function InputAdornments() {
         <FormControl fullWidth sx={{ m: 1, width: '20vw' }}>
           <InputLabel htmlFor="outlined-adornment-amount">Precio</InputLabel>
           <OutlinedInput
-            id="outlined-adornment-amount"
+            id="campoprecio"
             onChange={()=>{}}
             startAdornment={<InputAdornment position="start">$</InputAdornment>}
             label="Amount"

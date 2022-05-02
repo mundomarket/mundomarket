@@ -16,11 +16,13 @@ import ShoppingCart from '@mui/icons-material/ShoppingCart';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { useDispatch } from 'react-redux';
-import {GETPRODUCTS} from  '../../../actions'
+import {GETSEARCHBYNAME} from  '../../../actions'
 import { AppDispatch } from '../../../store';
 import MenuCategorias from './MenuCategorias'
 import { CardMedia} from '@mui/material';
 import { Wallpaper } from '@mui/icons-material';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 
 
@@ -69,10 +71,12 @@ const logo = './wallpaper.jpg'
 export default function PrimarySearchAppBar() {
   const useAppDispatch = () => useDispatch<AppDispatch>();
   const dispatch=useAppDispatch()
+  const [barValue,setBarValue]=useState('')
 
-  const buscarNombre=(e?:any)=>{
-      dispatch(GETPRODUCTS())
-  }
+  React.useEffect(()=>{
+    dispatch(GETSEARCHBYNAME(barValue))
+  },[barValue])
+  
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
@@ -186,19 +190,22 @@ export default function PrimarySearchAppBar() {
             <MenuIcon />
           </IconButton> */}
           <MenuCategorias/>
+          
           <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' },fontFamily:'reboto' }}
           >
+            <Link to='/home'>
             MundoMarket
+            </Link>
           </Typography>
 
-          <img
+          {/* <img
               src={'wallpaper.jpg'}
               alt='logo'
-                            />
+                            /> */}
 
           <Box sx={{ flexGrow: 1 }} />
           <Search>
@@ -208,7 +215,7 @@ export default function PrimarySearchAppBar() {
             <StyledInputBase
               placeholder="Buscar Productos…"
               inputProps={{ 'aria-label': 'search' }}
-              onChange={(e)=>buscarNombre(e)}
+              onChange={(e)=>setBarValue(()=>e.target.value)}
             />
           </Search>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
