@@ -13,6 +13,7 @@ import History from './pages/orders/history'
 import Cart from './pages/cart'
 import Login from './pages/auth/login'
 import Register from './pages/auth/register'
+import CrearProducto from './pages/formNuevoProdcto'
 
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
       <Routes>
         <Route path='/' element={Landing()}/>
         <Route path='/home' element={Home()}/>
-        <Route path='/product/:id' element={Product()}/>
+        <Route path='/product/:id' element={<Product/>}/>
         {/*<Route path='/detail/:id' render={(props)=><Product id={props.match.params.id}/>}/>*/}
 
         <Route path='/summary' element={Summary()}/>
@@ -31,6 +32,8 @@ function App() {
         <Route path='/cart' element={Cart()}/>
         <Route path='/login' element={Login()}/>
         <Route path='/register' element={Register()}/>
+        <Route path='/crearproducto' element={CrearProducto()}/>
+
       </Routes>
       </ThemeProvider>
     </div>

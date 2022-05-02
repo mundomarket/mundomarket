@@ -19,49 +19,53 @@ const useAppDispatch = () => useDispatch<AppDispatch>();
 
 const ProductPage = () => {
 
-    const {id:any} = useParams()
-    console.log("pepe",id)
+    const {id} = useParams()
+    
     const dispatch=useAppDispatch()
 
     useEffect(()=>{
       dispatch(GETDETAIL(id))
-    },[dispatch,id])
+    },[dispatch])
     //const products = useSelector((State) => State.products);
     const product=useSelector((State:RootState) => State.rootReducer.detail); 
-
     
     return (
+        
         //<ShopLayout title = {product.title} pageDescription={product.description} imageFullUrl="any">
         <>
             <NavBar/>
 
             
+            
+            <Grid container spacing={8} mt={3}>
 
-            <Grid container spacing={2} mt={3}>
-                {/*
-                <Grid item xs={12} sm={7}>
-                    <ProductSlideshow
-                        images={product.images}
-                    />
+                {
+                product.imageProduct?
+                    <Grid item xs={12} sm={5}>
+                        <ProductSlideshow
+                            images={product.imageProduct}
+                            duration={3000}
+                            autoPlay={true}
+                        />
+                    </Grid>:null
+                }
 
-                </Grid>
-                */}
+
                 <Grid item xs={12} sm={5}>
                     <Box display='flex' flexDirection='column'>
 
                         <Typography variant='h1' component='h1'> {product.name}</Typography>
-                        <Typography variant='subtitle1' component='h2'> {`$${product.price}`}</Typography>
+                        <Typography variant='subtitle1' component='h2' mt={1}> {`$${product.price}`}</Typography>
 
                         
 
                         <Box sx={{my:2}}>
                             <Typography variant='subtitle2'>Cantidad </Typography>
-                            <ItemCounter/>
+                            <ItemCounter />
                             
                             {/*<SizeSelector 
                                 //selectedSize={product.sizes[0]} 
                                 sizes={product.sizes}/>*/}
-
                         </Box>
 
                         
@@ -73,7 +77,9 @@ const ProductPage = () => {
                         {/*<Chip label ="no hay disponibles" color="error" variant='outlined'/>*/}
 
                         <Box sx={{mt:3}}>
+                        
                             <Typography variant='subtitle2'>Descripcioón</Typography>
+                            
                             <Typography variant='body2'>{product.description}</Typography>
                         </Box>
 
