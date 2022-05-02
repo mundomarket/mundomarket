@@ -2,14 +2,17 @@ import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 const api = "http://localhost:3000";
 
-export const GETFILTER = createAsyncThunk("GET_FILTER", async (params) => {
-  const { value, order, sort }: any = params;
-  const result = await axios(
-    `${api}/products?filterName=category&filterOrder=${value}&names=${order}&sort=${sort}`
-  );
+export const GETFILTER = createAsyncThunk(
+  "GET_FILTER",
+  async (params: any | undefined) => {
+    const { name, value, order, sort } = params;
+    const result = await axios(
+      `${api}/http://localhost:3000/products?filterName=${name}&filterOrder=${value}&names=${order}&sort=${sort}`
+    );
 
-  return result.data;
-});
+    return result.data;
+  }
+);
 
 export const GETPRODUCTS = createAsyncThunk("GET_PRODUCTS", async () => {
   const result = await axios(`${api}/products`);

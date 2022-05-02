@@ -23,7 +23,7 @@ const productSchema = new Schema({
     default: 0,
   },
   imageProduct: {
-    type: Array,
+    type: arry,
   },
   review: {
     type: Number,

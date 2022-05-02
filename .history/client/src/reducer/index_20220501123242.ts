@@ -18,7 +18,7 @@ const rootReducer = createReducer(initialState, (builder) => {
     })
 
     .addCase(actions.GETFILTER.fulfilled, (state, action) => {
-      state.productos = action.payload;
+      state.detail = action.payload;
     });
 });
 
