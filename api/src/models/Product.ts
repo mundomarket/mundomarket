@@ -18,7 +18,7 @@ const productSchema=new Schema({
         required:true,
         maxLength: 1000
     },
-    stock:{ //QUANTITY
+    stock:{
         type:Number,
         required:true,
         default:0

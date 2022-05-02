@@ -19,12 +19,4 @@ route.use("/products",productdetail)
 //route.use("/delete",productDelete)
 
 
-
-
-
-
-
-
-
-
 export default route
