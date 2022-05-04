@@ -23,6 +23,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import FilterMenu from '../FilterMenu'
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -66,9 +67,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const logo = './wallpaper.jpg'
 
 export default function PrimarySearchAppBar() {
+  const navigate=useNavigate()
   const useAppDispatch = () => useDispatch<AppDispatch>();
   const dispatch=useAppDispatch()
   const [barValue,setBarValue]=useState('')
@@ -106,7 +107,7 @@ export default function PrimarySearchAppBar() {
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{
-        vertical: 'top',
+        vertical: 60,
         horizontal: 'right',
       }}
       id={menuId}
@@ -118,7 +119,7 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Mi Perfil</MenuItem>
+      <MenuItem onClick={()=>navigate('/profile')}>Mi Perfil</MenuItem>
       <MenuItem onClick={handleMenuClose}>Cerrar Sesión</MenuItem>
     </Menu>
   );
@@ -128,7 +129,7 @@ export default function PrimarySearchAppBar() {
     <Menu
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
-        vertical: 'top',
+        vertical: 70,
         horizontal: 'right',
       }}
       id={mobileMenuId}
@@ -160,7 +161,7 @@ export default function PrimarySearchAppBar() {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem onClick={()=>navigate('/profile')}>
         <IconButton
           size="large"
           aria-label="account of current user"

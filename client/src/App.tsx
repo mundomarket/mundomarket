@@ -14,7 +14,7 @@ import Cart from './pages/cart'
 import Login from './pages/auth/login'
 import Register from './pages/auth/register'
 import CrearProducto from './pages/formNuevoProdcto'
-import FilterMenu from './components/ui/FilterMenu'
+import Profile from './pages/profile';
 
 function App() {
   return (
@@ -25,7 +25,6 @@ function App() {
         <Route path='/' element={Landing()}/>
         <Route path='/home' element={Home()}/>
         <Route path='/product/:id' element={<Product/>}/>
-        {/*<Route path='/detail/:id' render={(props)=><Product id={props.match.params.id}/>}/>*/}
 
         <Route path='/summary' element={Summary()}/>
         <Route path='/history' element={History()}/>
@@ -33,6 +32,8 @@ function App() {
         <Route path='/login' element={Login()}/>
         <Route path='/register' element={Register()}/>
         <Route path='/crearproducto' element={CrearProducto()}/>
+        <Route path='/profile' element={<Profile/>}/>
+
 
 
       </Routes>
