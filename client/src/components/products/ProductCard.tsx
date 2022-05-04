@@ -53,7 +53,6 @@ export const ProductCard: FC <Props> = ( {product}) =>{
                                 className='fadeIn'
                                 image={productImage}
                                 alt={product.name}
-                                onLoad={()=>console.log('cargo')}
                             />
                         </CardActionArea>
 

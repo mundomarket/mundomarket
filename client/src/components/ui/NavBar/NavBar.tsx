@@ -17,12 +17,12 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { useDispatch } from 'react-redux';
 import {GETSEARCHBYNAME} from  '../../../actions'
 import { AppDispatch } from '../../../store';
-import MenuCategorias from './MenuCategorias'
 import { CardMedia, Icon} from '@mui/material';
 import { Wallpaper } from '@mui/icons-material';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
+import FilterMenu from '../FilterMenu'
 
 
 
@@ -189,8 +189,7 @@ export default function PrimarySearchAppBar() {
           >
             <MenuIcon />
           </IconButton> */}
-          <MenuCategorias/>
-          
+          <FilterMenu/>
           <Typography
             variant="h6"
             noWrap

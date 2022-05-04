@@ -14,7 +14,7 @@ import Cart from './pages/cart'
 import Login from './pages/auth/login'
 import Register from './pages/auth/register'
 import CrearProducto from './pages/formNuevoProdcto'
-
+import FilterMenu from './components/ui/FilterMenu'
 
 function App() {
   return (
@@ -33,6 +33,7 @@ function App() {
         <Route path='/login' element={Login()}/>
         <Route path='/register' element={Register()}/>
         <Route path='/crearproducto' element={CrearProducto()}/>
+
 
       </Routes>
       </ThemeProvider>
