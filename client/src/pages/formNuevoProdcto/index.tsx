@@ -1,24 +1,73 @@
 import * as React from 'react';
-import { TextField,Box,InputLabel,OutlinedInput,InputAdornment,MenuItem, Typography } from '@mui/material';
+import { TextField, Box, InputLabel, OutlinedInput, InputAdornment, MenuItem, Typography, Button, FormLabel } from '@mui/material';
 import { useState } from 'react';
 import { POSTPRODUCT } from '../../actions/index';
 import { useDispatch , useSelector } from "react-redux"
 import { Link ,  useNavigate } from "react-router-dom"
 import { AppDispatch } from '../../store';
-
+//import any from '../../react-app-env';
+import NavBar from '../../components/ui/NavBar/NavBar'
 
 
 const regex=/^[0-9]+$/
 
+
 export default function FormP() {
 
+    const [formData,SetFormData]=useState({})//almacena el formulario para luego ser enviado al servidor
+
+    const[file,setFile] = useState("");
+
+    const[images,setImages]=useState(["http://inversionesumbrias.com.ve/static/images/productos/producto-sin-imagen.jpg"]);//array de strings de url de imagenes 
+
+    const[upLoading,setUpLoading]=useState(false)
+
+    console.log("ver imagenes",images);
+
     
+
+    const handleDelete=(e:any,image:string)=>{
+      e.preventDefault()
+      setImages(images.filter(element=>{//deja afuera el elemento que tenga la url a eliminar
+        return element!==image;
+      }))
+    //eliminar el elemento que tenga la misma url 
+    }
+    
+    const handleUpload= async (e:any)=>{
+      setUpLoading(true);
+      const pic = e.target.files[0];
+      //setFile(pic);
+      console.log(pic);
+      //https://api.cloudinary.com/v1_1/${cloudName}/upload
+      const formData=new FormData();
+      formData.append('file',pic);
+      formData.append('upload_preset','images');
+      
+       await fetch('https://api.cloudinary.com/v1_1/dnlooxokf/upload',{
+        method: 'POST',
+        body: formData,
+      })
+        .then((res)=>res.json())
+        .then((res)=> {
+          setImages(images=>[...images,res.secure_url]);
+          
+          //setInput((input)=>({...input,imageProduct:[res.secure_url]}))
+          setUpLoading(false);
+        })
+        .catch(error=>console.log(error));
+    };
+
+
+
+
 
     const useAppDispatch = () => useDispatch<AppDispatch>()
 
     const dispatch = useAppDispatch()
 
-    const navigate = useNavigate()
+    const navegar = useNavigate()
+
     const currencies = [
     {
       value: 'tecnologia',
@@ -41,58 +90,82 @@ export default function FormP() {
   const [input,setInput]=useState({name:'',price:'',category:'Select',description:'',stock:0,imageProduct:[""],review:0,rating:0,envio:'coordinar'})
 
   const validate=(e:any)=>{
+    //aca se hacen 2 cosas, se actualiza el valor actual de los inputs y se almacena su valor en formdata
     if(e.target.name==='title'){
       setInput((input)=>({...input,name:e.target.value}))
+      e.target.id="name"
     }
     if(e.target.name==='precio'){
       if(regex.test(e.target.value))setInput((input)=>({...input,price:e.target.value}))
+      e.target.id="price"
     }
     if(e.target.name==='description'){
       setInput((input)=>({...input,description:e.target.value}))
+      e.target.id="description"
     }
     if(e.target.name==='category'){
       setInput((input)=>({...input,category:e.target.value}))
+      e.target.id="category"
     }
-    if(e.target.name==='imageProduct'){
-        //setInput((input)=>({...input,imageProduct:e.target.value}))
+    /*if(e.target.name==='imageProduct'){
         setInput((input)=>({...input,imageProduct:[e.target.value]}))
-      }
+  }*/
+  
+  
+  //aqui se almacena el valor en formdata, el target.id es el nombre del campo y value es su valor obtenido del event  
+    SetFormData({...formData,[e.target.id]:e.target.value})
   }
 
   function handleSubmit(e:any){
     e.preventDefault()
-    if(!input.name){
+    /*if(!input.name){
         return alert("El Producto necesita un nombre")
-    }/* else if(!input.){
+    } else if(!input.){
         e.preventDefault()
        return alert("Necesitas agregar por lo menos 1 tipo al Pokemon")
     }
      */
-
-    else if(!input.imageProduct[0]){
-        setInput((input)=>({...input,imageProduct:["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9nzwwI9EeHkX1U4vQ5LRx2yefOZ-WhOD_tQ&usqp=CAU"]}))
-    }
-
+/*
+     if(images.length===1){
+        //setInput((images)=>({...images,images:["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9nzwwI9EeHkX1U4vQ5LRx2yefOZ-WhOD_tQ&usqp=CAU"]}))
+        setImages(images=>[...images,"http://inversionesumbrias.com.ve/static/images/productos/producto-sin-imagen.jpg"]);
+        //setImages(["http://inversionesumbrias.com.ve/static/images/productos/producto-sin-imagen.jpg"]);
     
-        const newPost=input
+      }
+        //console.log("ver imagenes",images);
+*/
+  //const newPost=input
+        if(images.length>1)images.shift() //elimino el primer valor, que es la foto por defecto
+      
         
+        const newPost={...formData,imageProduct:images} // se prepara un objeto con los campos del fomrulario y sus imagenes
         dispatch(POSTPRODUCT(newPost))
+
         alert("Se creo el Producto exitosamente!")
 
-        navigate("/home")
+        navegar("/home")//se accede al home
+        window.location.reload();//se refresca para activar el dispatch de GETPRODUCTS()
         
 }
 
-  return (
-      <div id='formnuevop'>
 
-        <Typography>CARGA TU PRODUCTO</Typography>
+  return (
+
+<div>
+    <NavBar/>
+
+    <Box display='flex' justifyContent='center'>
+      <div id='formnuevo'>
+
+        <Typography mt={10}>CARGA TU PRODUCTO</Typography>
 
           <Box
-            display='flex' flexDirection='column'
+            display='flex' 
+            flexDirection='column'
+            margin='auto'
             component="form"
             sx={{
-              '& > :not(style)': { m: 1, width: '25ch' },
+              '& > :not(style)': { m: 1, width: '50ch' },
             }}
             noValidate
             autoComplete="off"
@@ -129,15 +202,34 @@ export default function FormP() {
             <TextField id="formdesc" label="Descripcion" variant="outlined" name='description' value={input.description}
             onChange={(e)=>validate(e)}/>
             
-
-            <TextField id="formimage" label="imagen" variant="outlined" name='imageProduct' value={input.imageProduct}
-            onChange={(e)=>validate(e)}/>
             
-            {/*<input type="file" name="imagen" />*/}
+            {<input aria-label="Archivo" type="file" name="imagen" onChange={handleUpload} />}
 
-            <button disabled={input.name==""?true:false}  type="submit" onClick={(e) => handleSubmit(e)}>Crear Producto</button>
+              <Box display='flex' flexDirection='row'>
+                {upLoading && <p>Uploading...</p> } 
+                {images[1]?images.map(image=> {
+                  return image!=="http://inversionesumbrias.com.ve/static/images/productos/producto-sin-imagen.jpg"?
+                  <div>
+                    <img src={image} alt="" width="250px" height ="150px"/>
+                    <button onClick={(e)=>{handleDelete(e,image)}}>X</button>
+                  </div>
+                  :<></>
+                }
+              ):<></>}
+              </Box>
+
+             <div>
+            <button disabled={input.name===""||input.category==="Select"?true:false}  type="submit" onClick={(e) => handleSubmit(e)}>Crear Producto</button>
+            </div>   
+
           </Box>
-      </div>
+
+
+
+        </div>
+    </Box>
+    </div>
+      
   );
 
 }

@@ -28,6 +28,8 @@ const ProductPage = () => {
     },[dispatch])
     //const products = useSelector((State) => State.products);
     const product=useSelector((State:RootState) => State.rootReducer.detail); 
+
+
     
     return (
         
