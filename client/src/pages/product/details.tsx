@@ -5,20 +5,23 @@ import { ProductSlideshow } from '../../components/products';
 import { ItemCounter } from '../../components/ui';
 import { SizeSelector } from '../../components/products/SizeSelector';
 import NavBar from '../../components/ui/NavBar/NavBar'
-import {useParams} from "react-router-dom"
+import {useNavigate, useParams} from "react-router-dom"
 
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { AppDispatch,RootState } from '../../store/index';
-import {GETDETAIL} from '../../actions'
+import {GETDETAIL,GETRECOMMENDED} from '../../actions'
 import { TypedUseSelectorHook } from "react-redux";
+import SellerDetail from './sellerDetail'
+import Recommended from './Recommended'
+
 const useAppDispatch = () => useDispatch<AppDispatch>();
 
 
 //const product =  initialData.products[0];
 
 const ProductPage = () => {
-
+    const navigate=useNavigate()
     const {id} = useParams()
     
     const dispatch=useAppDispatch()
@@ -26,9 +29,13 @@ const ProductPage = () => {
     useEffect(()=>{
       dispatch(GETDETAIL(id))
     },[dispatch])
+
     //const products = useSelector((State) => State.products);
     const product=useSelector((State:RootState) => State.rootReducer.detail); 
 
+    useEffect(()=>{
+        dispatch(GETRECOMMENDED(product.category))
+      },[product,dispatch])
 
     
     return (
@@ -38,8 +45,8 @@ const ProductPage = () => {
             <NavBar/>
 
             
-            
-            <Grid container spacing={8} mt={3}>
+        <Box sx={{display:'flex',flexDirection:'column',alignItems:'center'}}>
+            <Grid container spacing={8} mt={3} justifyContent={'space-evenly'}>
 
                 {
                 product.imageProduct?
@@ -60,10 +67,12 @@ const ProductPage = () => {
 
                         
 
-                        <Box sx={{my:2}}>
+                        <Box sx={{my:2,display:'flex',alignItems:'center',justifyContent:'center'}}>
                             <Typography variant='subtitle2'>Cantidad </Typography>
                             <ItemCounter />
-                            
+                            <Button color ="secondary" className='circular-btn'>
+                            Agregar al Carrito
+                            </Button>
                             {/*<SizeSelector 
                                 //selectedSize={product.sizes[0]} 
                                 sizes={product.sizes}/>*/}
@@ -71,9 +80,7 @@ const ProductPage = () => {
 
                         
 
-                        <Button color ="secondary" className='circular-btn'>
-                            Agregar al carrito
-                        </Button>
+                        
 
                         {/*<Chip label ="no hay disponibles" color="error" variant='outlined'/>*/}
 
@@ -82,15 +89,17 @@ const ProductPage = () => {
                             <Typography variant='subtitle2'>Descripción</Typography>
                             
                             <Typography variant='body2'>{product.description}</Typography>
+                            <SellerDetail/>
                         </Box>
 
                     </Box>
 
-
+                                   
                 </Grid>
-
+                
             </Grid>
-
+            <Recommended/> 
+        </Box>
       
 
     </>

@@ -28,3 +28,8 @@ export const GETSEARCHBYCATEGORY=createAsyncThunk('GET_SEARCHCAT',async (name: s
   return result.data
 })
 
+export const GETRECOMMENDED=createAsyncThunk('GET_RECOMMENDED',async (name: string | undefined)=>{
+  const result=await axios(`${api}/products?filterName=category&filterOrder=${name?.toLocaleLowerCase()}&names=stock&sort=1`) 
+  return result.data.splice(0,4)
+})
+
