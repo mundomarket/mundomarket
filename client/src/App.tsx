@@ -16,12 +16,16 @@ import Register from './pages/auth/register'
 import CrearProducto from './pages/formNuevoProdcto'
 import Profile from './pages/profile';
 
+
+
+
 function App() {
   return (
     <div className="App">
       <ThemeProvider theme={lightTheme}>
       <CssBaseline/>
       <Routes>
+
         <Route path='/' element={Landing()}/>
         <Route path='/home' element={Home()}/>
         <Route path='/product/:id' element={<Product/>}/>
