@@ -14,6 +14,7 @@ import Cart from './pages/cart'
 import Login from './pages/auth/login'
 import Register from './pages/auth/register'
 import CrearProducto from './pages/formNuevoProdcto'
+import CartUser from './pages/user/cartUser'
 
 
 
@@ -31,6 +32,8 @@ function App() {
         <Route path='/product/:id' element={<Product/>}/>
         {/*<Route path='/detail/:id' render={(props)=><Product id={props.match.params.id}/>}/>*/}
 
+
+        <Route path='/user/:id' element={<CartUser/>}/>
         <Route path='/summary' element={Summary()}/>
         <Route path='/history' element={History()}/>
         <Route path='/cart' element={Cart()}/>
