@@ -14,12 +14,22 @@ interface Props{
 
 export const ProductSlideshow: FC<Props>=({images, duration ,autoPlay})=>{
 
+    let flechas=true
+    let swipe=true
+    let indicadores=true
+
+    if(images.length>1 && autoPlay===true){autoPlay=true}else{autoPlay=false}
+
+    if(images.length===1){flechas=false;  swipe=false; indicadores=false}
+
     return(
         <Slide
             easing="ease"
             duration={duration}
             autoplay= {autoPlay}
-            indicators
+            indicators= {indicadores}
+            arrows={flechas}
+            canSwipe={swipe}
         >
             {
                 images.map( image=>{
