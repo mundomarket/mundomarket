@@ -12,12 +12,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/mercadopago": "^1.5.6",
     "axios": "^0.26.1",
     "cars": "^1.1.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "json-server": "^0.17.0",
+    "mercadopago": "^1.5.12",
     "mongoose": "^6.3.1",
     "morgan": "^1.10.0"
   },
