@@ -63,7 +63,7 @@ export default function DialogSelect() {
 
   return (
     <div>
-      <Button sx={{color:'white',bgcolor:'transparent'}}onClick={handleClickOpen}>Filtros<FilterAltIcon sx={{color:'white'}}/></Button>
+      <Button sx={{color:'white',bgcolor:'transparent'}}onClick={handleClickOpen}><FilterAltIcon sx={{color:'white'}}/></Button>
       <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
         <DialogTitle>Filtros</DialogTitle>
         <DialogContent>

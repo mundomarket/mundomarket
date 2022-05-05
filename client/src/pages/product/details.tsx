@@ -28,7 +28,7 @@ const ProductPage = () => {
 
     useEffect(()=>{
       dispatch(GETDETAIL(id))
-    },[dispatch])
+    },[dispatch,id])
 
     //const products = useSelector((State) => State.products);
     const product=useSelector((State:RootState) => State.rootReducer.detail); 

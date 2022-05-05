@@ -23,7 +23,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import FilterMenu from '../FilterMenu'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
+import '@fontsource/roboto/300.css';
 
 
 
@@ -69,6 +70,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 export default function PrimarySearchAppBar() {
+  const location=useLocation().pathname
   const navigate=useNavigate()
   const useAppDispatch = () => useDispatch<AppDispatch>();
   const dispatch=useAppDispatch()
@@ -120,7 +122,7 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={()=>navigate('/profile')}>Mi Perfil</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Cerrar Sesión</MenuItem>
+      <MenuItem onClick={()=>console.log(location)}>Cerrar Sesión</MenuItem>
     </Menu>
   );
 
@@ -190,13 +192,13 @@ export default function PrimarySearchAppBar() {
           >
             <MenuIcon />
           </IconButton> */}
-          <FilterMenu/>
+          {location==='/home'?<FilterMenu/>:null}
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: 'none', sm: 'block' },fontFamily:'reboto' }}
-            color="secondary"
+            sx={{ display: { xs: `${location==='/home'?'none':'block'}`, sm: 'block' } }}
+            className='LinkedWhite'
           >
             <Link to='/home'>
             MundoMarket
@@ -214,7 +216,7 @@ export default function PrimarySearchAppBar() {
                             /> */}
 
           <Box sx={{ flexGrow: 1 }} />
-          <Search>
+          {location==='/home'?<Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -223,7 +225,7 @@ export default function PrimarySearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
               onChange={(e)=>setBarValue(()=>e.target.value)}
             />
-          </Search>
+          </Search>:null}
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={0} color="error">

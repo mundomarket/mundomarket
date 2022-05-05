@@ -7,7 +7,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import KeyIcon from '@mui/icons-material/Key';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import LocalMallIcon from '@mui/icons-material/LocalMall';
-import './index.css'
 
 const useAppDispatch = () => useDispatch<AppDispatch>();
 
@@ -24,7 +23,7 @@ const Profile = () => {
                 <Typography variant='h4'>Nico Amicone</Typography>
                 </Box>
             </Box>
-            <Box sx={{m:1,border:'1px solid gray',p:1,borderRadius:3,display:'flex',flexDirection:'column'}}>
+            <Box className='LinkedBlack' sx={{m:1,border:'1px solid gray',p:1,borderRadius:3,display:'flex',flexDirection:'column'}}>
                 
                 <Link to='/home'>
                 <Box sx={{display:'flex'}}>

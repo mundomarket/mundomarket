@@ -15,7 +15,7 @@ const Recommended = () => {
             <Box sx={{border:'1px solid gray',borderRadius:3}}>
                 <Typography sx={{m:1}}>También te puede interesar...</Typography>
                 <Divider/>
-                <Box sx={{m:1}}>
+                <Box sx={{m:2}}>
                 <Grid container spacing ={10} >
             {
                 
