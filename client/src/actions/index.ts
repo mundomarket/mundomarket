@@ -1,6 +1,7 @@
 import axios from "axios"
 import { createAsyncThunk } from "@reduxjs/toolkit"
-const api='http://localhost:3000'
+//const api='http://localhost:3000'
+const api='https://mundomarket.herokuapp.com'
 
 export const GETPRODUCTS=createAsyncThunk('GET_PRODUCTS',async ()=>{
     const result=await axios(`${api}/products`)
