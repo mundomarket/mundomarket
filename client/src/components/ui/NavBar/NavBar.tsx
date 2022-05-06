@@ -20,11 +20,12 @@ import { AppDispatch } from '../../../store';
 import { CardMedia, Icon} from '@mui/material';
 import { Wallpaper } from '@mui/icons-material';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,NavLink } from 'react-router-dom';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import FilterMenu from '../FilterMenu'
 import { useNavigate,useLocation } from 'react-router-dom';
 import '@fontsource/roboto/300.css';
+
 
 
 
@@ -179,7 +180,7 @@ export default function PrimarySearchAppBar() {
   );
 
   return (
-    <Box  position='fixed' width='100%' z-index='10000' top='0px' sx={{ zIndex: 'tooltip'}}>
+    <Box  position='fixed' width='100%' z-index='10000' top='0px' sx={{ zIndex: 'tooltip'}} >
       <AppBar position="static" sx={{ bgcolor: "#232324" }} >
         <Toolbar>
           {/* <IconButton
@@ -200,15 +201,18 @@ export default function PrimarySearchAppBar() {
             sx={{ display: { xs: `${location==='/home'?'none':'block'}`, sm: 'block' } }}
             className='LinkedWhite'
           >
-            <Link to='/home'>
+            <NavLink to='/home'
+            style={isActive => ({
+              color: isActive ? "white" : "white"
+            })}
+            >
             MundoMarket
-            </Link>
+            </NavLink>
           </Typography>
           
-
-          <Link to='/crearproducto'>
-            <ArrowCircleUpIcon color="secondary"/>
-          </Link>
+          <NavLink to='/crearproducto' style={isActive => ({color: isActive ? "white" : "darksalmon"})}>
+            <ArrowCircleUpIcon />
+          </NavLink>
 
           {/* <img
               src={'wallpaper.jpg'}
@@ -226,10 +230,14 @@ export default function PrimarySearchAppBar() {
               onChange={(e)=>setBarValue(()=>e.target.value)}
             />
           </Search>:null}
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ display: { xs: 'none', md: 'flex' },alignItems:'flex-start' }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={0} color="error">
-                <ShoppingCart />
+                {/*<Link to={`/user/${user._id}`}>*/}
+                
+                <NavLink to='/user/54544884' style={isActive => ({color: isActive ? "white" : "white"})}>
+                  <ShoppingCart />
+                </NavLink>
               </Badge>
             </IconButton>
             <IconButton
@@ -237,9 +245,12 @@ export default function PrimarySearchAppBar() {
               aria-label="show 17 new notifications"
               color="inherit"
             >
-              <Badge badgeContent={0} color="error">
-                <NotificationsIcon />
-              </Badge>
+
+                <Badge badgeContent={0} color="error">
+                  <NotificationsIcon />
+                </Badge>
+            
+
             </IconButton>
             <IconButton
               size="large"
