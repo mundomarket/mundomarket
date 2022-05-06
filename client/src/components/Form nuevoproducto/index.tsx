@@ -55,7 +55,7 @@ export default function FormP() {
             noValidate
             autoComplete="off"
             onSubmit={()=>{
-              axios.post('localhost:3000/products',input)
+              axios.post('https://mundomarket.herokuapp.com/products',input)
             }}
           >
             <TextField id="formtitle" label="Nombre" variant="outlined" name='title' value={input.title}
