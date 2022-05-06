@@ -9,7 +9,7 @@ const sellerDetail = () => {
 
     return (
         <Container sx={{m:0,display:'flex',justifyContent:'space-around'}}>
-            <Box sx={{m:1,border:'1px solid gray',p:1,borderRadius:3,display:'flex',maxWidth:400}}>
+            <Box sx={{m:1,border:'1px solid gray',p:1,borderRadius:3,display:'flex',maxWidth:400,bgcolor:'white',boxShadow:2}}>
                 <Avatar alt='Nico Amicone' sx={{m:'auto',marginLeft:1,marginRight:2,height:45,width:45}}/>
                 <Divider orientation="vertical" flexItem />
                     <Box sx={{display:'flex'}}>
