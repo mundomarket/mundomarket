@@ -5,8 +5,9 @@ import * as actions from '../actions/index'
 interface Estado{
   productos:any
   detail:any
+  recommended:any
 }
-const initialState = { productos:[], detail:[] } as Estado
+const initialState = { productos:[], detail:[],recommended:[] } as Estado
 
 
 const rootReducer = createReducer(initialState, (builder) => {
@@ -31,6 +32,11 @@ const rootReducer = createReducer(initialState, (builder) => {
 
     .addCase(actions.GETSEARCHBYCATEGORY.fulfilled, (state, action) => {
       state.productos=action.payload
+      
+    })
+
+    .addCase(actions.GETRECOMMENDED.fulfilled, (state, action) => {
+      state.recommended=action.payload
       
     })
 
