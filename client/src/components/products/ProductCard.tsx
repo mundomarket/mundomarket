@@ -43,19 +43,18 @@ export const ProductCard: FC <Props> = ( {product}) =>{
             onMouseEnter={()=> setIsHovered(true)}
             onMouseLeave={()=> setIsHovered(false)}
         >
-            <Link to={`/product/${product._id}`}>
+            <Link  to={`/product/${product._id}`}>
               {<Card>
 
                         <CardActionArea>
                             <CardMedia
                                 //sx={{width: 500 }}
-                                height={'300'}
+                                height={'300vh'}
                                 //height={'100%'}
                                 component='img'
                                 className='fadeIn'
                                 image={productImage}
                                 alt={product.name}
-                                onLoad={()=>console.log('cargo')}
                             />
                         </CardActionArea>
 
@@ -79,7 +78,7 @@ export const ProductCard: FC <Props> = ( {product}) =>{
             </Link>
 
             <Box sx={{mt:1}} className='fadeIn'>
-                <Typography fontSize={30} fontWeight={700}>{product.name}</Typography>
+                <Typography fontSize={'4vh'} fontWeight={'10vh'}>{product.name}</Typography>
                 <Typography fontWeight={700}>{`$${product.price}`}</Typography>
 
             </Box>

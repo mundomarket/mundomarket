@@ -17,12 +17,15 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { useDispatch } from 'react-redux';
 import {GETSEARCHBYNAME} from  '../../../actions'
 import { AppDispatch } from '../../../store';
-import MenuCategorias from './MenuCategorias'
 import { CardMedia, Icon} from '@mui/material';
 import { Wallpaper } from '@mui/icons-material';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,NavLink } from 'react-router-dom';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
+import FilterMenu from '../FilterMenu'
+import { useNavigate,useLocation } from 'react-router-dom';
+import '@fontsource/roboto/300.css';
+
 
 
 
@@ -66,9 +69,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const logo = './wallpaper.jpg'
 
 export default function PrimarySearchAppBar() {
+  const location=useLocation().pathname
+  const navigate=useNavigate()
   const useAppDispatch = () => useDispatch<AppDispatch>();
   const dispatch=useAppDispatch()
   const [barValue,setBarValue]=useState('')
@@ -106,7 +110,7 @@ export default function PrimarySearchAppBar() {
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{
-        vertical: 'top',
+        vertical: 60,
         horizontal: 'right',
       }}
       id={menuId}
@@ -118,8 +122,8 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Mi Perfil</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Cerrar Sesión</MenuItem>
+      <MenuItem onClick={()=>navigate('/profile')}>Mi Perfil</MenuItem>
+      <MenuItem onClick={()=>console.log(location)}>Cerrar Sesión</MenuItem>
     </Menu>
   );
 
@@ -128,7 +132,7 @@ export default function PrimarySearchAppBar() {
     <Menu
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
-        vertical: 'top',
+        vertical: 70,
         horizontal: 'right',
       }}
       id={mobileMenuId}
@@ -160,7 +164,7 @@ export default function PrimarySearchAppBar() {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem onClick={()=>navigate('/profile')}>
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -176,7 +180,7 @@ export default function PrimarySearchAppBar() {
   );
 
   return (
-    <Box  position='fixed' width='100%' z-index='10000' top='0px' sx={{ zIndex: 'tooltip'}}>
+    <Box  position='fixed' width='100%' z-index='10000' top='0px' sx={{ zIndex: 'tooltip'}} >
       <AppBar position="static" sx={{ bgcolor: "#232324" }} >
         <Toolbar>
           {/* <IconButton
@@ -189,24 +193,26 @@ export default function PrimarySearchAppBar() {
           >
             <MenuIcon />
           </IconButton> */}
-          <MenuCategorias/>
-          
+          {location==='/home'?<FilterMenu/>:null}
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: 'none', sm: 'block' },fontFamily:'reboto' }}
-            color="secondary"
+            sx={{ display: { xs: `${location==='/home'?'none':'block'}`, sm: 'block' } }}
+            className='LinkedWhite'
           >
-            <Link to='/home'>
+            <NavLink to='/home'
+            style={isActive => ({
+              color: isActive ? "white" : "white"
+            })}
+            >
             MundoMarket
-            </Link>
+            </NavLink>
           </Typography>
           
-
-          <Link to='/crearproducto'>
-            <ArrowCircleUpIcon color="secondary"/>
-          </Link>
+          <NavLink to='/crearproducto' style={isActive => ({color: isActive ? "white" : "darksalmon"})}>
+            <ArrowCircleUpIcon />
+          </NavLink>
 
           {/* <img
               src={'wallpaper.jpg'}
@@ -214,7 +220,7 @@ export default function PrimarySearchAppBar() {
                             /> */}
 
           <Box sx={{ flexGrow: 1 }} />
-          <Search>
+          {location==='/home'?<Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -223,11 +229,15 @@ export default function PrimarySearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
               onChange={(e)=>setBarValue(()=>e.target.value)}
             />
-          </Search>
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          </Search>:null}
+          <Box sx={{ display: { xs: 'none', md: 'flex' },alignItems:'flex-start' }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={0} color="error">
-                <ShoppingCart />
+                {/*<Link to={`/user/${user._id}`}>*/}
+                
+                <NavLink to='/user/54544884' style={isActive => ({color: isActive ? "white" : "white"})}>
+                  <ShoppingCart />
+                </NavLink>
               </Badge>
             </IconButton>
             <IconButton
@@ -235,9 +245,12 @@ export default function PrimarySearchAppBar() {
               aria-label="show 17 new notifications"
               color="inherit"
             >
-              <Badge badgeContent={0} color="error">
-                <NotificationsIcon />
-              </Badge>
+
+                <Badge badgeContent={0} color="error">
+                  <NotificationsIcon />
+                </Badge>
+            
+
             </IconButton>
             <IconButton
               size="large"
