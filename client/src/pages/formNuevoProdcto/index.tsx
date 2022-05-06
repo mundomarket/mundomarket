@@ -16,13 +16,9 @@ export default function FormP() {
 
     const [formData,SetFormData]=useState({})//almacena el formulario para luego ser enviado al servidor
 
-    const[file,setFile] = useState("");
-
     const[images,setImages]=useState(["http://inversionesumbrias.com.ve/static/images/productos/producto-sin-imagen.jpg"]);//array de strings de url de imagenes 
 
     const[upLoading,setUpLoading]=useState(false)
-
-    console.log("ver imagenes",images);
 
     
 
@@ -35,11 +31,11 @@ export default function FormP() {
     }
     
     const handleUpload= async (e:any)=>{
-      setUpLoading(true);
+      
       const pic = e.target.files[0];
-      //setFile(pic);
-      console.log(pic);
-      //https://api.cloudinary.com/v1_1/${cloudName}/upload
+      console.log("valor buscado*",pic);
+      if (pic===undefined)  return  0
+      setUpLoading(true);
       const formData=new FormData();
       formData.append('file',pic);
       formData.append('upload_preset','images');
@@ -107,10 +103,6 @@ export default function FormP() {
       setInput((input)=>({...input,category:e.target.value}))
       e.target.id="category"
     }
-    /*if(e.target.name==='imageProduct'){
-        setInput((input)=>({...input,imageProduct:[e.target.value]}))
-  }*/
-  
   
   //aqui se almacena el valor en formdata, el target.id es el nombre del campo y value es su valor obtenido del event  
     SetFormData({...formData,[e.target.id]:e.target.value})
@@ -134,7 +126,7 @@ export default function FormP() {
       }
         //console.log("ver imagenes",images);
 */
-  //const newPost=input
+        //const newPost=input
         if(images.length>1)images.shift() //elimino el primer valor, que es la foto por defecto
       
         

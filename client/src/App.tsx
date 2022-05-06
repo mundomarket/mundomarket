@@ -10,6 +10,7 @@ import Home from './pages/home'
 import Product from './pages/product/details'
 import Summary from './pages/checkout/summary'
 import History from './pages/orders/history'
+import Order from './pages/orders/ordenResumen'
 import Cart from './pages/cart'
 import Login from './pages/auth/login'
 import Register from './pages/auth/register'
@@ -32,11 +33,12 @@ function App() {
         <Route path='/' element={Landing()}/>
         <Route path='/home' element={Home()}/>
         <Route path='/product/:id' element={<Product/>}/>
+        <Route path='/history/:id' element={<History/>}/>
+        <Route path='/history/order/:id' element={<Order/>}/>
 
 
         <Route path='/user/:id' element={<CartUser/>}/>
         <Route path='/summary' element={Summary()}/>
-        <Route path='/history' element={History()}/>
         <Route path='/cart' element={Cart()}/>
         <Route path='/login' element={Login()}/>
         <Route path='/register' element={Register()}/>
