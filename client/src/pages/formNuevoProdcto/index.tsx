@@ -205,21 +205,22 @@ export default function FormP() {
             
             {<input aria-label="Archivo" type="file" name="imagen" onChange={handleUpload} />}
 
-              <Box display='flex' flexDirection='row'>
-                {upLoading && <p>Uploading...</p> } 
+              <Box display='flex' flexDirection='row' justifyContent='center'  >
+                
                 {images[1]?images.map(image=> {
                   return image!=="http://inversionesumbrias.com.ve/static/images/productos/producto-sin-imagen.jpg"?
-                  <div>
-                    <img src={image} alt="" width="250px" height ="150px"/>
+                  <Box sx={{ paddingX: 2 }}>
+                    <img src={image} alt="" width="250px" height ="150px" />
                     <button onClick={(e)=>{handleDelete(e,image)}}>X</button>
-                  </div>
+                  </Box>
                   :<></>
                 }
               ):<></>}
               </Box>
+              {upLoading && <p>Subiendo Foto...</p> }
 
              <div>
-            <button disabled={input.name===""||input.category==="Select"?true:false}  type="submit" onClick={(e) => handleSubmit(e)}>Crear Producto</button>
+            <button disabled={input.name===""||input.category==="Select"?true:false||input.description===""||input.price===""}  type="submit" onClick={(e) => handleSubmit(e)}>Crear Producto</button>
             </div>   
 
           </Box>

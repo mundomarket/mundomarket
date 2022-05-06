@@ -43,7 +43,7 @@ export const ProductCard: FC <Props> = ( {product}) =>{
             onMouseEnter={()=> setIsHovered(true)}
             onMouseLeave={()=> setIsHovered(false)}
         >
-            <Link to={`/product/${product._id}`}>
+            <Link  to={`/product/${product._id}`}>
               {<Card>
 
                         <CardActionArea>
