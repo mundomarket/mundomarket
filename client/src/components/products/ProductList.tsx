@@ -12,7 +12,7 @@ export const ProductList: FC<Props>=({products})=>{
 
 
     return(
-        products[0]?<Grid container spacing ={10} >
+        products[0]?<Grid container spacing ={3} >
             {
                 
                 products.map(product =>(

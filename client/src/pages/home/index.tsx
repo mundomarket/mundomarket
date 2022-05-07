@@ -1,7 +1,7 @@
 //import { ShopLayout } from '../components/layouts';
 
 import React from "react";
-import { Typography,Grid, CardActionArea,Card, CardMedia, Box } from '@mui/material';
+import { Typography,Divider, CardActionArea,Card, CardMedia, Box } from '@mui/material';
 import NavBar from '../../components/ui/NavBar/NavBar'
 import { initialData } from '../../database/products';
 import { ProductList } from '../../components/products';
@@ -33,13 +33,17 @@ export default function Home() {
           <NavBar/>
         </Box>
         
-        <Typography variant='h1' component='h1'> Tienda </Typography>
-        <Typography variant='h1' sx={{marginBottom: 1}}> PRODUCTOS </Typography>
+        <Box sx={{marginY:10}}>
+        <Box sx={{display:'flex',flexDirection:'column',alignItems:'flex-start'}}>
+        <Typography variant='h5' sx={{marginLeft:3}}> PRODUCTOS </Typography>
+        </Box>
+        <Divider sx={{m:2,marginBottom:3}}/>
 
         <ProductList
            // products={initialData.products as any}
            products={productos}
         />
+        </Box>
     </div>
   )
 }

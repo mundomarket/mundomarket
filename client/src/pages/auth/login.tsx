@@ -11,7 +11,7 @@ const LoginPage = () => {
     const navigate=useNavigate()
     return(
             <AuthLayout title ={'Ingresar'}>
-            <Box sx={{display:'flex',flexDirection:'column',border:'1px solid gray',borderRadius:2,width:320}}>
+            <Box sx={{display:'flex',flexDirection:'column',border:'1px solid gray',borderRadius:2,width:320,bgcolor:'white',boxShadow:10}}>
                 <Typography variant='h4' sx={{m:3}}>MundoMarket<ShoppingCartSharpIcon sx={{marginX:1}}/></Typography>
                 <TextField label='Correo' variant="outlined"  size='small' sx={{marginY:1,marginX:4}}></TextField>
                 <TextField label='Contraseña' type='password' variant="outlined"  size='small' sx={{marginY:1,marginX:4}}></TextField>

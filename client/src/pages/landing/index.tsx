@@ -13,7 +13,7 @@ import Login from '../auth/login'
 
 const imagenes =  [
     'https://www.puredistance.com/wp-content/uploads/2017/06/puredistance-crystal-column-gold-black-st05.png',
-    'https://img1-327a.kxcdn.com/DataImage.ashx/8573707',
+    'https://www.hdhouse.ru/data/images/V30.png',
     'https://www.smstotalmarketing.com/images/camisetas-crop-u59655.png?crc=4278773244',
     'https://www.joyeriamore.com/media/catalog/product/cache/536fc87119e82c154feb6f8b63241ab9/f/1/f1d7cb3b8f548c856f250a5300c4a50cf08c7d332834d7224a46faaff6325a88.jpeg',
     
