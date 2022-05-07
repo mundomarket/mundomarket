@@ -26,8 +26,8 @@ const Landing = () => {
             {/* <Box sx={{bgcolor:'black',color:'white',width:'100%'}}>
                 <Typography variant='h3' sx={{m:2}}>MundoMarket</Typography>
             </Box> */}
-        <Container sx={{display:'flex',justifyContent:'center',m:1,alignItems:'center'}}>
-            <Box sx={{width:'20%',m:3,display:{xs:'none',sm:'block'}}}>
+        <Container sx={{display:'flex',justifyContent:'center',m:3,alignItems:'center'}}>
+            <Box sx={{width:{xs:'50%',sm:'20%'},m:{xs:0,sm:3},display:'block'}}>
                 <ProductSlideshow
                     images={imagenes}
                     duration={1000}
