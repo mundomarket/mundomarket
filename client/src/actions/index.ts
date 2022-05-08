@@ -1,5 +1,6 @@
 import axios from "axios"
 import { createAsyncThunk } from "@reduxjs/toolkit"
+import { Orders } from "../components/ui/FilterMenu"
 //const api='http://localhost:3000'
 const api='https://mundomarket.herokuapp.com'
 
@@ -20,7 +21,6 @@ export const GETDETAIL=createAsyncThunk('GET_DETAIL',async (id: string | undefin
 
 export const POSTPRODUCT=createAsyncThunk('POST_PRODUCT',async (value: {} | undefined)=>{
   const result=await axios.post(`${api}/products`,value)
-  console.log("value:", value)
   return result.data
 })
 
@@ -39,3 +39,6 @@ export const GETRECOMMENDED=createAsyncThunk('GET_RECOMMENDED',async (name: stri
   return result.data.splice(0,4)
 })
 
+export const GETORDENAMIENTOS=createAsyncThunk('GET_ORDENAMIENTOS',async (input:Orders)=>{
+  return input
+})
