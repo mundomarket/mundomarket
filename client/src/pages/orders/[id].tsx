@@ -10,7 +10,7 @@ import {
   Chip,
 } from "@mui/material";
 import { CartList, OrderSumary } from "../../components/cart";
-
+import {  PayPalButtons } from "@paypal/react-paypal-js";
 //import NextLink from 'next/link'
 
 //import { ShopLayout } from '../../components/layouts';
@@ -77,7 +77,14 @@ const OrderPage = () => {
               <OrderSumary />
 
               <Box sx={{ mt: 3 }}>
-                
+                <PayPalButtons />
+                <Chip
+                  sx={{ my: 2 }}
+                  label="La orden ya fue pagada"
+                  variant="outlined"
+                  color="success"
+                  icon={<CreditScoreOutlined />}
+                />
               </Box>
             </CardContent>
           </Card>
