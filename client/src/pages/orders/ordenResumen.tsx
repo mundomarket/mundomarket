@@ -1,5 +1,5 @@
 import { Box, Button, Card, CardContent, Divider, Grid, Typography, Link, Chip } from '@mui/material';
-import { CartList, OrderSumary } from '../../components/cart';
+import { CartList, OrderSummary } from '../../components/cart';
 //import NextLink from 'next/link'
 
 //import { ShopLayout } from '../../components/layouts';
@@ -27,12 +27,16 @@ const OrderPage=()=>{
             />
 
             <Grid container>
+
+
                 <Grid item xs={12} sm={7}>
                     <CartList editable={false}/>
                 </Grid>
 
                 <Grid item xs={12} sm={5}>
                     <Card className='summary-card'>
+
+                        
                         <CardContent>
                             <Typography variant='h2'>Resumen</Typography>
                             <Divider sx={{my:1}}/>
@@ -63,7 +67,7 @@ const OrderPage=()=>{
                                
                             </Box>
 
-                            <OrderSumary/>
+                            <OrderSummary/>
 
                             <Box sx={{mt:3}}>
                                 <h1>Pagar</h1>

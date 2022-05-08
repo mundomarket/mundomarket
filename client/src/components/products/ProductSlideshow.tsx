@@ -30,6 +30,7 @@ export const ProductSlideshow: FC<Props>=({images, duration ,autoPlay})=>{
             indicators= {indicadores}
             arrows={flechas}
             canSwipe={swipe}
+            transitionDuration= {500}
         >
             {
                 images.map( image=>{

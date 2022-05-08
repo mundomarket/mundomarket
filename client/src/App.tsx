@@ -16,41 +16,52 @@ import Login from './pages/auth/login'
 import Register from './pages/auth/register'
 import CrearProducto from './pages/formNuevoProdcto'
 import Profile from './pages/profile';
-import CartUser from './pages/user/cartUser'
 
 import Prueba from './pages/product/Recommended'
 
+import { CartProvider } from '../src/components/context';
+import { SWRConfig } from 'swr';
 
 
 
 function App() {
   return (
     <div className="App">
-      <ThemeProvider theme={lightTheme}>
-      <CssBaseline/>
-      <Routes>
 
-        <Route path='/' element={Landing()}/>
-        <Route path='/home' element={Home()}/>
-        <Route path='/product/:id' element={<Product/>}/>
-        <Route path='/history/:id' element={<History/>}/>
-        <Route path='/history/order/:id' element={<Order/>}/>
+<SWRConfig 
+      value={{
+        fetcher: (resource, init) => fetch(resource, init).then(res => res.json())
+      }}
+    >
+      <CartProvider>
+     
+        <ThemeProvider theme={lightTheme}>
+        <CssBaseline/>
+          <Routes>
+
+            <Route path='/' element={Landing()}/>
+            <Route path='/home' element={Home()}/>
+            <Route path='/product/:id' element={<Product/>}/>
+            <Route path='/history/:id' element={<History/>}/>
+            <Route path='/history/order/:id' element={<Order/>}/>
+
+            <Route path='/summary' element={Summary()}/>
+            <Route path='/cart' element={Cart()}/>
+            <Route path='/login' element={Login()}/>
+            <Route path='/register' element={Register()}/>
+            <Route path='/crearproducto' element={CrearProducto()}/>
+            <Route path='/profile' element={<Profile/>}/>
+
+            <Route path='/prueba' element={<Prueba/>}/>
 
 
-        <Route path='/user/:id' element={<CartUser/>}/>
-        <Route path='/summary' element={Summary()}/>
-        <Route path='/cart' element={Cart()}/>
-        <Route path='/login' element={Login()}/>
-        <Route path='/register' element={Register()}/>
-        <Route path='/crearproducto' element={CrearProducto()}/>
-        <Route path='/profile' element={<Profile/>}/>
 
-        <Route path='/prueba' element={<Prueba/>}/>
+          </Routes>
+        </ThemeProvider>
+  
+      </CartProvider>
 
-
-
-      </Routes>
-      </ThemeProvider>
+      </SWRConfig>
     </div>
   );
 }

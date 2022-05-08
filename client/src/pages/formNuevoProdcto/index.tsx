@@ -149,7 +149,7 @@ export default function FormP() {
     <Box display='flex' justifyContent='center'>
       <div id='formnuevo'>
 
-        <Typography mt={10}>CARGA TU PRODUCTO</Typography>
+        <Typography mt={10}>NUEVA PUBLICACIÓN</Typography>
 
           <Box
             display='flex' 
@@ -212,7 +212,7 @@ export default function FormP() {
               {upLoading && <p>Subiendo Foto...</p> }
 
              <div>
-            <button disabled={input.name===""||input.category==="Select"?true:false||input.description===""||input.price===""}  type="submit" onClick={(e) => handleSubmit(e)}>Crear Producto</button>
+            <button disabled={input.name===""||input.category==="Select"?true:false||input.description===""||input.price===""}  type="submit" onClick={(e) => handleSubmit(e)}>Crear Pubicación</button>
             </div>   
 
           </Box>
