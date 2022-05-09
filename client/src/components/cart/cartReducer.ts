@@ -1,6 +1,6 @@
 import { CartState } from '../cart/CartProvider';
 import { ICartProduct } from './cartInterface';
-
+import Cookie from 'js-cookie'; 
 
 type CartActionType = 
    | { type: '[Cart] - LoadCart from cookies | storage', payload: ICartProduct[] } 
@@ -53,6 +53,7 @@ export const cartReducer = ( state: CartState, action: CartActionType ): CartSta
 
 
       case '[Cart] - Remove product in cart':
+         if(state.cart.length===1)Cookie.set('cart',JSON.stringify([]));   
          return {
             ...state,
             cart: state.cart.filter( product => !(product._id === action.payload._id  ))

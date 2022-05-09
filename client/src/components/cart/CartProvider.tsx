@@ -39,8 +39,8 @@ export const CartProvider: FC<Props> = ({children}) => {
         }
     }, []);
 
-    useEffect(() => { //esto hace que se mantengan los productos en  el carriot si actualizo la pagina
-        Cookie.set('cart', JSON.stringify( state.cart ));
+    useEffect(() => { //esto hace que se mantengan los productos en  el carrito si actualizo la pagina
+        state.cart.length>0 && Cookie.set('cart', JSON.stringify( state.cart ));
       }, [state.cart]);
 
 
