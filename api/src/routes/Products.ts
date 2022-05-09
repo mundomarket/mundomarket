@@ -1,10 +1,19 @@
-import axios from "axios";
+
 import { Router } from "express";
 import Product from "../models/Product"
 const route= Router()
 
 
-
+route.get("/:id", async(req:any, res:any) => {
+    let id:string=req.params.id;
+    try {
+        let resultado:any[]|null=await Product.findById(id)
+        res.send(resultado? resultado : "No se encuentra el producto" )
+    } catch (error) {
+        res.send({error: "No se encuentra el producto"})
+    }
+ 
+});
 
 route.get("/", async (req:any, res:any,next:any) => {
 
@@ -53,19 +62,18 @@ route.get("/", async (req:any, res:any,next:any) => {
    
 });
 
-
 route.post('/', async (req:any, res:any) => {
 
     try {
             const found = await Product.findOne({ name: req.body.name })
 
         if (found) {
-            res.send('You can´t post the same product twice')
+            res.send('You cant post the same product twice')
         }
         else {
 
             const newProduct = new Product(req.body);
-            console.log(newProduct)
+          
             await newProduct.save()
             return res.send('Product created')
         }
@@ -75,7 +83,21 @@ route.post('/', async (req:any, res:any) => {
     }
 })
 
+route.delete("/:id", async (req:any, res:any, next:any)=>{
+    try {
+        const id = req.query.id
+        if(id){
+            await Product.findByIdAndDelete(id)
+        return res.send("remove")
+        }
+        res.send("no")
+ 
+    } catch (error) {
+        next(error)
+    }
+ });
+       
 
-             
+//falta upDate
 
 export default route
