@@ -1,6 +1,6 @@
 import {FC} from 'react'
 import {Grid} from '@mui/material'
-import {IProduct} from '../../interfaces'
+import {IProduct} from '../../components/products/productInterface'
 import  {ProductCard}  from './ProductCard';
 
 

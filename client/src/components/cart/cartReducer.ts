@@ -1,4 +1,4 @@
-import { CartState } from './';
+import { CartState } from '../cart/CartProvider';
 import { ICartProduct } from './cartInterface';
 
 

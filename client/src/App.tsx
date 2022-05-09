@@ -14,12 +14,12 @@ import Order from './pages/orders/ordenResumen'
 import Cart from './pages/cart'
 import Login from './pages/auth/login'
 import Register from './pages/auth/register'
-import CrearProducto from './pages/formNuevoProdcto'
+import CrearProducto from './pages/product/formNewProduct'
 import Profile from './pages/profile';
 
 import Prueba from './pages/product/Recommended'
 
-import { CartProvider } from '../src/components/context';
+import { CartProvider } from '../src/components/cart/CartProvider';
 import { SWRConfig } from 'swr';
 
 

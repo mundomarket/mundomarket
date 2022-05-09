@@ -1,6 +1,6 @@
 //import { ShopLayout } from '../../components/layouts/ShopLayout';
 import { Grid, Box , Typography, Button, Chip} from '@mui/material';
-import { CartContext } from '../../components/context/cart/CartContext';
+import { CartContext } from '../../components/cart/CartContext';
 import { initialData } from '../../database/products';
 import { ProductSlideshow } from '../../components/products';
 import { ItemCounter } from '../../components/ui';
@@ -14,9 +14,9 @@ import {GETDETAIL,GETRECOMMENDED} from '../../actions'
 import { TypedUseSelectorHook } from "react-redux";
 import SellerDetail from './sellerDetail'
 import Recommended from './Recommended'
-import { IProduct } from '../../interfaces';
+import { IProduct } from '../../components/products/productInterface';
 
-import { ICartProduct } from '../../components/context/cart/cartInterface';
+import { ICartProduct } from '../../components/cart/cartInterface';
 
 const useAppDispatch = () => useDispatch<AppDispatch>();
 
@@ -29,6 +29,10 @@ interface Props{
 //const product =  initialData.products[0];
 
 const ProductPage = () => {
+
+
+
+  
     const navegar=useNavigate()
     const {id} = useParams()
     
@@ -77,13 +81,19 @@ const ProductPage = () => {
    
      const onAddProduct = () => {  
 
+      //if(!tempCartProduct._id){return}
+      //setTempCartProduct( product);
+
 
        addProductToCart(tempCartProduct);
+
+
+
       // router.push('/cart');
       //navegar("/cart")//se accede al carrito
       //window.location.reload();//se refresca para activar el dispatch de GETPRODUCTS()
      }
-   
+  
 
 
 
@@ -95,7 +105,6 @@ const ProductPage = () => {
         <>
             <NavBar/>
 
-            
         <Box sx={{display:'flex',flexDirection:'column',alignItems:'center'}}>
             <Grid container spacing={8} mt={3} justifyContent={'space-evenly'}>
 
@@ -115,6 +124,8 @@ const ProductPage = () => {
 
                         <Typography variant='h1' component='h1'> {product.name}</Typography>
                         <Typography variant='subtitle1' component='h2' mt={1}> {`$${product.price}`}</Typography>
+                        <Typography variant='subtitle2'>En Stock: </Typography>
+                        <Typography variant='subtitle2'>{product.stock} </Typography>
 
               {
 
@@ -127,8 +138,10 @@ const ProductPage = () => {
                             />
 
 
-
                         </Box>
+
+                        
+
               }
 
                         {
@@ -155,7 +168,7 @@ const ProductPage = () => {
 
                         <Box sx={{mt:3}}>
                         
-                            <Typography variant='subtitle2'>Descripción</Typography>
+                            <Typography variant='subtitle2'>Descripción:</Typography>
                             
                             <Typography variant='body2'>{product.description}</Typography>
                             <SellerDetail/>

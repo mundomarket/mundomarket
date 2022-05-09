@@ -1,10 +1,11 @@
 import { FC, useContext } from 'react';
 //import NextLink from 'next/link';
-import { Box, Button, CardActionArea, CardMedia, Grid, Link, Typography } from '@mui/material';
+import { Box, Button, CardActionArea, CardMedia, Grid, Link, Typography, Chip, Card } from '@mui/material';
 import { ItemCounter } from '../ui';
-import { CartContext } from '../context';
-import { ICartProduct } from '../context/cart/cartInterface';
+import { CartContext } from '../cart/CartContext';
+import { ICartProduct } from './cartInterface';
 import { NavLink } from 'react-router-dom';
+import { CreditScoreOutlined } from '@mui/icons-material';
 
 
 interface Props {
@@ -23,12 +24,12 @@ export const CartList: FC<Props> = ({ editable = false }) => {
     return (
         <>
             {
-                cart.map( product => (
+                cart.map( product => (//product es un elemento del array cart
                     <Grid container spacing={2} key={ product._id } sx={{ mb:1 }}>
                         <Grid item xs={3}>
-                            {/* TODO: llevar a la página del producto */}
+                            
                             <NavLink to={`/product/${ product._id }`} >
-                               
+                               <Card>
                                     <CardActionArea>
                                         <CardMedia 
                                             image={product.imageProduct}
@@ -36,7 +37,7 @@ export const CartList: FC<Props> = ({ editable = false }) => {
                                             sx={{ borderRadius: '5px' }}
                                         />
                                     </CardActionArea>
-                            
+                                </Card>
                             </NavLink>
                         </Grid>
 
@@ -48,12 +49,35 @@ export const CartList: FC<Props> = ({ editable = false }) => {
 
                                 {
                                     editable 
-                                    ? (
+                                    ? ( <div>
                                         <ItemCounter 
                                             currentValue={ product.quantity }
-                                            maxValue={ product.stock > 10 ? 10: product.stock  } 
+                                            maxValue={ product.stock  } 
                                             updatedQuantity={ ( value ) => onNewCartQuantityValue(product, value )}
                                         />
+                                        
+                                        <Typography variant='h6'>{ product.stock } {'Disponibles'}</Typography>
+                                        {
+                                            (product.quantity <= product.stock) ?
+                                            <Chip
+                                            sx={{my:1}}
+                                            label="En stock"
+                                            variant='outlined'
+                                            color="success"
+                                            icon={ <CreditScoreOutlined/>}
+                                            />
+                                            :
+                                            <Chip
+                                            sx={{my:1}}
+                                            label="No hay stock"
+                                            variant='outlined'
+                                            color="error"
+                                            icon={ <CreditScoreOutlined/>}
+                                            />
+                                        }
+
+                                        
+                                        </div>
                                     )
                                     : (
                                         <Typography variant='h5'>{ product.quantity } { product.quantity > 1 ? 'productos':'producto' }</Typography>

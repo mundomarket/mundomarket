@@ -1,8 +1,8 @@
 import { FC, useEffect, useReducer } from 'react';
 import Cookie from 'js-cookie';// yarn add js-cookie   y   yarn add -D @types/js-cookie    || $ npm i js-cookie  y  npm add -D @types/js-cookie 
 import React, { PropsWithChildren } from 'react';
-import { ICartProduct } from '../../context/cart/cartInterface';
-import { CartContext, cartReducer } from './';
+import { ICartProduct } from './cartInterface';
+import { CartContext, cartReducer } from '../cart';
 
 export interface CartState {
     cart: ICartProduct[];

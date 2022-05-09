@@ -1,2 +1,6 @@
 export * from './CartList'
 export * from './OrderSummary'
+export * from './CartContext'
+export * from './cartReducer'
+export * from './cartInterface'
+export * from './CartProvider'

@@ -25,7 +25,7 @@ import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import FilterMenu from '../FilterMenu'
 import { useNavigate,useLocation } from 'react-router-dom';
 import '@fontsource/roboto/300.css';
-import { CartContext } from '../../context';
+import { CartContext } from '../../cart/CartContext';
 
 
 
