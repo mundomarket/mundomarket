@@ -1,7 +1,7 @@
 import { Grid, Box , Typography, Button, Chip, Container, Avatar, Divider} from '@mui/material';
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch,RootState } from '../../store/index';
-import { Link } from 'react-router-dom';
+import { Link,NavLink } from 'react-router-dom';
 import '@fontsource/roboto/300.css';
 import EditIcon from '@mui/icons-material/Edit';
 import KeyIcon from '@mui/icons-material/Key';
@@ -49,7 +49,10 @@ const Profile = () => {
                 <Box sx={{display:'flex'}}>
                 <LocalMallIcon sx={{m:1,marginRight:2,height:30,width:30}}/>
                 <Box sx={{marginLeft:1,display:'flex',flexDirection:'column',alignItems:'flex-start'}}>
-                <Typography variant='h6'>Mis Compras</Typography>
+                    {/*to={`/product/${product._id}`}*/}
+                    <NavLink to='/history/345345' style={isActive => ({color: isActive ? "black" : "black"})}>
+                        <Typography variant='h6'>Mis Compras</Typography>
+                    </NavLink>
                 <Typography variant='subtitle2'>Ver el historial o estado de mis compras</Typography>
                 </Box>
                 </Box>

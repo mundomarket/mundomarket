@@ -3,6 +3,7 @@ import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 //import { ShopLayout } from "../../components/layouts"
 //import NextLink from 'next/link';
 import NavBar from '../../components/ui/NavBar/NavBar'
+import { NavLink } from 'react-router-dom';
 
 const columns: GridColDef[]= [
     {field: 'id', headerName: 'ID', width:100},
@@ -16,8 +17,8 @@ const columns: GridColDef[]= [
         renderCell: (params: GridValueGetterParams)=>{
             return (
                 params.row.paid
-                ? <Chip color="success" label="Pagado" variant="outlined"/>
-                :  <Chip color="error" label="No Pagada" variant="outlined" />
+                ? <Chip color="success" label="Entregado" variant="outlined"/>
+                :  <Chip color="error" label="No entregado" variant="outlined" />
             )
             
         }
@@ -30,10 +31,12 @@ const columns: GridColDef[]= [
         sortable: false,
         renderCell: (params: GridValueGetterParams)=>{
             return (
-
+                
+                <NavLink to='/history/order/4854848'>
                     <Link underline='always'>
                         Ver Orden
                     </Link>
+                </NavLink>
 
             )
             
