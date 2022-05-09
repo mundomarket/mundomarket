@@ -5,7 +5,7 @@ import { POSTPRODUCT } from '../../actions/index';
 import { useDispatch , useSelector } from "react-redux"
 import { Link ,  useNavigate } from "react-router-dom"
 import { AppDispatch } from '../../store';
-import NavBar from '../../components/ui/NavBar/NavBar'
+import NavBar from '../../components/NavBar/NavBar'
 
 
 const regex=/^[0-9]+$/

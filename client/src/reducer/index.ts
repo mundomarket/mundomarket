@@ -3,6 +3,7 @@ import { createReducer } from '@reduxjs/toolkit'
 import * as actions from '../actions/index'
 
 interface Estado{
+  isLogged:boolean,
   productos:any
   copiaproductos:any
   detail:any
@@ -59,6 +60,12 @@ const rootReducer = createReducer(initialState, (builder) => {
       state.productos=filtrado
     })
 
+    .addCase(actions.REGISTERUSER.fulfilled, (state, action) => {
+      
+    })
+    .addCase(actions.LOGINUSER.fulfilled, (state, action) => {
+        state.isLogged=true
+    })
 
 })
 
