@@ -47,10 +47,13 @@ const productSchema=new Schema({
         type : Boolean,
         default : false
     },
-    
     envio:{
         type:String,
         required:false
+    },
+    user:{
+        type: Schema.Types.ObjectId, 
+        ref: 'User' 
     }
 })
 
