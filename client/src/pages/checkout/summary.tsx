@@ -1,7 +1,7 @@
 import { Box, Button, Card, CardContent, Divider, Grid, Typography } from '@mui/material';
 import { Link } from "react-router-dom";
 import { CartList, OrderSummary } from '../../components/cart';
-import NavBar from '../../components/ui/NavBar/NavBar'
+import NavBar from '../../components/NavBar/NavBar'
 
 
 //import { ShopLayout } from '../../components/layouts';

@@ -1,10 +1,9 @@
 //import { ShopLayout } from '../../components/layouts/ShopLayout';
 import { Grid, Box , Typography, Button, Chip} from '@mui/material';
 import { CartContext } from '../../components/cart/CartContext';
-import { initialData } from '../../database/products';
 import { ProductSlideshow } from '../../components/products';
-import { ItemCounter } from '../../components/ui';
-import NavBar from '../../components/ui/NavBar/NavBar'
+import { ItemCounter } from '../../components/itemCounter';
+import NavBar from '../../components/NavBar/NavBar'
 import {useNavigate, useParams} from "react-router-dom"
 
 import { useDispatch, useSelector } from "react-redux";

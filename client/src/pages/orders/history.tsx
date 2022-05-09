@@ -2,7 +2,7 @@ import { Typography, Grid, Chip, Link } from '@mui/material';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 //import { ShopLayout } from "../../components/layouts"
 //import NextLink from 'next/link';
-import NavBar from '../../components/ui/NavBar/NavBar'
+import NavBar from '../../components/NavBar/NavBar'
 import { NavLink } from 'react-router-dom';
 
 const columns: GridColDef[]= [
