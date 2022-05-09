@@ -42,3 +42,18 @@ export const GETRECOMMENDED=createAsyncThunk('GET_RECOMMENDED',async (name: stri
 export const GETORDENAMIENTOS=createAsyncThunk('GET_ORDENAMIENTOS',async (input:Orders)=>{
   return input
 })
+
+
+
+export const LOGINUSER=createAsyncThunk("LOGIN_USER",async(value:any)=>{
+  const result=await axios.post(`${api}/login/login`,value)
+  return result.data
+})
+export const REGISTERUSER=createAsyncThunk("REGISTER_USER",async(value:{} | undefined)=>{
+  const result=await axios.post(`${api}/user/register`,value)
+  return result.data
+})
+export const LOGOUTUSER=createAsyncThunk("LOGOUT_USER",async(value:{} | undefined)=>{
+  const result=await axios.post(`${api}/login/logout`,value)
+  return result.data
+})

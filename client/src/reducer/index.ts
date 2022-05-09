@@ -58,7 +58,12 @@ const rootReducer = createReducer(initialState, (builder) => {
 
       state.productos=filtrado
     })
-
+    .addCase(actions.LOGINUSER.fulfilled, (state, action) => {
+      state.productos=action.payload
+    })
+    .addCase(actions.REGISTERUSER.fulfilled, (state, action) => {
+      state.productos=action.payload
+    })
 
 })
 
