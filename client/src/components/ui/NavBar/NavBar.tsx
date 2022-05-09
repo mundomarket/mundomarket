@@ -25,6 +25,7 @@ import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import FilterMenu from '../FilterMenu'
 import { useNavigate,useLocation } from 'react-router-dom';
 import '@fontsource/roboto/300.css';
+import { CartContext } from '../../cart/CartContext';
 
 
 
@@ -71,6 +72,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 export default function PrimarySearchAppBar() {
+  const { numberOfItems } = React.useContext( CartContext );
+ 
+ 
   const location=useLocation().pathname
   const navigate=useNavigate()
   const useAppDispatch = () => useDispatch<AppDispatch>();
@@ -242,10 +246,10 @@ export default function PrimarySearchAppBar() {
           </Search>:null}
           <Box sx={{ display: { xs: 'none', md: 'flex' },alignItems:'flex-start' }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={0} color="error">
+              <Badge badgeContent={numberOfItems>9?'+9':numberOfItems} color="error">
                 {/*<Link to={`/user/${user._id}`}>*/}
                 
-                <NavLink to='/user/54544884' style={isActive => ({color: isActive ? "white" : "white"})}>
+                <NavLink to='/cart' style={isActive => ({color: isActive ? "white" : "white"})}>
                   <ShoppingCart />
                 </NavLink>
               </Badge>

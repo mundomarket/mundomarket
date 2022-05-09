@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { TextField, Box, InputLabel, OutlinedInput, InputAdornment, MenuItem, Typography, Button, FormLabel } from '@mui/material';
+import { TextField, Box, InputLabel, OutlinedInput, InputAdornment, MenuItem, Typography, Button, FormLabel, FormControlLabel } from '@mui/material';
 import { useState } from 'react';
 import { POSTPRODUCT } from '../../actions/index';
 import { useDispatch , useSelector } from "react-redux"
 import { Link ,  useNavigate } from "react-router-dom"
 import { AppDispatch } from '../../store';
-//import any from '../../react-app-env';
 import NavBar from '../../components/ui/NavBar/NavBar'
 
 
@@ -16,13 +15,9 @@ export default function FormP() {
 
     const [formData,SetFormData]=useState({})//almacena el formulario para luego ser enviado al servidor
 
-    const[file,setFile] = useState("");
-
     const[images,setImages]=useState(["http://inversionesumbrias.com.ve/static/images/productos/producto-sin-imagen.jpg"]);//array de strings de url de imagenes 
 
     const[upLoading,setUpLoading]=useState(false)
-
-    console.log("ver imagenes",images);
 
     
 
@@ -35,11 +30,11 @@ export default function FormP() {
     }
     
     const handleUpload= async (e:any)=>{
-      setUpLoading(true);
+      
       const pic = e.target.files[0];
-      //setFile(pic);
-      console.log(pic);
-      //https://api.cloudinary.com/v1_1/${cloudName}/upload
+      console.log("valor buscado*",pic);
+      if (pic===undefined)  return  0
+      setUpLoading(true);
       const formData=new FormData();
       formData.append('file',pic);
       formData.append('upload_preset','images');
@@ -50,8 +45,8 @@ export default function FormP() {
       })
         .then((res)=>res.json())
         .then((res)=> {
-          setImages(images=>[...images,res.secure_url]);
-          
+          setImages(images=>[...images,res.url]);
+          console.log("respuesta",res)
           //setInput((input)=>({...input,imageProduct:[res.secure_url]}))
           setUpLoading(false);
         })
@@ -87,7 +82,7 @@ export default function FormP() {
     },
   ];
 
-  const [input,setInput]=useState({name:'',price:'',category:'Select',description:'',stock:0,imageProduct:[""],review:0,rating:0,envio:'coordinar'})
+  const [input,setInput]=useState({name:'',price:'',category:'Select',description:'',stock:1,imageProduct:[""],review:0,rating:0,envio:'coordinar'})
 
   const validate=(e:any)=>{
     //aca se hacen 2 cosas, se actualiza el valor actual de los inputs y se almacena su valor en formdata
@@ -99,6 +94,10 @@ export default function FormP() {
       if(regex.test(e.target.value))setInput((input)=>({...input,price:e.target.value}))
       e.target.id="price"
     }
+    if(e.target.name==='stock'){
+      setInput((input)=>({...input,stock:e.target.value}))
+      e.target.id="stock"
+    }
     if(e.target.name==='description'){
       setInput((input)=>({...input,description:e.target.value}))
       e.target.id="description"
@@ -107,10 +106,6 @@ export default function FormP() {
       setInput((input)=>({...input,category:e.target.value}))
       e.target.id="category"
     }
-    /*if(e.target.name==='imageProduct'){
-        setInput((input)=>({...input,imageProduct:[e.target.value]}))
-  }*/
-  
   
   //aqui se almacena el valor en formdata, el target.id es el nombre del campo y value es su valor obtenido del event  
     SetFormData({...formData,[e.target.id]:e.target.value})
@@ -134,7 +129,7 @@ export default function FormP() {
       }
         //console.log("ver imagenes",images);
 */
-  //const newPost=input
+        //const newPost=input
         if(images.length>1)images.shift() //elimino el primer valor, que es la foto por defecto
       
         
@@ -157,7 +152,7 @@ export default function FormP() {
     <Box display='flex' justifyContent='center'>
       <div id='formnuevo'>
 
-        <Typography mt={10}>CARGA TU PRODUCTO</Typography>
+        <Typography mt={10}>PUBLICAR ARTICULO</Typography>
 
           <Box
             display='flex' 
@@ -180,6 +175,14 @@ export default function FormP() {
                 name='precio' value={input.price}
                 onChange={(e)=>validate(e)}
             />
+            
+            
+            
+            <label>Cantidad:</label>
+            <input id="productStock" name='stock' value={input.stock}
+                onChange={(e)=>validate(e)}
+              min="1" max="100" type="number"/>
+
 
             <TextField
               id="formcats"
@@ -220,7 +223,7 @@ export default function FormP() {
               {upLoading && <p>Subiendo Foto...</p> }
 
              <div>
-            <button disabled={input.name===""||input.category==="Select"?true:false||input.description===""||input.price===""}  type="submit" onClick={(e) => handleSubmit(e)}>Crear Producto</button>
+            <button disabled={input.name===""||input.category==="Select"?true:false||input.description===""||input.price===""}  type="submit" onClick={(e) => handleSubmit(e)}>Crear Pubicación</button>
             </div>   
 
           </Box>

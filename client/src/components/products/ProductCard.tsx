@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 import {Grid,Card,CardActionArea,CardMedia, Typography, Box} from '@mui/material'
 
-import {IProduct} from '../../interfaces'
+import {IProduct} from '../../components/products'
 import { ProductSlideshow } from './ProductSlideshow';
 
 
