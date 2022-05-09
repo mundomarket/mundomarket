@@ -6,7 +6,7 @@ export interface ICartProduct {
     price: number;
     description: string;
     quantity: number;
-    imageProduct: string;
+    imageProduct: string[];
     review: number;
     rating: number;
     category: string;

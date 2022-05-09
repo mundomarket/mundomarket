@@ -52,6 +52,7 @@ const ProductPage = () => {
 
 
 
+
       
 
      // const router = useRouter();
@@ -77,15 +78,39 @@ const ProductPage = () => {
          quantity
        }));
      }
-   
-   
+
+
+     useEffect(()=>{
+      setTempCartProduct({
+        _id: product._id,
+        imageProduct: product.imageProduct,
+        price: product.price,
+        name: product.name,
+        category: product.category,
+        quantity: 1,
+        envio: product.envio,
+        rating: product.rating,
+        review: product.review,
+        description: product.description,
+        stock: product.stock
+      })
+    },[product])
+
+
+
      const onAddProduct = () => {  
 
       //if(!tempCartProduct._id){return}
       //setTempCartProduct( product);
 
 
-       addProductToCart(tempCartProduct);
+      tempCartProduct.price?
+        addProductToCart(tempCartProduct)
+        :
+        console.log("hola") ;
+
+
+       
 
 
 

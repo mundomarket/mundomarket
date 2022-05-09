@@ -21,6 +21,8 @@ export const CartList: FC<Props> = ({ editable = false }) => {
         updateCartQuantity( product );
     }
 
+console.log(cart)
+
     return (
         <>
             {
@@ -32,7 +34,7 @@ export const CartList: FC<Props> = ({ editable = false }) => {
                                <Card>
                                     <CardActionArea>
                                         <CardMedia 
-                                            image={product.imageProduct}
+                                            image={product.imageProduct[0]}
                                             component='img'
                                             sx={{ borderRadius: '5px' }}
                                         />

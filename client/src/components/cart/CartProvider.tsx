@@ -26,21 +26,23 @@ export const CartProvider: FC<Props> = ({children}) => {
 
     const [state, dispatch] = useReducer( cartReducer , CART_INITIAL_STATE );
 
+
+
     // Efecto
     useEffect(() => {
         try 
         {
-            const cookieProducts = Cookie.get('cart') ? JSON.parse( Cookie.get('cart')! ): [] // Cookie.get(cart) pregunto si existe para que no sea undefined, lo paarseo sino array vacio
-            dispatch({ type: '[Cart] - LoadCart from cookies | storage', payload: cookieProducts });
+            const cookieProducts = Cookie.get('cart') ? JSON.parse( Cookie.get('cart')! ): [] // Cookie.get(cart) pregunto si existe para que no sea undefined, lo parseo sino array vacio
+             dispatch({ type: '[Cart] - LoadCart from cookies | storage', payload: cookieProducts });
         } catch (error) {
             dispatch({ type: '[Cart] - LoadCart from cookies | storage', payload: [] });
         }
     }, []);
 
-    
-    useEffect(() => { //esto hace que se mantengan los productos ene l carriot si actualizo la pagina
-      Cookie.set('cart', JSON.stringify( state.cart ));
-    }, [state.cart]);
+    useEffect(() => { //esto hace que se mantengan los productos en  el carriot si actualizo la pagina
+        Cookie.set('cart', JSON.stringify( state.cart ));
+      }, [state.cart]);
+
 
 
     useEffect(() => {
@@ -57,6 +59,10 @@ export const CartProvider: FC<Props> = ({children}) => {
     }, [state.cart]);
 
 
+
+
+
+    
 
     const addProductToCart = ( product: ICartProduct ) => {
         //! Nivel 1
