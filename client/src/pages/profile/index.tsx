@@ -14,13 +14,14 @@ const useAppDispatch = () => useDispatch<AppDispatch>();
 //const product =  initialData.products[0];
 
 const Profile = () => {
+    const user=useSelector((state:RootState)=>state.rootReducer.user)
     return(
         <Container sx={{m:'auto',display:'flex',flexDirection:'column',bgcolor:'transparent',width:500}}>
             <Box sx={{m:1,border:'1px solid gray',p:1,borderRadius:3,display:'flex',bgcolor:'white',boxShadow:2}}>
                 <Avatar alt='Nico Amicone' sx={{m:1,marginRight:2,height:45,width:45}}/>
                 <Divider orientation="vertical" flexItem />
                 <Box sx={{m:'auto'}}>
-                <Typography variant='h4'>Nico Amicone</Typography>
+                <Typography variant='h4'>{user.name}</Typography>
                 </Box>
             </Box>
             <Box className='LinkedBlack' sx={{m:1,border:'1px solid gray',p:1,borderRadius:3,display:'flex',flexDirection:'column',bgcolor:'white',boxShadow:2}}>

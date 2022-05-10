@@ -1,5 +1,5 @@
 import axios from "axios"
-import { createAsyncThunk } from "@reduxjs/toolkit"
+import { createAction, createAsyncThunk } from "@reduxjs/toolkit"
 import { Orders } from "../components/NavBar/FilterMenu"
 //const api='http://localhost:3000'
 const api='https://mundomarket.herokuapp.com'
@@ -51,3 +51,4 @@ export const LOGINUSER=createAsyncThunk('LOGINUSER',async (input:{})=>{
   const login=await axios.post(`http://localhost:3000/login/login`,input)
   return login.data
 })
+export const LOGOUT=createAction('LOGOUT')
