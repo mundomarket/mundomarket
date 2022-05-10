@@ -1,7 +1,6 @@
 import { CartState } from '../cart/CartProvider';
 import { ICartProduct } from './cartInterface';
-import Cookie from 'js-cookie'
-
+import Cookie from 'js-cookie'; 
 
 type CartActionType = 
    | { type: '[Cart] - LoadCart from cookies | storage', payload: ICartProduct[] } 
