@@ -23,7 +23,7 @@ route.post("/login", async(req:any, res:any, next:any)=>{
            
            req.login(user, function(err:any){
                if(err) res.send("error el crear la sesion")
-               return res.send("login sussces")
+               return res.send({msg:'success',user:user})
            })
        } catch (error) {
            next(error)
