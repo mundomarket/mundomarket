@@ -9,10 +9,8 @@ import config from "./config"
     //   userUnifiedTypology:true
     // }
       
-    const db= await mongoose.connect(`mongodb+srv://mundomarket:${config.MONGO_PASSWORD}@cluster0.tqn5t.mongodb.net/${config.MONGO_DATABASE}?retryWrites=true&w=majority`,{
-
-    });
-      console.log("connected to database :", db.connection.name);
+    const db= await mongoose.connect("mongodb+srv://mundomarket:mundomarket@cluster0.tqn5t.mongodb.net/mundomarket?retryWrites=true&w=majority");
+      console.log("Connected to database :", db.connection.name);
   }catch(error)
    {console.error(error)}
 })();

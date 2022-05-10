@@ -16,5 +16,4 @@ route.get("/", async (req:any, res:any, next:any) => {
  
 });
 
-
 export default route

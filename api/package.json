@@ -5,16 +5,20 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "dev": "ts-node-dev src/index.ts",
+    "dev": "ts-node-dev --files src/index.ts",
     "server": "json-server --watch db.json"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/csurf": "^1.11.2",
     "axios": "^0.26.1",
+    "bcrypt": "^5.0.1",
     "cars": "^1.1.6",
     "cors": "^2.8.5",
+    "csurf": "^1.11.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "json-server": "^0.17.0",

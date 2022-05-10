@@ -1,6 +1,6 @@
 import {model,Schema} from "mongoose"
 
-const userSchema=new Schema({
+const userSchema = new Schema({
 
     name:{
         type:String,
@@ -18,27 +18,49 @@ const userSchema=new Schema({
     avatar:{
         type:String,   
     },
-    // role:{ //(normal or admin)
-    //     type:String,
-    //     enum:{
-    //         values:["admin","client"],
-    //         default:"client",
-    //         message:`{VALUE} no es un rol válido`,
-    //         required:true
-    //     }
-    role:{
-        type:Number, //normal or admin
-        default:0
-    },
+
+    roles: [
+        {
+            type : Schema.Types.ObjectId,
+            ref : 'Role'
+        }
+    ],
+
     history:{  //historial del usuario
         type:Array,
         default:[]
     },
-    localidad:{
+    
+    country : {
+        type: String,
+        required : true
+    },
+
+    city : {
+        type: String,
+        required : true
+    },
+
+    adress:{
         type: String,
         required: true
+    },
+
+    phone : {
+        type : String,
+        required : true
+    },
+
+    cuil : {
+        type : String,
+        required : true
     }
-})
+
+
+}, {
+    versionKey : false
+});
+
 
 const User=model("User", userSchema)
 

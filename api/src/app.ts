@@ -1,9 +1,13 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+// import csurf from "csurf";
 import router from "./routes/index"
+import {createRoles} from './controllers/initialSetUp';
 
 const app = express();
+createRoles();
+// const csurfProtection = csurf();
 
 
 app.use(cors());
