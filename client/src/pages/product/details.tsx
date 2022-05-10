@@ -1,4 +1,5 @@
 //import { ShopLayout } from '../../components/layouts/ShopLayout';
+import * as React from 'react';
 import { Grid, Box , Typography, Button, Chip} from '@mui/material';
 import { CartContext } from '../../components/cart/CartContext';
 import { ProductSlideshow } from '../../components/products';
@@ -55,7 +56,9 @@ const ProductPage = () => {
       
 
      // const router = useRouter();
-      const { addProductToCart } = useContext( CartContext )
+      const { addProductToCart} = useContext( CartContext )
+      const { cart } = React.useContext( CartContext );
+      
    
       const [tempCartProduct, setTempCartProduct] = useState<ICartProduct>({
        _id: product._id,
@@ -96,26 +99,20 @@ const ProductPage = () => {
     },[product])
 
 
+    console.log("carrito:", cart)
+
+
 
      const onAddProduct = () => {  
 
-      //if(!tempCartProduct._id){return}
-      //setTempCartProduct( product);
-
-
-      tempCartProduct.price?
         addProductToCart(tempCartProduct)
-        :
-        console.log("hola") ;
+        
+        cart.map( product => (
+        
+          (product._id===tempCartProduct._id && product.quantity>=product.stock) && (product.quantity=product.stock,alert("no hay stock"))
+          
+        ))
 
-
-       
-
-
-
-      // router.push('/cart');
-      //navegar("/cart")//se accede al carrito
-      //window.location.reload();//se refresca para activar el dispatch de GETPRODUCTS()
      }
   
 
