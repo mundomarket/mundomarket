@@ -15,17 +15,17 @@ import ShoppingCart from '@mui/icons-material/ShoppingCart';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { useDispatch } from 'react-redux';
-import {GETSEARCHBYNAME} from  '../../../actions'
-import { AppDispatch } from '../../../store';
+import {GETSEARCHBYNAME} from  '../../actions'
+import { AppDispatch } from '../../store';
 import { CardMedia, Icon} from '@mui/material';
 import { AttachMoney, Wallpaper } from '@mui/icons-material';
 import { useState } from 'react';
 import { Link,NavLink } from 'react-router-dom';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
-import FilterMenu from '../FilterMenu'
+import FilterMenu from './FilterMenu'
 import { useNavigate,useLocation } from 'react-router-dom';
 import '@fontsource/roboto/300.css';
-import { CartContext } from '../../cart/CartContext';
+import { CartContext } from '../cart/CartContext';
 
 
 

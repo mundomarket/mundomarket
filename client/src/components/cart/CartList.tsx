@@ -1,7 +1,7 @@
 import { FC, useContext } from 'react';
 //import NextLink from 'next/link';
 import { Box, Button, CardActionArea, CardMedia, Grid, Link, Typography, Chip, Card } from '@mui/material';
-import { ItemCounter } from '../ui';
+import { ItemCounter } from '../itemCounter';
 import { CartContext } from '../cart/CartContext';
 import { ICartProduct } from './cartInterface';
 import { NavLink } from 'react-router-dom';

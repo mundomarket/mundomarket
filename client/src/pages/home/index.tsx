@@ -2,8 +2,7 @@
 
 import React from "react";
 import { Typography,Divider, CardActionArea,Card, CardMedia, Box } from '@mui/material';
-import NavBar from '../../components/ui/NavBar/NavBar'
-import { initialData } from '../../database/products';
+import NavBar from '../../components/NavBar/NavBar'
 import { ProductList } from '../../components/products';
 
 import { useDispatch, useSelector } from "react-redux";
