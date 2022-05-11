@@ -1,6 +1,8 @@
 import { Box, Button, Card, CardContent, Divider, Grid, Typography } from '@mui/material';
 import { Link } from "react-router-dom";
 import { CartList, OrderSumary } from '../../components/cart';
+import {  PayPalButtons } from "@paypal/react-paypal-js";
+
 //import NextLink from 'next/link'
 
 //import { ShopLayout } from '../../components/layouts';
@@ -51,9 +53,25 @@ const SummaryPage=()=>{
                             <OrderSumary/>
 
                             <Box sx={{mt:3}}>
-                                <Button color='secondary' className='circular-btn' fullWidth>
-                                    Confirmar Orden
-                                </Button>
+                                 <PayPalButtons
+                  createOrder={(data: any, actions: any) => {
+                    return actions.order.create({
+                      prchase_units: [
+                        {
+                          amo: {
+                            value: "1.99",
+                          },
+                        },
+                      ],
+                    });
+                  }}
+                  onApprove={(data: any, actions: any) => {
+                    return actions.order!.capture().then((details: any) => {
+                      const name = details.payer.name.given_name;
+                      alert(`Transaction completed by ${name}`);
+                    });
+                  }}
+                />
 
                             </Box>
 
