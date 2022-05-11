@@ -26,6 +26,7 @@ import FilterMenu from './FilterMenu'
 import { useNavigate,useLocation } from 'react-router-dom';
 import '@fontsource/roboto/300.css';
 import { CartContext } from '../cart/CartContext';
+import KeyIcon from '@mui/icons-material/Key';
 
 
 
@@ -126,6 +127,7 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
+      {!isLogged && <MenuItem onClick={()=>navigate('/login')}>Iniciar Sesión</MenuItem>}
       {isLogged && <MenuItem onClick={()=>navigate('/profile')}>Mi Perfil</MenuItem>}
       <MenuItem onClick={()=>navigate(`${isLogged? '/crearproducto':'/'}`)}>Vender</MenuItem>
       {isLogged && <MenuItem onClick={()=>{dispatch(LOGOUT())
@@ -150,7 +152,13 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      {!isLogged && <MenuItem onClick={()=>navigate('/login')}>
+      <IconButton size="large" color="inherit">
+            <KeyIcon/>
+        </IconButton>
+        <p>Iniciar Sesión</p>
+        </MenuItem>}
+      <MenuItem onClick={()=>navigate('/cart')}>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={0} color="error">
             <ShoppingCart />
@@ -170,7 +178,7 @@ export default function PrimarySearchAppBar() {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem onClick={()=>navigate('/profile')}>
+      {isLogged && <MenuItem onClick={()=>navigate('/profile')}>
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -181,8 +189,8 @@ export default function PrimarySearchAppBar() {
           <AccountCircle />
         </IconButton>
         <p>Profile</p>
-      </MenuItem>
-      <MenuItem onClick={()=>navigate('/crearproducto')}>
+      </MenuItem>}
+      {isLogged && <MenuItem onClick={()=>navigate('/crearproducto')}>
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -193,7 +201,17 @@ export default function PrimarySearchAppBar() {
           <AttachMoney />
         </IconButton>
         <p>Vender</p>
-      </MenuItem>
+      </MenuItem>}
+      {isLogged && <MenuItem onClick={()=>{dispatch(LOGOUT())
+      navigate('/')}}>
+        <IconButton
+          size="large"
+          color="inherit"
+        >
+          <KeyIcon />
+        </IconButton>
+        <p>Cerrar Sesión</p>
+        </MenuItem>}
     </Menu>
   );
 

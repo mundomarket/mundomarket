@@ -49,6 +49,7 @@ export const REGISTERUSER=createAsyncThunk('REGISTERUSER',async (input:{})=>{
 
 export const LOGINUSER=createAsyncThunk('LOGINUSER',async (input:{})=>{
   const login=await axios.post(`http://localhost:3000/login/login`,input)
+  console.log(login.data)
   return login.data
 })
 export const LOGOUT=createAction('LOGOUT')

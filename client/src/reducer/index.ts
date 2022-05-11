@@ -71,7 +71,7 @@ const rootReducer = createReducer(initialState, (builder) => {
         if(action.payload.msg==='success'){
           state.isLogged=true;
           state.user=action.payload.user
-          Cookie.set('user',JSON.stringify( state.user ))
+          Cookie.set('user',JSON.stringify( state.user ),{expires:0.08})
         }
     })
     .addCase(actions.LOGOUT,(state)=>{

@@ -24,10 +24,6 @@ const LoginPage = () => {
         password:""
     })
 
-    useEffect(()=>{
-        if(logged)navigate('/home')
-    },[logged])
-
     const handleChange=(e:any)=>{
         e.preventDefault();
         setError(()=>false)
