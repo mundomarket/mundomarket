@@ -2,7 +2,7 @@ import {model,Schema} from "mongoose"
 import Token from './Token'
 import crypto from "crypto"
 import uniqueValidator from "mongoose-unique-validator";
-import  bcrypt from "bcrypt"
+import bcrypt from "bcryptjs"
 import mailer from '../nodemailer/nodemailer'
 
 
@@ -29,28 +29,43 @@ const userSchema= new Schema({
         type: String,
         required: [true, "el password es requerido"]
     },
-    passwordResetToken: String,
-    passwordResetTokenExpires : Date,
-    verificado: {
-        type: Boolean,
-        default: false,
+    tokenConfirm: {
+        type: String,
+        default: null
     },
-    product:[{
-        type: Schema.Types.ObjectId, 
-        ref: 'Product' 
-    }]
-    // una relacion con mis productos
-    // cada producto tiene un user, y un user puede muchos productos..
+    cuentaConfirmada: {
+        type: Boolean,
+        default: false
+    }
     })
 
 userSchema.plugin(uniqueValidator, {message: "El {PATH} ya existe con otro usuario"})
 
-userSchema.pre('save',function(next:any){
-    if(this.isModified('password')){
-        this.password = bcrypt.hashSync(this.password, 10)
-    }
-    next()
+
+
+userSchema.pre('save', async function(next:any){
+    const user = this
+    if(!user.isModified('password')) return next()
+    
+   try {
+       const salt = await bcrypt.genSalt(10)
+       const hash = await bcrypt.hash(user.password, salt)
+
+       user.password = hash;
+      next()
+   } catch (error) {
+       //validad si falla la encriptacion de password
+       //user = null
+       console.log(error) 
+       next()
+   }
 }) 
+
+userSchema.methods.comparePassword = async function (passwordUser:any){
+    return await bcrypt.compare(passwordUser, this.password)
+}
+
+/* 
 userSchema.methods.validPassword = function(password:any){
     return bcrypt.compareSync(password, this.password);
 }
@@ -94,9 +109,9 @@ userSchema.methods.resetPassword = function(cb:any) {
             console.log("A verifiication email has been sent to ", email_destination)
         })
     })
-
+ 
 }
-  
+  */
 const User= model("User",userSchema)
 export default User
 
