@@ -99,19 +99,22 @@ const ProductPage = () => {
     },[product])
 
 
-    console.log("carrito:", cart)
-
-
-
      const onAddProduct = () => {  
 
-        addProductToCart(tempCartProduct)
+        //cuando uso addProductToCart me acttualiza tempCartProduct.quantity no se porque, 
+        //entonces lo guardo en una variable y al final lo vuelvo a 
+        //asignar con onUpdateQuantity(cant), esto me soluciona un bug del itemCounter
+
+        let cant = tempCartProduct.quantity 
+
+         addProductToCart(tempCartProduct) //meto el producto en el carrito
         
-        cart.map( product => (
-        
-          (product._id===tempCartProduct._id && product.quantity>=product.stock) && (product.quantity=product.stock,alert("no hay stock"))
-          
-        ))
+         //luego de agregar el producto en el carrtio mapeo todos los productos y si el stock es menor 
+         //a la cantidad pedida lo aviso y solamente dejo que hayan pedidos la cantidad de productos en stock
+          cart.map( product => (       
+            (product._id===tempCartProduct._id && product.quantity>=product.stock) && (product.quantity=product.stock,alert("no hay stock"))
+          ))
+          onUpdateQuantity(cant)
 
      }
   
