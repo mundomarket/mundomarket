@@ -1,37 +1,55 @@
 import {Router} from "express";
+import users from'./User'
 
-import user from'./User'
+//import auth
+import register from './Register'  
+import token_confirmed from './Token_confirm'
 import login from "./Login";
-import product from "./Products";
+
+
+//import product
+import products_all from "./Products_All"
+import product_get from './Product_get'
+import product_post from './Product_post'
+import product_detail from './Product_detail'
+import product_delete from './Product_delete'
 import productCart from "./ProductCart";
 import categories from "./Categories";
-import token from "./Token";
-
-import forgot from './Forgot'
-//import productDelete from "./ProductDelete";
-
-
 
 const route=Router() ;
 
-route.use('/user',user) 
+function loggedIn(req:any,res:any,next:any){
+    if(req.user){
+        next()
+    } else {
+        console.log("usuario sin loggearse")
+        res.send("usuario sin loggearse")
+    }
+}
 
-route.use('/login', login) 
-//ruta de login
+// all users
+route.use('/users',users)                 //GET http://localhost:3000/user/list
 
-route.use('/products', product)
-//ruta de productos
+//auth
+route.use('/auth/register',register)                 //POST http://localhost:3000/auth/register/
+route.use('/auth/tokenConfirmed', token_confirmed)   //GET http://localhost:3000/auth/tokenConfirmed/:tokenId
+route.use('/auth/login', login)                      //POST http://localhost:3000/auth/login
+//falta forgotpassword
+
+
+//all products
+route.use('/allProducts' ,products_all)  //GET http://localhost:3000/allProducts/list   trae los productos de TODOS los usuarios
+
+//product user : RUTAS PROTEGIDAS
+route.use('/product', loggedIn, product_get) // GET http://localhost:3000/product/product    trae los productos de CADA usuario.
+route.use('/product', loggedIn, product_post)
+route.use('/product', product_detail)
+route.use('/product',loggedIn, product_delete )
+//falta ruta para editar 
+
 
 route.use('/products-cart', productCart)
-//ruta producto cart
-
 route.use('/categories',categories)
-//ruta de categorias
-
-route.use('/token', token)
-//ruta de token
 
 
-
-//route.use('/fogotPassword', forgot)
 export default route

@@ -1,7 +1,10 @@
 
 import nodemailer from 'nodemailer';
 
+
+
   const config ={
+    //cambiar credenciales de mailtrap
     host: "smtp.mailtrap.io",
     port: 2525,
     auth: {
