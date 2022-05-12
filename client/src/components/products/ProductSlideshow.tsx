@@ -2,7 +2,7 @@ import {FC} from 'react';
 import {Slide} from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 import styles from './ProductSlideshow.module.css';
-
+import {useLocation} from 'react-router-dom'
 
 
 
@@ -13,7 +13,7 @@ interface Props{
 }
 
 export const ProductSlideshow: FC<Props>=({images, duration ,autoPlay})=>{
-
+    const location=useLocation().pathname
     let flechas=true
     let swipe=true
     let indicadores=true
@@ -27,10 +27,9 @@ export const ProductSlideshow: FC<Props>=({images, duration ,autoPlay})=>{
             easing="ease"
             duration={duration}
             autoplay= {autoPlay}
-            indicators= {indicadores}
-            arrows={flechas}
-            canSwipe={swipe}
-            transitionDuration= {500}
+            indicators= {location==='/'?false:indicadores}
+            arrows={location==='/'?false:flechas}
+            canSwipe={location==='/'?false:swipe}
         >
             {
                 images.map( image=>{
@@ -40,7 +39,7 @@ export const ProductSlideshow: FC<Props>=({images, duration ,autoPlay})=>{
                             
                             <div style={{
                                 backgroundImage:`url(${url})`,
-                                backgroundSize: 'contain',
+                                backgroundSize: `${location==='/'?'cover':'contain'}`,
                                 backgroundRepeat:'no-repeat',
                                 backgroundPositionX: 'center'
                             }}>

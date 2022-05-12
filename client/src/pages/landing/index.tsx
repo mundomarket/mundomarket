@@ -1,6 +1,6 @@
 import React from "react";
 //import { ShopLayout } from '../components/layouts/ShopLayout';
-
+import '@fontsource/roboto/300.css';
 import { Grid, Box , Typography, Button, Container, TextField} from '@mui/material';
 //import { initialData } from '../../database/products';
 import { ProductSlideshow } from "../../components/products";
@@ -12,62 +12,33 @@ import { Link } from "react-router-dom";
 import Login from '../auth/login'
 
 const imagenes =  [
-    'https://www.prensa-latina.cu/wp-content/uploads/2021/12/1590688735_728767_1590688895_noticia_normal.jpg',
-    'https://media.informabtl.com/wp-content/uploads/2017/06/bigstock-health-care-dental-hygiene-p-121230014-e1498502524872.jpg',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9nzwwI9EeHkX1U4vQ5LRx2yefOZ-WhOD_tQ&usqp=CAU',
-    'https://www.gndiario.com/sites/default/files/styles/noticia_detalle_noticia_2_1/public/noticias/como-tecnologia-cambia-vidas.jpg?h=a658af3b&itok=8k_S29_T',
+    'https://www.puredistance.com/wp-content/uploads/2017/06/puredistance-crystal-column-gold-black-st05.png',
+    'https://www.hdhouse.ru/data/images/V30.png',
+    'https://www.smstotalmarketing.com/images/camisetas-crop-u59655.png?crc=4278773244',
+    'https://www.joyeriamore.com/media/catalog/product/cache/536fc87119e82c154feb6f8b63241ab9/f/1/f1d7cb3b8f548c856f250a5300c4a50cf08c7d332834d7224a46faaff6325a88.jpeg',
     
 
 ]
 
 const Landing = () => {
     return (
-
-        <div>
-    {/*<ShopLayout title = {"Mundo Maket"} pageDescription={"Bienvenido"} imageFullUrl="any">*/}
-        <Typography  gutterBottom variant='h1' component='h1' justifyContent={'center'}>
-       
-                Donde comprar y vender de todo
-
-        </Typography>
-
-
-        <Grid >
-            <Container maxWidth="xl">
-        
-                        <Grid item xs={6} sm={10} rowSpacing={10}>
-                            <ProductSlideshow
-                                images={imagenes}
-                                duration={3000}
-                                autoPlay={true}
-                            />
-                                   
-                        </Grid>
-                        
-                        <Grid >
-                            <Link to="/home">
-                                        <Button  sx={{mt:1}} color ='secondary' className='circular-btn' fullWidth>    
-                                            HOME
-                                    </Button>
-                            </Link>
-                        </Grid>
-        
-                        
-
-            </Container>
-
-            <Grid >
+        <Box sx={{display:'flex',flexDirection:'column',alignItems:'center'}}>
+            {/* <Box sx={{bgcolor:'black',color:'white',width:'100%'}}>
+                <Typography variant='h3' sx={{m:2}}>MundoMarket</Typography>
+            </Box> */}
+        <Container sx={{display:'flex',justifyContent:'center',m:3,alignItems:'center'}}>
+            <Box sx={{width:{xs:'50%',sm:'20%'},m:{xs:0,sm:3},display:'block'}}>
+                <ProductSlideshow
+                    images={imagenes}
+                    duration={1000}
+                    autoPlay={true}
+                />
+            </Box>
+            <Box>
                 <Login/>
-            </Grid>
-            
-        </Grid>
-
-
-        </div>
-
-       
-
-       
+            </Box>
+        </Container>
+        </Box>
     )
 }
 

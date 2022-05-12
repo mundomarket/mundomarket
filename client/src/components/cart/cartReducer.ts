@@ -21,7 +21,6 @@ export const cartReducer = ( state: CartState, action: CartActionType ): CartSta
 
    switch (action.type) {
       case '[Cart] - LoadCart from cookies | storage':
-         console.log("payload:",action.payload)
          return {
             ...state,
             cart: [...action.payload]
@@ -53,7 +52,7 @@ export const cartReducer = ( state: CartState, action: CartActionType ): CartSta
 
 
       case '[Cart] - Remove product in cart':
-         if(state.cart.length===1)Cookie.set('cart',JSON.stringify([]));   
+         if(state.cart.length===1)Cookie.set('cart', JSON.stringify([]));
          return {
             ...state,
             cart: state.cart.filter( product => !(product._id === action.payload._id  ))

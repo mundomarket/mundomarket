@@ -1,13 +1,11 @@
-import axios from "axios";
+
 import { Router } from "express";
 import Product from "../models/Product"
 const route= Router()
 
 
-
-
-route.get("/", async (req:any, res:any,next:any) => {
-
+route.get("/list", async (req:any, res:any,next:any) => {
+ 
     const {name, names, sort, filterName, filterOrder} = req.query
     
     if(name){
@@ -44,7 +42,7 @@ route.get("/", async (req:any, res:any,next:any) => {
         
         try {
             //http://localhost:3000/products
-            const allProduct  = await Product.find({})
+            const allProduct  = await Product.find()
             return res.json(allProduct)
         } catch (error) {
             next(error)
@@ -52,30 +50,5 @@ route.get("/", async (req:any, res:any,next:any) => {
     }
    
 });
-
-
-route.post('/', async (req:any, res:any) => {
-
-    try {
-            const found = await Product.findOne({ name: req.body.name })
-
-        if (found) {
-            res.send('You can´t post the same product twice')
-        }
-        else {
-
-            const newProduct = new Product(req.body);
-            console.log(newProduct)
-            await newProduct.save()
-            return res.send('Product created')
-        }
-
-    } catch (err) {
-        res.send(err)
-    }
-})
-
-
-             
 
 export default route

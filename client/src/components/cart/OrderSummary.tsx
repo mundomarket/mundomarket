@@ -7,7 +7,6 @@ import { CartContext } from './CartContext';
 export const OrderSummary = () => {
 
     const { numberOfItems, total } = useContext( CartContext );
-    console.log("que es total", total)
   return (
     <Grid container>
         

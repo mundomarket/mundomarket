@@ -48,13 +48,14 @@ export const ProductCard: FC <Props> = ( {product}) =>{
 
                         <CardActionArea>
                             <CardMedia
-                                //sx={{width: 500 }}
+                                //sx={{width: 200 }}
                                 height={'300vh'}
                                 //height={'100%'}
                                 component='img'
                                 className='fadeIn'
                                 image={productImage}
                                 alt={product.name}
+                                sx={{boxShadow:1}}
                             />
                         </CardActionArea>
 

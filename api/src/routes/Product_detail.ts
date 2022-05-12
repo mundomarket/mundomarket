@@ -1,7 +1,6 @@
-import {Router} from "express";
+import { Router } from "express";
 import Product from "../models/Product"
-const route=Router()
-
+const route= Router()
 
 
 route.get("/:id", async(req:any, res:any) => {
@@ -14,5 +13,6 @@ route.get("/:id", async(req:any, res:any) => {
     }
  
 });
+
 
 export default route

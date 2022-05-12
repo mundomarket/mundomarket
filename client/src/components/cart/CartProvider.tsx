@@ -11,11 +11,12 @@ export interface CartState {
 }
 
 
-const CART_INITIAL_STATE: CartState = {
+const CART_INITIAL_STATE: CartState ={
     cart: [],
     numberOfItems: 0,
-    total: 0,
+    total: 0
 }
+
 
 type Props = {
     children?: React.ReactNode
@@ -32,7 +33,7 @@ export const CartProvider: FC<Props> = ({children}) => {
     useEffect(() => {
         try 
         {
-            const cookieProducts = Cookie.get('cart') ? JSON.parse( Cookie.get('cart')! ): [] // Cookie.get(cart) pregunto si existe para que no sea undefined, lo parseo sino array vacio
+            const cookieProducts = Cookie.get('cart')? JSON.parse( Cookie.get('cart')! ): [] // Cookie.get(cart) pregunto si existe para que no sea undefined, lo parseo sino array vacio
              dispatch({ type: '[Cart] - LoadCart from cookies | storage', payload: cookieProducts });
         } catch (error) {
             dispatch({ type: '[Cart] - LoadCart from cookies | storage', payload: [] });
@@ -40,7 +41,7 @@ export const CartProvider: FC<Props> = ({children}) => {
     }, []);
 
     useEffect(() => { //esto hace que se mantengan los productos en  el carrito si actualizo la pagina
-        state.cart.length>0 && Cookie.set('cart', JSON.stringify( state.cart ));
+        if(state.cart.length>0)Cookie.set('cart', JSON.stringify( state.cart ));
       }, [state.cart]);
 
 
