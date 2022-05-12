@@ -1,9 +1,11 @@
 import { Router } from "express";
 import Product from "../models/Product"
-const route= Router()
+import { verifyToken } from "../controllers/authJwt";
+const route=Router()
 
 
-route.get("/:id", async(req:any, res:any) => {
+
+route.get("/:id", verifyToken,  async(req:any, res:any) => {
     let id:string=req.params.id;
     try {
         let resultado:any[]|null=await Product.findById(id)

@@ -1,6 +1,6 @@
-
 import { Router } from "express";
 import Product from "../models/Product"
+import {verifyToken, isAdmin} from '../controllers/authJwt'
 const route= Router()
 
 
@@ -50,5 +50,30 @@ route.get("/list", async (req:any, res:any,next:any) => {
     }
    
 });
+
+
+route.post('/', verifyToken, async (req:any, res:any) => {
+
+    try {
+            const found = await Product.findOne({ name: req.body.name })
+
+        if (found) {
+            res.send('You can´t post the same product twice')
+        }
+        else {
+
+            const newProduct = new Product(req.body);
+            console.log(newProduct)
+            await newProduct.save()
+            return res.send('Product created')
+        }
+
+    } catch (err) {
+        res.send(err)
+    }
+})
+
+
+             
 
 export default route

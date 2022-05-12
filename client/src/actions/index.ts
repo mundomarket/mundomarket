@@ -45,12 +45,12 @@ export const GETORDENAMIENTOS=createAsyncThunk('GET_ORDENAMIENTOS',async (input:
 
 export const REGISTERUSER=createAsyncThunk('REGISTERUSER',async (input:{})=>{
 
-  await axios.post(`http://localhost:3000/register/register`,input)
+  await axios.post(`http://localhost:3000/auth/register`,input)
 
 })
 
 export const LOGINUSER=createAsyncThunk('LOGINUSER',async (input:{})=>{
-  const login=await axios.post(`http://localhost:3000/login/login`,input)
+  const login=await axios.post(`http://localhost:3000/auth/login`,input)
   console.log(login.data)
   return login.data
 })

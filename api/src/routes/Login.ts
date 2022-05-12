@@ -34,7 +34,7 @@ route.post("/", [
             req.login(user, function(err:any){
                 if(err) res.send("no se pudo crear a sesion")
                 console.log("esto es sesion de usuario",req.user)
-                return res.send("login sussces")
+                return res.send("login success")
                
             })
        } catch (error) {

@@ -5,6 +5,10 @@ import uniqueValidator from "mongoose-unique-validator";
 import bcrypt from "bcryptjs"
 import mailer from '../nodemailer/nodemailer'
 
+<<<<<<< HEAD
+=======
+const userSchema = new Schema({
+>>>>>>> 9b2cfc69905716d3daeddaa129942ba90a58ab27
 
 const validateEmail = (email:any)=>{
     const validate = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -26,6 +30,7 @@ const userSchema= new Schema({
         validate: [validateEmail, "email invalido"]
     },
     password:{
+<<<<<<< HEAD
         type: String,
         required: [true, "el password es requerido"]
     },
@@ -107,6 +112,69 @@ userSchema.methods.email_Welcome= function (cb:any){
     })
  
 }
+=======
+        type:String,
+        required:true,
+    },
+    avatar:{
+        type:String,   
+    },
+
+    history:{  //historial del usuario
+        type:Array,
+        default:[]
+    },
+    
+    country : {
+        type: String,
+        required : true
+    },
+
+    city : {
+        type: String,
+        required : true
+    },
+
+    adress:{
+        type: String,
+        required: true
+    },
+
+    phone : {
+        type : String,
+        required : true
+    },
+
+    cuil : {
+        type : String,
+        required : true
+    },
+
+    roles: [
+        {
+            type : Schema.Types.ObjectId,
+            ref : 'Role'
+        }
+    ],
+
+    verified : {
+        type : Boolean,
+        default : false,
+        required : true
+    },
+
+    suspendedAccount : {
+        type : Boolean,
+        default : false,
+        required : true
+    }
+
+
+}, {
+    versionKey : false
+});
+
+>>>>>>> 9b2cfc69905716d3daeddaa129942ba90a58ab27
 
 const User= model("User",userSchema)
 export default User

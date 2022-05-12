@@ -68,7 +68,8 @@ const rootReducer = createReducer(initialState, (builder) => {
       
     })
     .addCase(actions.LOGINUSER.fulfilled, (state, action) => {
-        if(action.payload.msg==='success'){
+      console.log(action.payload)
+        if(action.payload==='login success'){
           state.isLogged=true;
           state.user=action.payload.user
           Cookie.set('user',JSON.stringify( state.user ),{expires:0.08})

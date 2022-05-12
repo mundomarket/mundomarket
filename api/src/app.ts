@@ -1,15 +1,20 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
-import router from "./Routes/index"
+
 import session from 'express-session'
 import passport from "passport";
 import User from './models/User'
 
 
 
+// import csurf from "csurf";
+import router from "./routes/index"
+import {createRoles} from './controllers/initialSetUp';
 
 const app = express();
+createRoles();
+// const csurfProtection = csurf();
 
 
 app.use(session({
