@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Router } from "express";
 import Product from "../models/Product"
 import {verifyToken, isAdmin} from '../controllers/authJwt'
@@ -55,7 +54,7 @@ route.get("/", async (req:any, res:any,next:any) => {
 });
 
 
-route.post('/', [verifyToken, isAdmin], async (req:any, res:any) => {
+route.post('/', verifyToken, async (req:any, res:any) => {
 
     try {
             const found = await Product.findOne({ name: req.body.name })

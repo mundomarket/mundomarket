@@ -19,13 +19,6 @@ const userSchema = new Schema({
         type:String,   
     },
 
-    roles: [
-        {
-            type : Schema.Types.ObjectId,
-            ref : 'Role'
-        }
-    ],
-
     history:{  //historial del usuario
         type:Array,
         default:[]
@@ -53,6 +46,25 @@ const userSchema = new Schema({
 
     cuil : {
         type : String,
+        required : true
+    },
+
+    roles: [
+        {
+            type : Schema.Types.ObjectId,
+            ref : 'Role'
+        }
+    ],
+
+    verified : {
+        type : Boolean,
+        default : false,
+        required : true
+    },
+
+    suspendedAccount : {
+        type : Boolean,
+        default : false,
         required : true
     }
 

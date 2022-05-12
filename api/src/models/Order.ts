@@ -20,12 +20,7 @@ const OrderSchema=new Schema({
         type : String,
         required : true
     },
-    
-    name : {
-        type : String,
-        required : true
-    },
-    
+
     paymentId: { //ver como puedo sacarlo de PayPal
         type : String,
         required : true

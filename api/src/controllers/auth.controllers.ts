@@ -6,13 +6,13 @@ import config from '../config';
 import Role from '../models/Role';
 
 
-const encryptPassword = async (password : string) => {
+const encryptPassword = async (password: string) => {
     const salt = await bcrypt.genSalt(10)
     return await bcrypt.hash(password, salt);
 }
 
 
-const comparePasswords = async (savedPassword : string, receivedPassword : string) => {
+const comparePasswords = async (savedPassword: string, receivedPassword: string) => {
     return await bcrypt.compare(savedPassword, receivedPassword)
 }
 
@@ -20,63 +20,63 @@ const comparePasswords = async (savedPassword : string, receivedPassword : strin
 
 
 export const signUp = async (req: Request, res: Response) => {
-    const { name, email, password, avatar, country, city, adress, phone, cuil, roles } = req.body;
-    
-    const found = await User.find({email});
+    const { name, email, password, avatar, country, city, adress, phone, cuil } = req.body;
+
+    const found = await User.find({ email });
 
     if (found.length > 0) {
         res.send('There is an account already created with this email')
     } else {
-        const newUser = new User({ name, email, password : await encryptPassword(password), avatar, country, city, adress, phone, cuil });
+        // no olvidar verficar el mail antes de guardar!
+        // comprobar CUIL en el front? ver función 
+        const newUser = new User({ name, email, password: await encryptPassword(password), avatar, country, city, adress, phone, cuil });
 
-        if(roles){ //lo ideal sería que el admin se cree desde la DB, y los usuarios creados desde la App sean role:user por defecto
-           const foundRoles = await Role.find({ name : {$in: roles}});
-           newUser.roles = foundRoles.map(role => role._id)         
-        } else {
-            //si no le paso roles, me asigna User. De todas formas hay que ponerlo como default y el admin crearlo manualmente
-            const role = await Role.findOne({name : 'user'});
-            newUser.roles = [role._id]
-        }
+        // if(roles){ 
+        //    const foundRoles = await Role.find({ name : {$in: roles}});
+        //    newUser.roles = foundRoles.map(role => role._id)         
+        // } else {
+
+        //le agrega el rol 'User' de manera predet. Solo el dev crea admin/s. 
+        const role = await Role.findOne({ name: 'user' });
+        newUser.roles = [role._id]
+        // }
+
+
         await newUser.save();
 
-        const token = jwt.sign({id: newUser._id}, config.SECRET_JWT, { expiresIn : 86400 /*24hs*/ })
-        res.send({token})
-    
+        const token = jwt.sign({ id: newUser._id }, config.SECRET_JWT, { expiresIn: 86400 /*24hs*/ })
+
+
+
+        // lo mando para que el Front lo capte y guarde
+        // https://rajaraodv.medium.com/securing-react-redux-apps-with-jwt-tokens-fcfe81356ea0
+        res.json({ user: newUser.name, token })
+
+
     }
 
 }
 
 
 
-export const signIn = async (req: Request, res: Response) => {
-    
+export const logIn = async (req: Request, res: Response) => {
+
     const { email, password } = req.body;
 
-    const found = await User.findOne({email}).populate('roles')
- 
-    if(!found) return res.status(400).json({message : 'User not found'});
+    const found = await User.findOne({ email }).populate('roles')
+
+    if (!found) return res.status(400).json({ message: 'Incorrect mail' });
+
+    // ban => ver modelo User
+    if(found.suspendedAccount) return res.status(401).json({ message: 'Your account it´s temporary suspended.' })
 
     const matchPassword = await comparePasswords(password, found.password);
 
-    if(!matchPassword) return res.status(401).json({message : 'Incorrect password'})
-    
-    const token = jwt.sign({id: found._id}, config.SECRET_JWT, {expiresIn : 86400})
+    if (!matchPassword) return res.status(401).json({ message: 'Incorrect password' })
 
-    console.log(found);
+    const token = jwt.sign({ id: found._id }, config.SECRET_JWT, { expiresIn: 86400 })
 
-    res.json({token})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // lo mando para que el Front lo capte y guarde, cookies, localStorage, reducer, donde sea más cómodo
+    // https://rajaraodv.medium.com/securing-react-redux-apps-with-jwt-tokens-fcfe81356ea0
+    res.json({  found, token });
 }

@@ -1,5 +1,5 @@
 // Authorization
-// verifica si tiene token y su rol
+// verifica token (user registrado) y rol
 
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
@@ -14,11 +14,13 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
         if (!token) return res.status(403).json({ message: 'No token provided' })
 
         const decoded: any = jwt.verify(token, config.SECRET_JWT)
+
         req.userId =  decoded.id
 
         const user = await User.findById(req.userId, { passsword: 0 })
         if (!user) return res.status(404).json({ message: 'User Not Found' })
         next();
+
     } catch (err) {
         return res.status(401).json({ message: 'Unauthorized' })
     }
@@ -29,5 +31,5 @@ export const isAdmin = async (req: Request, res: Response, next: NextFunction) =
     const roles = await Role.find({_id: {$in : user.roles}});
     
     console.log('Role => ', roles[0].name);
-    roles[0].name === 'admin' ? next() : res.status(403).json({message : 'Permit denied'})
+    roles[0].name === 'admin' ? next() : res.status(403).json({message : 'Unauthorized action'})
 }
