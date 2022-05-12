@@ -1,23 +1,21 @@
 import {Router} from "express";
 
-import product from "./Products";
-import productCart from "./ProductCart";
-import category from "./Categories";
 import user from "./Users";
-import productdetail from "./ProductDetail";
-import auth from './Auth';
-import productDelete from "./ProductDelete";
+import * as authCtrl from '../controllers/auth.controllers';
+import product from "./Products";
+import category from "./Categories";
+import productCart from "./ProductCart";
 
 
-const route=Router() ;//tipo de objeto Route
+const route=Router() ;
 
-route.use('/auth', auth) //creación de usuario e inicio de sesión => solo se crean Users, los Admins son creados por el Dev
-route.use("/users", user) //CRUD de usuario - ADMIN LEE Y BORRA => implementar ban y permaban? seee
+route.use("/users", user) //CRUD de usuario - ADMIN LEE Y BORRA => implementar ban y permaban?
+route.use("/users/signup", authCtrl.signUp) // registro de usuario. Solo el Dev crea al Admin 
+route.use("/users/login", authCtrl.logIn) //loggeo de Usuario y Admin registrado
 route.use("/products", product)
+route.use("/categories",category) // solo admin
 route.use("/products-cart", productCart) 
-route.use("/categories",category) //admin
-route.use("/products",productdetail) //todos
-route.use("/delete",productDelete) //admin o usuario registrado
+
 
 
 export default route

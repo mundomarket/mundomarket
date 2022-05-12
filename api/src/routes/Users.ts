@@ -16,6 +16,18 @@ route.get("/", [verifyToken, isAdmin], async (req: any, res: any, next: any) => 
 
 });
 
+
+route.get("/:id", verifyToken,  async(req:any, res:any) => {
+    const { id }= req.param;
+    try {
+        const found:any[]|null=await User.findById(id)
+        res.send(found? found : "User not found" )
+    } catch (error) {
+        res.send({error: "User not found"})
+    }
+ 
+});
+
 // POST => Ver Auth.ts. Solo se crean Users, solo Dev crea Admins
 
 route.delete('/:id', [verifyToken, isAdmin], async (req: Request, res: Response, next: NextFunction) => {
@@ -26,7 +38,7 @@ route.delete('/:id', [verifyToken, isAdmin], async (req: Request, res: Response,
     // esto es permaban, ojo
     try {
         const { id } = req.params;
-        const found = await User.findByIdAndRemove({id})
+        const found = await User.findByIdAndRemove({_id: id})
         res.json({ message: `User : ${found.name} - ID : ${found._id} successfully deleted` })
     } catch (err) {
         next(err)
@@ -37,8 +49,8 @@ route.put('/:id', verifyToken, async (req: Request, res: Response, next: NextFun
 
     try {
         const { id } = req.params;
-        await User.findByIdAndUpdate({id}, req.body);
-        const updatedUser = await User.findById({id})
+        await User.findByIdAndUpdate({_id: id}, req.body);
+        const updatedUser = await User.findById({_id: id})
         res.send(updatedUser)
     } catch(err){
         next(err)

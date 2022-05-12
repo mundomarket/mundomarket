@@ -1,6 +1,7 @@
 import { Router } from "express";
 import Product from "../models/Product"
 import {verifyToken, isAdmin} from '../controllers/authJwt'
+import { Request, Response, NextFunction } from "express";
 const route= Router()
 
 
@@ -73,7 +74,48 @@ route.post('/', verifyToken, async (req:any, res:any) => {
     } catch (err) {
         res.send(err)
     }
-})
+});
+
+
+route.get("/:id", verifyToken,  async(req:any, res:any) => {
+    let id:string=req.params.id;
+    try {
+        let resultado:any[]|null=await Product.findById(id)
+        res.send(resultado? resultado : "No se encuentra el producto" )
+    } catch (error) {
+        res.send({error: "No se encuentra el producto"})
+    }
+ 
+});
+
+
+route.put('/:id', verifyToken, async (req: Request, res: Response, next: NextFunction) => {
+
+    try {
+        const { id } = req.params;
+        await Product.findByIdAndUpdate({_id: id}, req.body);
+        const updatedProduct = await Product.findById({_id: id});
+        res.send(updatedProduct);
+    } catch(err){
+        next(err)
+    }
+
+});
+
+
+route.delete("/:id", verifyToken, async (req:any, res:any, next:any)=>{
+    try {
+        const id = req.query.id
+        if(id){
+        await Product.findByIdAndDelete(id)
+        return res.send("Removed product")
+        }
+        res.send("Product ID needed")
+ 
+    } catch (error) {
+        next(error)
+    }
+ });
 
 
              

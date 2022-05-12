@@ -44,13 +44,13 @@ export const signUp = async (req: Request, res: Response) => {
 
         await newUser.save();
 
-        const token = jwt.sign({ id: newUser._id }, config.SECRET_JWT, { expiresIn: 86400 /*24hs*/ })
-
+        // const token = jwt.sign({ id: newUser._id }, config.SECRET_JWT, { expiresIn: 86400 /*24hs*/ })
+        // no creo token para esperar la confirmación del mail y luego logeo manual
 
 
         // lo mando para que el Front lo capte y guarde
         // https://rajaraodv.medium.com/securing-react-redux-apps-with-jwt-tokens-fcfe81356ea0
-        res.json({ user: newUser.name, token })
+        res.json({ user: newUser.name})
 
 
     }
@@ -78,5 +78,5 @@ export const logIn = async (req: Request, res: Response) => {
 
     // lo mando para que el Front lo capte y guarde, cookies, localStorage, reducer, donde sea más cómodo
     // https://rajaraodv.medium.com/securing-react-redux-apps-with-jwt-tokens-fcfe81356ea0
-    res.json({  found, token });
+    res.json({ user : found.name, token });
 }
