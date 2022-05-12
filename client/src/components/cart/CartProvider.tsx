@@ -74,15 +74,15 @@ export const CartProvider: FC<Props> = ({children}) => {
         // dispatch({ type: '[Cart] - Add Product', payload: [...productsInCart, product] })
 
         //! Nivel Final
-      const productInCart = state.cart.some( p => p._id === product._id );
-        if ( !productInCart ) return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product ] })
+      const productInCart = state.cart.some( p => p._id === product._id ); //productInCart es verdadero si el producto agregado esta en el carrito
+        if ( !productInCart ) return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product ] }) //si el producto no esta en el carrito entonces lo agrega
 
         // Acumular
-        const updatedProducts = state.cart.map( p => {
-            if ( p._id !== product._id ) return p;
+        const updatedProducts = state.cart.map( p => { //si el producto agregado esta en el carrito entonces mapea el carrito 
+            if ( p._id !== product._id ) return p; // y si los productos del carrito no coinciden con el producto agregado, devuelve cada producto del carrtio
 
             // Actualizar la cantidad
-            p.quantity += product.quantity;
+            p.quantity += product.quantity; //pero si coincide el producto agregado con el producto del carrito entonces suma la cantidad de producto del carrito y luego duelve el producto con la cantidad actualizada
             return p;
         });
 

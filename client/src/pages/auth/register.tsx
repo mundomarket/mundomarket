@@ -16,6 +16,7 @@ const RegisterPage = () => {
         password:"",
         name:""
     })
+    const [error,setError]=useState({email:false,password:false})
     
     const dispatch=useAppDispatch()
 
@@ -31,8 +32,16 @@ const RegisterPage = () => {
     }
     const handleChange=(e:any)=>{
         e.preventDefault();
-       
+        setError(()=>({email:false,password:false}))
+        const rgmail=/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+        const rgpassword=/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
         setInput((prev) => ({...prev, [e.target.name]:e.target.value}))
+        if(e.target.name==='email'){
+            if(!rgmail.test(e.target.value))setError((old)=>({...old,email:true}))
+        }
+        if(e.target.name==='password'){
+            if(!rgpassword.test(e.target.value))setError((old)=>({...old,password:true}))
+        }
 
     }
     return(
@@ -48,11 +57,12 @@ const RegisterPage = () => {
                     </Grid>
 
                     <Grid item xs={12}>
-                        <TextField name='email' label='correo' value={input.email} onChange={(e)=>handleChange(e)} variant="filled" fullWidth></TextField>
+                        <TextField error={error.email} name='email' label='correo' value={input.email} onChange={(e)=>handleChange(e)} variant="filled" fullWidth></TextField>
                     </Grid>
 
                     <Grid item xs={12}>
-                        <TextField name='password' label='contraseña' value={input.password} onChange={(e)=>handleChange(e)} type='password' variant="filled" fullWidth></TextField>
+                        <TextField error={error.password} name='password' label='contraseña' value={input.password} onChange={(e)=>handleChange(e)} type='password' variant="filled" fullWidth></TextField>
+                        {error.password && <Typography sx={{color:"red",fontSize:12}}>Debe contener al menos 8 caracteres</Typography>}
                     </Grid>
 
                     <Grid xs={12} sx={{mt:3}} >

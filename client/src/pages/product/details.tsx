@@ -1,8 +1,9 @@
 //import { ShopLayout } from '../../components/layouts/ShopLayout';
+import * as React from 'react';
 import { Grid, Box , Typography, Button, Chip} from '@mui/material';
 import { CartContext } from '../../components/cart/CartContext';
 import { ProductSlideshow } from '../../components/products';
-import {ItemCounter} from '../../components/itemCounter';
+import { ItemCounter } from '../../components/itemCounter';
 import NavBar from '../../components/NavBar/NavBar'
 import {useNavigate, useParams} from "react-router-dom"
 
@@ -55,7 +56,9 @@ const ProductPage = () => {
       
 
      // const router = useRouter();
-      const { addProductToCart } = useContext( CartContext )
+      const { addProductToCart} = useContext( CartContext )
+      const { cart } = React.useContext( CartContext );
+      
    
       const [tempCartProduct, setTempCartProduct] = useState<ICartProduct>({
        _id: product._id,
@@ -96,26 +99,23 @@ const ProductPage = () => {
     },[product])
 
 
-
      const onAddProduct = () => {  
 
-      //if(!tempCartProduct._id){return}
-      //setTempCartProduct( product);
+        //cuando uso addProductToCart me acttualiza tempCartProduct.quantity no se porque, 
+        //entonces lo guardo en una variable y al final lo vuelvo a 
+        //asignar con onUpdateQuantity(cant), esto me soluciona un bug del itemCounter
 
+        let cant = tempCartProduct.quantity 
 
-      tempCartProduct.price?
-        addProductToCart(tempCartProduct)
-        :
-        console.log("hola") ;
+         addProductToCart(tempCartProduct) //meto el producto en el carrito
+        
+         //luego de agregar el producto en el carrtio mapeo todos los productos y si el stock es menor 
+         //a la cantidad pedida lo aviso y solamente dejo que hayan pedidos la cantidad de productos en stock
+          cart.map( product => (       
+            (product._id===tempCartProduct._id && product.quantity>=product.stock) && (product.quantity=product.stock,alert("no hay stock"))
+          ))
+          onUpdateQuantity(cant)
 
-
-       
-
-
-
-      // router.push('/cart');
-      //navegar("/cart")//se accede al carrito
-      //window.location.reload();//se refresca para activar el dispatch de GETPRODUCTS()
      }
   
 

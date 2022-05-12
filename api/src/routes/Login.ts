@@ -25,6 +25,7 @@ route.post("/", [
        try {
            const user = await User.findOne({email})
            
+
             if(!user) throw new Error("not found user")
             if(!user.cuentaConfirmada) return res.send("please confirm your account")
             if(!(await user.comparePassword(password))) return res.send("invalid password")

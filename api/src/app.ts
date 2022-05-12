@@ -4,7 +4,7 @@ import cors from "cors";
 import router from "./Routes/index"
 import session from 'express-session'
 import passport from "passport";
-import User from '../src/models/User'
+import User from './models/User'
 
 
 
