@@ -16,13 +16,9 @@ route.get('/', async(req,res, next)=>{
 
 route.get("/:tokenId", async(req:any, res:any, next:any)=>{
   
-
-
    try {
     const token = await Token.findOne({token: req.params.tokenId})
-   
     if(!token) return res.send("no se encontro el token")
-
     const user = await User.findById(token._userId)
     console.log(user)
     if(!user) return res.send("no se encontro el user")

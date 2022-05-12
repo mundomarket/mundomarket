@@ -64,10 +64,6 @@ userSchema.methods.comparePassword = async function (passwordUser:any){
 }
 
 /* 
-userSchema.methods.validPassword = function(password:any){
-    return bcrypt.compareSync(password, this.password);
-}
-
 userSchema.methods.resetPassword = function(cb:any) {
     const token = new Token({_userId: this.id, token: crypto.randomBytes(16).toString('hex')});
     const email_destination = this.email;
@@ -100,7 +96,7 @@ userSchema.methods.email_Welcome= function (cb:any){
             from: 'mundomarket@mundomarket.com',
             to: email_destination,
             subject: "check e-mail",
-            html: `<a href= "http://localhost:3000/tokenConfirmed/${token.token}">verifique su cuenta aqui</a>`
+            html: `<a href= "http://localhost:3000/auth/tokenConfirmed/${token.token}">verifique su cuenta aqui</a>`
 
             //'Bienvenido a  MUNDOMARKET \n\n' + 'Verifique su cuenta haciendo click aqui: \n'+ 'http://localhost:3000'+ '\/token/confirmation\/' + token.token 
         };

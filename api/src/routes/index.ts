@@ -40,9 +40,9 @@ route.use('/auth/login', login)                      //POST http://localhost:300
 //all products
 route.use('/allProducts' ,products_all)  //GET http://localhost:3000/allProducts/list   trae los productos de TODOS los usuarios
 
-//product user  --> con autorizacion 
-route.use('/product',loggedIn , product_get) // GET http://localhost:3000/product/product    trae los productos de CADA usuario.
-route.use('/product', loggedIn , product_post)
+//product user : RUTAS PROTEGIDAS
+route.use('/product', loggedIn, product_get) // GET http://localhost:3000/product/product    trae los productos de CADA usuario.
+route.use('/product', loggedIn, product_post)
 route.use('/product', product_detail)
 route.use('/product',loggedIn, product_delete )
 //falta ruta para editar 

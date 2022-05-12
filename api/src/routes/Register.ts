@@ -9,9 +9,6 @@ route.get('/', (req:any,res:any)=>{
 })
 
 
-
-//http://localhost:3000/register/register
-
 route.post("/", [
     body("name", "ingrese un nombre valido").trim().notEmpty().escape(),
     body("email", "ingrese un email valido").trim().isEmail().normalizeEmail(),
@@ -27,7 +24,7 @@ route.post("/", [
     const {name, email, password} = req.body
     try {
        let user =  await User.findOne({email: email})
-       if(user) throw new Error("ya existe el usuario")
+       if(user) return res.send("ya existe el usuario")
         user  = new User ({name, email, password})
         user.email_Welcome()
         await user.save()
