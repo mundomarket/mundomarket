@@ -10,8 +10,8 @@ route.get('/', async (req:any, res:any, next:any) => {
     res.send("login")
 });
 
-//http://localhost:3000/login/login
-route.post("/login", [
+
+route.post("/", [
     body("email", "ingrese un email valido").trim().isEmail().normalizeEmail(),
     body("password", "password invalida").trim().isLength({ min:5 }).escape()
 ],async(req:any, res:any, next:any)=>{
@@ -25,20 +25,19 @@ route.post("/login", [
        try {
            const user = await User.findOne({email})
            
-           if(!user) throw new Error("not found user")
-          // if(!user.cuentaConfirmada) throw new Error("please confirm your account")
-          // if(!(await user.comparePassword(password))) throw new Error("invalid password")
+            if(!user) throw new Error("not found user")
+            if(!user.cuentaConfirmada) return res.send("please confirm your account")
+            if(!(await user.comparePassword(password))) return res.send("invalid password")
            
-          //creacion del usuario por medio de passport
+          //se crea el usuario por medio de passport
             req.login(user, function(err:any){
-                if(err) throw new Error("no se pudo crear a sesion")
+                if(err) res.send("no se pudo crear a sesion")
                 console.log("esto es sesion de usuario",req.user)
-               return res.send("login sussces")
+                return res.send("login sussces")
                
-            
             })
-       } catch (error:any) {
-        console.log({ error: error.message})
+       } catch (error) {
+        next(error)
        }
 });
 
@@ -46,7 +45,7 @@ route.post("/login", [
 route.get('/logout', (req:any, res:any, )=>{
     req.logout()
     return res.redirect('/login')
-    //return res.send("logout sussces")
+    
 })
 
 

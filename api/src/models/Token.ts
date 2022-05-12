@@ -1,7 +1,6 @@
 
 import {model,Schema} from "mongoose"
 
-
 const tokenSchema= new Schema({
     _userId:[{
         type: Schema.Types.ObjectId,

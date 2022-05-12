@@ -6,7 +6,7 @@ const route= Router()
 
 route.post('/createProduct', async (req:any, res:any) => {
    
-const {name, price, description} = req.body
+const {name, price, description, stock, imageProduct,  category} = req.body
     try {
             const found = await Product.findOne({ name: req.body.name })
 
@@ -17,10 +17,14 @@ const {name, price, description} = req.body
         else {
 
             const newProduct = new Product({
+
                 name:name, 
                 price:price, 
                 description: description,
-                 user: req.user.id});
+                stock:  stock,
+                imageProduct:  imageProduct,
+                category:  category,
+                user: req.user.id});
 
             await newProduct.save()
             console.log("add product")
@@ -31,9 +35,6 @@ const {name, price, description} = req.body
         res.send(err)
     }
 })
-
-
-
 
 
 export default route

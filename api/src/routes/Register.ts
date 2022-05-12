@@ -9,16 +9,13 @@ route.get('/', (req:any,res:any)=>{
 })
 
 
- /* .custon((value:any,(req:any))=>{
-        if(value !== req.body.repeatPassword) 2:10hs
-    })*/
-
 
 //http://localhost:3000/register/register
-route.post("/register", [
+
+route.post("/", [
     body("name", "ingrese un nombre valido").trim().notEmpty().escape(),
     body("email", "ingrese un email valido").trim().isEmail().normalizeEmail(),
-    body("password", "ingrese una password valida").trim().isLength({ min:5 }).escape()
+    body("password", "ingrese una password valida").trim().escape()
    
     ],async(req:any, res:any, next:any)=>{
     
@@ -32,17 +29,14 @@ route.post("/register", [
        let user =  await User.findOne({email: email})
        if(user) throw new Error("ya existe el usuario")
         user  = new User ({name, email, password})
+        user.email_Welcome()
         await user.save()
-
-        //enviar correo electronico para la confirmacion de la cuenta
-       
-        return res.send("login succes")
-        //return res.send("login success")
-       // return res.send("usuario registrado con exito")
+        return res.send("register successfull")
+      
 
     } catch (error:any) {
         console.log({ error: error.message})
-        //res.json
+        
     }
 })
 
