@@ -16,6 +16,7 @@ import Login from './pages/auth/login'
 import Register from './pages/auth/register'
 import CrearProducto from './pages/product/formNewProduct'
 import Profile from './pages/profile';
+import Admin from './pages/admin/pageAdmin';
 
 import Prueba from './pages/product/Recommended'
 
@@ -44,6 +45,7 @@ function App() {
             <Route path='/product/:id' element={<Product/>}/>
             <Route path='/history/:id' element={<History/>}/>
             <Route path='/history/order/:id' element={<Order/>}/>
+            <Route path='/admin' element={<Admin/>}/>
 
             <Route path='/summary' element={Summary()}/>
             <Route path='/cart' element={Cart()}/>

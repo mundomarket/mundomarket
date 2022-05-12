@@ -17,6 +17,16 @@ const rootReducer = createReducer(initialState, (builder) => {
       
     })
 
+    .addCase(actions.GETUSERS.fulfilled, (state, action) => {
+      state.productos=action.payload
+      
+    })
+
+    .addCase(actions.GETORDER.fulfilled, (state, action) => {
+      state.productos=action.payload
+      
+    })
+
     .addCase(actions.GETDETAIL.fulfilled, (state, action) => {
       state.detail=action.payload
     })

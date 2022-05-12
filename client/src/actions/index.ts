@@ -7,6 +7,16 @@ export const GETPRODUCTS=createAsyncThunk('GET_PRODUCTS',async ()=>{
     return result.data
 })
 
+export const GETUSERS=createAsyncThunk('GET_USERS',async ()=>{
+  const result=await axios(`${api}/users`)
+  return result.data
+})
+
+export const GETORDERS=createAsyncThunk('GET_ORDERS',async ()=>{
+  const result=await axios(`${api}/orders`)
+  return result.data
+})
+
 export const GETUSERPRODUCTS=createAsyncThunk('GET_USER_PRODUCTS',async (id: string | undefined)=>{
   const result=await axios(`${api}/products`)
   return result.data
