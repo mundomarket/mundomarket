@@ -16,6 +16,19 @@ route.get("/", verifyToken, async (req: Request, res: Response, next: NextFuncti
 });
 
 
+route.get("/:id", verifyToken,  async(req:any, res:any) => {
+    const { id } = req.params
+    try {
+        const found:any[]|null=await Order.findById(id)
+        res.send(found? found : "Order not found" )
+    } catch (error) {
+        res.send({error: "Order not found"})
+    }
+ 
+});
+
+
+
 
 // route.post('/', [verifyToken, isAdmin], async (req: Request, res: Response, next: NextFunction) => {
 //     try {
