@@ -33,23 +33,8 @@ const userSchema= new Schema({
     passwordResetTokenExpire: Date,
     cuentaConfirmada: {
         type: Boolean,
-<<<<<<< HEAD
-        default: false,
-    },
-    product:[{
-        type: Schema.Types.ObjectId, 
-        ref: 'Product' 
-    }],
-    token:{
-        type:String,
-        default:""
-    }
-    // una relacion con mis productos
-    // cada producto tiene un user, y un user puede muchos productos..
-=======
         default: false
     }
->>>>>>> 95149f54c4854bd13e4b93ca820f2b1478c4452e
     })
 
 userSchema.plugin(uniqueValidator, {message: "El {PATH} ya existe con otro usuario"})
@@ -78,44 +63,18 @@ userSchema.methods.comparePassword = async function (passwordUser:any){
     return await bcrypt.compare(passwordUser, this.password)
 }
 
-<<<<<<< HEAD
-// userSchema.methods.resetPassword = function(cb:any) {
-//     const token = new Token({_userId: this.id, token: crypto.randomBytes(16).toString('hex')});
-//     const email_destination = this.email;
-//     token.save( (err:any)=>{
-//         if(err) { return console.log(err.message)}
-    
-
-//         const emailOptions = {
-//             from: 'mundomarket@mundomarket.com',
-//             to: email_destination,
-//             subject: "check e-mail",
-//             text: 'Verifique su passsword haciendo click aqui: \n'+ 'http://localhost:3000'+ '\/token/resetPassword\/' + token.token 
-//         };
-    
-// } 
-// }    
-//         mailer.sendMail(emailOptions, (err:any)=>{
-//             if(err){return console.log(err.message)};
-//             console.log("A verifiication email has been sent to ", email_destination)
-//         })
-//     })
-// }
-=======
 /* 
 userSchema.methods.resetPassword = function(cb:any) {
     const token = new Token({_userId: this.id, token: crypto.randomBytes(16).toString('hex')});
     const email_destination = this.email;
     token.save( (err:any)=>{
         if(err) { return console.log(err.message)}
-
         const emailOptions = {
             from: 'mundomarket@mundomarket.com',
             to: email_destination,
             subject: "check e-mail",
             text: 'Verifique su passsword haciendo click aqui: \n'+ 'http://localhost:3000'+ '\/token/resetPassword\/' + token.token 
         };
-
         
         mailer.sendMail(emailOptions, (err:any)=>{
             if(err){return console.log(err.message)};
@@ -124,7 +83,6 @@ userSchema.methods.resetPassword = function(cb:any) {
     })
 }
 */ 
->>>>>>> 95149f54c4854bd13e4b93ca820f2b1478c4452e
 
 userSchema.methods.email_Welcome= function (cb:any){
     const token = new Token({_userId: this.id, token: crypto.randomBytes(16).toString('hex')});
@@ -150,4 +108,3 @@ userSchema.methods.email_Welcome= function (cb:any){
 
 const User= model("User",userSchema)
 export default User
-

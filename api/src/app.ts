@@ -12,11 +12,6 @@ import User from './models/User'
 const app = express();
 
 
-<<<<<<< HEAD
-app.use(express.static(__dirname + 'client/src/components'))
-app.use(morgan("dev"))
-=======
->>>>>>> 95149f54c4854bd13e4b93ca820f2b1478c4452e
 app.use(session({
   cookie:{maxAge: 240 * 60 * 60 *1000},
   saveUninitialized : false,  //true
@@ -34,7 +29,6 @@ app.get('/crear-session', (req:any, res:any)=>{
   req.session.user = "emma"
   res.redirect('/protegido')
 })
-
 app.get('/chau', (req:any,res)=>{
   req.session.destroy()
   res.redirect('protegido')
