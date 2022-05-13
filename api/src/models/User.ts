@@ -19,7 +19,7 @@ const userSchema = new Schema({
         type:String,   
     },
 
-    history:{  //historial del usuario
+    orders:{  //historial de compras del usuario
         type:Array,
         default:[]
     },
@@ -53,6 +53,13 @@ const userSchema = new Schema({
         {
             type : Schema.Types.ObjectId,
             ref : 'Role'
+        }
+    ],
+
+    products: [
+        {
+            type : Schema.Types.ObjectId,
+            ref : 'Product'
         }
     ],
 

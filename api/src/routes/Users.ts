@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response, Router } from "express";
 import User from "../models/User"
+import * as authCtrl from '../controllers/auth.controllers';
 import { isAdmin, verifyToken } from "../controllers/authJwt";
 
 const route = Router()
@@ -18,17 +19,24 @@ route.get("/", [verifyToken, isAdmin], async (req: any, res: any, next: any) => 
 
 
 route.get("/:id", verifyToken,  async(req:any, res:any) => {
-    const { id }= req.param;
+    const { id }= req.params;
     try {
-        const found:any[]|null=await User.findById(id)
-        res.send(found? found : "User not found" )
+        const found = await User.findById(id)
+        return res.send(found)
     } catch (error) {
-        res.send({error: "User not found"})
+        res.send({error: "Error : User not found"})
     }
  
 });
 
-// POST => Ver Auth.ts. Solo se crean Users, solo Dev crea Admins
+
+ 
+route.post('/signup', authCtrl.signUp) //registro de usuario. Solo el Dev crea al Admin 
+
+route.post('/login', authCtrl.logIn) //loggeo de Usuario y Admin registrado
+
+
+
 
 route.delete('/:id', [verifyToken, isAdmin], async (req: Request, res: Response, next: NextFunction) => {
 
@@ -38,6 +46,7 @@ route.delete('/:id', [verifyToken, isAdmin], async (req: Request, res: Response,
     // esto es permaban, ojo
     try {
         const { id } = req.params;
+        // const {  } = req.body
         const found = await User.findByIdAndRemove({_id: id})
         res.json({ message: `User : ${found.name} - ID : ${found._id} successfully deleted` })
     } catch (err) {

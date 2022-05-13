@@ -51,7 +51,12 @@ const productSchema=new Schema({
     envio:{
         type:String,
         required:false
-    }
+    },
+    
+    user : {
+        type : Schema.Types.ObjectId,
+        ref : 'User'
+   },
 })
 
 const Product=model("Product",productSchema)

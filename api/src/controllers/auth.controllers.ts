@@ -31,15 +31,9 @@ export const signUp = async (req: Request, res: Response) => {
         // comprobar CUIL en el front? ver función 
         const newUser = new User({ name, email, password: await encryptPassword(password), avatar, country, city, adress, phone, cuil });
 
-        // if(roles){ 
-        //    const foundRoles = await Role.find({ name : {$in: roles}});
-        //    newUser.roles = foundRoles.map(role => role._id)         
-        // } else {
-
         //le agrega el rol 'User' de manera predet. Solo el dev crea admin/s. 
-        const role = await Role.findOne({ name: 'user' });
+        const role = await Role.findOne({ name: 'user' }); //si quiero crear un Admin, puedo cambiar el string 'user' por 'admin'
         newUser.roles = [role._id]
-        // }
 
 
         await newUser.save();
@@ -47,14 +41,9 @@ export const signUp = async (req: Request, res: Response) => {
         // const token = jwt.sign({ id: newUser._id }, config.SECRET_JWT, { expiresIn: 86400 /*24hs*/ })
         // no creo token para esperar la confirmación del mail y luego logeo manual
 
-
-        // lo mando para que el Front lo capte y guarde
         // https://rajaraodv.medium.com/securing-react-redux-apps-with-jwt-tokens-fcfe81356ea0
         res.json({ user: newUser.name})
-
-
     }
-
 }
 
 

@@ -2,6 +2,7 @@ import { Router } from "express";
 import Product from "../models/Product"
 import {verifyToken, isAdmin} from '../controllers/authJwt'
 import { Request, Response, NextFunction } from "express";
+import User from "../models/User";
 const route= Router()
 
 
@@ -64,9 +65,13 @@ route.post('/', verifyToken, async (req:any, res:any) => {
             res.send('You can´t post the same product twice')
         }
         else {
+            console.log(req.userId)
 
             const newProduct = new Product(req.body);
+            const user = await User.findById(req.userId)
+            newProduct.user = [user._id]
             console.log(newProduct)
+            // console.log(user)
             await newProduct.save()
             return res.send('Product created')
         }

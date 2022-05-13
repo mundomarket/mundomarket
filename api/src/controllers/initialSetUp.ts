@@ -1,4 +1,3 @@
-import { nextTick } from 'process';
 import Role from '../models/Role';
 
 export const createRoles = async () => {
