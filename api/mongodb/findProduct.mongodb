@@ -1,3 +1,0 @@
-use('mundomarket')
-
-db.users.find({})

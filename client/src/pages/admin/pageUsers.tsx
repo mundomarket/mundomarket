@@ -46,11 +46,11 @@ const UsersPage = () => {
             setUsers( previosUsers );
             console.log(error);
             alert('No se pudo actualizar el role del usuario');
-        }
-
+                }
+*/
     }
 
-*/
+
     const columns: GridColDef[] = [
         { field: 'email', headerName: 'Correo', width: 250 },
         { field: 'name', headerName: 'Nombre completo', width: 300 },

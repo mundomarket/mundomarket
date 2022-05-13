@@ -6,12 +6,14 @@ import Cookie from 'js-cookie'
 interface Estado{
   isLogged:boolean,
   productos:any
+  usuarios:any
+  ordenes:any
   copiaproductos:any
   detail:any
   recommended:any
   user:any
 }
-const initialState = { productos:[], detail:[],recommended:[],copiaproductos:[],
+const initialState = { productos:[], usuarios:[], ordenes:[], detail:[],recommended:[],copiaproductos:[],
   isLogged:Cookie.get('user')?true:false,user:Cookie.get('user')?JSON.parse(Cookie.get('user')!):[] 
 } as Estado
 
@@ -25,12 +27,12 @@ const rootReducer = createReducer(initialState, (builder) => {
     })
 
     .addCase(actions.GETUSERS.fulfilled, (state, action) => {
-      state.productos=action.payload
+      state.usuarios=action.payload
       
     })
 
-    .addCase(actions.GETORDER.fulfilled, (state, action) => {
-      state.productos=action.payload
+    .addCase(actions.GETORDERS.fulfilled, (state, action) => {
+      state.ordenes=action.payload
       
     })
 

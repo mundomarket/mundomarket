@@ -1,6 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { db } from './db'
-import { Order, Product, User } from '../../../models';
+//import { ordenes, Product, User } from '';
+import { AppDispatch,RootState } from '../../../store/index'
+import { useSelector } from 'react-redux';
 
 type Data = {
     numberOfOrders: number;
@@ -14,6 +16,8 @@ type Data = {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
 
+
+    const products=useSelector((State:RootState) => State.rootReducer.detail);
 
     await db.connect();
     
