@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express";
-import Order from "../models/Category"
+import Order from "../models/Order";
 import { verifyToken, isAdmin } from "../controllers/authJwt";
 const route = Router()
 
