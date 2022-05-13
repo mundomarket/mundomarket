@@ -77,3 +77,5 @@ route.delete('/:id', [verifyToken, isAdmin], async (req: Request, res: Response,
         next(err)
     }
 });
+
+export default route;
