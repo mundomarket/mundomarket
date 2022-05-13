@@ -5,6 +5,7 @@ import * as authCtrl from '../controllers/auth.controllers';
 import product from "./Products";
 import category from "./Categories";
 import productCart from "./ProductCart";
+// import order from './Orders';
 
 
 const route=Router() ;
@@ -15,6 +16,7 @@ route.use("/users/login", authCtrl.logIn) //loggeo de Usuario y Admin registrado
 route.use("/products", product)
 route.use("/categories",category) // solo admin
 route.use("/products-cart", productCart) 
+// route.use("/orders", order) 
 
 
 
