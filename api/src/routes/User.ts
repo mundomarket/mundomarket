@@ -33,6 +33,7 @@ route.post('/register',function(req, res, next){
             nuevoUsuario.email_Welcome();
             nuevoUsuario.save()
             return res.send("usuario registrado con exito")
+           
         }
     })   
    
@@ -42,7 +43,7 @@ route.get('/:id/update',async(req, res, next) =>{
   try {
      const user = await User.findById(req.params.id); 
      if(!user){ return res.send("el usuario no existe")}
-     //res.redirect(/usuer)  <- lo que va en el front
+     //res.redirect(/user)  <- lo que va en el front
      return res.json(user)
   } catch (error) {
       next(error)

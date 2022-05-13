@@ -1,39 +1,57 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
-import router from "./routes/index"
+import router from "./Routes/index"
 import session from 'express-session'
 import passport from "passport";
 import User from './models/User'
 
-const store = new session.MemoryStore;
+
+
 
 const app = express();
 
 
+<<<<<<< HEAD
 app.use(express.static(__dirname + 'client/src/components'))
 app.use(morgan("dev"))
+=======
+>>>>>>> 95149f54c4854bd13e4b93ca820f2b1478c4452e
 app.use(session({
   cookie:{maxAge: 240 * 60 * 60 *1000},
-  store: store,
-  saveUninitialized : true ,
-  resave : true, 
+  saveUninitialized : false,  //true
+  resave : false,  // true
   secret : 'keyboard__cat/..5/' ,  
   name: "session_cokie__name"
 }))
+
+
+// EJEMPLO DE SESSION
+/* app.get('/protegido', (req:any,res:any)=>{
+  res.json(req.session.user || "sin sesion de usuario")
+})
+app.get('/crear-session', (req:any, res:any)=>{
+  req.session.user = "emma"
+  res.redirect('/protegido')
+})
+
+app.get('/chau', (req:any,res)=>{
+  req.session.destroy()
+  res.redirect('protegido')
+})
+ */
 
 app.use(passport.initialize());
 app.use(passport.session());
 
 
 passport.serializeUser((user:any, done)=>{
-  done(null, {id: user._id})
+  done(null, {id: user._id, name: user.name, email: user.email});
 })
-passport.deserializeUser(async(user:any, done)=>{
 
+passport.deserializeUser(async(user:any, done)=>{
   const userDb = await User.findById(user.id)
-  console.log(userDb)
-  return done(null, {id: userDb._id})
+  return done(null, {id: userDb._id, name: userDb.name, email:userDb.email})
 })
 
 

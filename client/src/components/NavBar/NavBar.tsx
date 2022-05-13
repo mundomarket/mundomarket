@@ -74,6 +74,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function PrimarySearchAppBar() {
   const { numberOfItems } = React.useContext( CartContext );
   const isLogged=useSelector((state:RootState)=>state.rootReducer.isLogged)
+
  
   const location=useLocation().pathname
   const navigate=useNavigate()
@@ -247,7 +248,8 @@ export default function PrimarySearchAppBar() {
           </Search>:null}
           <Box sx={{ display: { xs: 'none', md: 'flex' },alignItems:'flex-start' }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={numberOfItems} color="error">
+              <Badge badgeContent={numberOfItems>9?'+9':numberOfItems} color="error">
+
                 {/*<Link to={`/user/${user._id}`}>*/}
                 
                 <NavLink to='/cart' style={isActive => ({color: isActive ? "white" : "white"})}>
