@@ -1,8 +1,8 @@
 import axios from "axios"
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit"
 import { Orders } from "../components/NavBar/FilterMenu"
-//const api='http://localhost:3000'
-const api='https://mundomarket.herokuapp.com'
+const api='http://localhost:3000'
+//const api='https://mundomarket.herokuapp.com'
 
 export const GETPRODUCTS=createAsyncThunk('GET_PRODUCTS',async ()=>{
     const result=await axios(`${api}/products`)
@@ -16,6 +16,7 @@ export const GETUSERPRODUCTS=createAsyncThunk('GET_USER_PRODUCTS',async (id: str
 
 export const GETDETAIL=createAsyncThunk('GET_DETAIL',async (id: string | undefined)=>{
     const result=await axios(`${api}/products/${id}`) 
+    console.log(result.data)
     return result.data
 })
 
@@ -45,15 +46,18 @@ export const GETORDENAMIENTOS=createAsyncThunk('GET_ORDENAMIENTOS',async (input:
 
 export const REGISTERUSER=createAsyncThunk('REGISTERUSER',async (input:{})=>{
 
-  await axios.post(`http://localhost:3000/auth/register`,input)
+  await axios.post(`http://localhost:3000/users/signup`,input)
 
 })
 
 export const LOGINUSER=createAsyncThunk('LOGINUSER',async (input:{})=>{
-  const login=await axios.post(`http://localhost:3000/auth/login`,input)
-  console.log(login.data)
+  const login=await axios.post(`http://localhost:3000/users/login`,input)
   return login.data
 })
 
 export const LOGOUT=createAction('LOGOUT')
 
+export const MODIFYUSER=createAsyncThunk('MODIFYUSER',async (input:any)=>{
+  const user=await axios.put(`http://localhost:3000/users/${input._id}`,input)
+  return user.data
+})

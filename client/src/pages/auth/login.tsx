@@ -36,7 +36,7 @@ const LoginPage = () => {
 
     const handleSubmit= async ()=>{
             dispatch(LOGINUSER(input))
-            setInvalid(()=>true)
+            setTimeout(()=>setInvalid(()=>true),500)
     }
     return(
             <AuthLayout title ={'Ingresar'}>

@@ -21,6 +21,7 @@ import {useSelector} from 'react-redux'
 import { CartProvider } from '../src/components/cart/CartProvider';
 import { SWRConfig } from 'swr';
 import {RootState} from './store'
+import ModifyUser from './pages/profile/modifyUser';
 
 
 
@@ -52,6 +53,7 @@ function App() {
             <Route path='/register' element={isLogged?<Navigate replace to='/home'/>:<Register/>}/>
             <Route path='/crearproducto' element={isLogged?<CrearProducto/>:<NotFound/>}/>
             <Route path='/profile' element={isLogged?<Profile/>:<NotFound/>}/>
+            <Route path='/modifyuser' element={isLogged?<ModifyUser/>:<NotFound/>}/>
 
 
 

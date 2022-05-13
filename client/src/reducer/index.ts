@@ -68,17 +68,23 @@ const rootReducer = createReducer(initialState, (builder) => {
       
     })
     .addCase(actions.LOGINUSER.fulfilled, (state, action) => {
-      console.log(action.payload)
-        if(action.payload==='login success'){
+        if(action.payload.token){
           state.isLogged=true;
           state.user=action.payload.user
-          Cookie.set('user',JSON.stringify( state.user ),{expires:0.08})
+          Cookie.set('x-access-token',JSON.stringify( action.payload.token ),{expires:0.08})
+          Cookie.set('user',JSON.stringify( action.payload.user ),{expires:0.08})
         }
     })
     .addCase(actions.LOGOUT,(state)=>{
+      Cookie.remove('x-access-token')
       Cookie.remove('user')
       state.isLogged=false;
       state.user=[];
+    })
+    .addCase(actions.MODIFYUSER.fulfilled,(state,action)=>{
+      Cookie.set('user',JSON.stringify( action.payload ),{expires:0.08})
+      state.user=action.payload
+      alert('Cambios Guardados')
     })
 })
 

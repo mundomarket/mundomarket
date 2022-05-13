@@ -7,18 +7,25 @@ import EditIcon from '@mui/icons-material/Edit';
 import KeyIcon from '@mui/icons-material/Key';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import LocalMallIcon from '@mui/icons-material/LocalMall';
+import axios from 'axios'
+import { useState } from 'react';
+import NavBar from '../../components/NavBar/NavBar'
 
 const useAppDispatch = () => useDispatch<AppDispatch>();
+
 
 
 //const product =  initialData.products[0];
 
 const Profile = () => {
     const user=useSelector((state:RootState)=>state.rootReducer.user)
+
     return(
-        <Container sx={{m:'auto',display:'flex',flexDirection:'column',bgcolor:'transparent',width:500}}>
+        <>
+        <NavBar/>
+        <Container sx={{m:'auto',display:'flex',flexDirection:'column',bgcolor:'transparent',width:500,marginTop:10}}>
             <Box sx={{m:1,border:'1px solid gray',p:1,borderRadius:3,display:'flex',bgcolor:'white',boxShadow:2}}>
-                <Avatar alt='Nico Amicone' sx={{m:1,marginRight:2,height:45,width:45}}/>
+                <Avatar src={user.avatar} alt='-' sx={{m:1,marginRight:2,height:45,width:45}}/>
                 <Divider orientation="vertical" flexItem />
                 <Box sx={{m:'auto'}}>
                 <Typography variant='h4'>{user.name}</Typography>
@@ -26,7 +33,7 @@ const Profile = () => {
             </Box>
             <Box className='LinkedBlack' sx={{m:1,border:'1px solid gray',p:1,borderRadius:3,display:'flex',flexDirection:'column',bgcolor:'white',boxShadow:2}}>
                 
-                <Link to='/home'>
+                <Link to='/modifyuser'>
                 <Box sx={{display:'flex'}}>
                 <EditIcon sx={{m:1,marginRight:2,height:30,width:30,color:'black'}}/>
                 <Box sx={{marginLeft:1,display:'flex',flexDirection:'column',alignItems:'flex-start'}}>
@@ -69,6 +76,7 @@ const Profile = () => {
                 </Box>
             </Box>
         </Container>
+        </>
     )
 }
 

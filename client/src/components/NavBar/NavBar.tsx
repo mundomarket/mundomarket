@@ -75,6 +75,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function PrimarySearchAppBar() {
   const { numberOfItems } = React.useContext( CartContext );
   const isLogged=useSelector((state:RootState)=>state.rootReducer.isLogged)
+  const user=useSelector((state:RootState)=>state.rootReducer.user)
 
  
   const location=useLocation().pathname
