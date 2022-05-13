@@ -1,7 +1,7 @@
 import {Box, Button, Card, CardContent, Divider, Grid,Typography} from '@mui/material';
-import { CartList, OrderSumary } from '../../components/cart';
-import NavBar from '../../components/ui/NavBar/NavBar'
-//import { ShopLayout } from '../../components/layouts';
+import { NavLink } from 'react-router-dom';
+import { CartList, OrderSummary } from '../../components/cart';
+import NavBar from '../../components/NavBar/NavBar'
 
 const CartPage=()=>{
     return(
@@ -20,11 +20,13 @@ const CartPage=()=>{
                             <Typography variant='h2'>Orden</Typography>
                             <Divider sx={{my:1}}/>
 
-                            <OrderSumary/>
+                            <OrderSummary/>
                             <Box sx={{mt:3}}>
+                                <NavLink  to='/summary'>
                                 <Button color='secondary' className='circular-btn' fullWidth>
-                                    Checkout
+                                    Realizar Compra
                                 </Button>
+                                </NavLink>
 
                             </Box>
 

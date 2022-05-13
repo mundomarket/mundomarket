@@ -1,14 +1,19 @@
 
 import { createReducer } from '@reduxjs/toolkit'
 import * as actions from '../actions/index'
+import Cookie from 'js-cookie'
 
 interface Estado{
+  isLogged:boolean,
   productos:any
   copiaproductos:any
   detail:any
   recommended:any
+  user:any
 }
-const initialState = { productos:[], detail:[],recommended:[] } as Estado
+const initialState = { productos:[], detail:[],recommended:[],copiaproductos:[],
+  isLogged:Cookie.get('user')?true:false,user:Cookie.get('user')?JSON.parse(Cookie.get('user')!):[] 
+} as Estado
 
 
 const rootReducer = createReducer(initialState, (builder) => {
@@ -59,7 +64,21 @@ const rootReducer = createReducer(initialState, (builder) => {
       state.productos=filtrado
     })
 
-
+    .addCase(actions.REGISTERUSER.fulfilled, (state, action) => {
+      
+    })
+    .addCase(actions.LOGINUSER.fulfilled, (state, action) => {
+        if(action.payload.msg==='success'){
+          state.isLogged=true;
+          state.user=action.payload.user
+          Cookie.set('user',JSON.stringify( state.user ))
+        }
+    })
+    .addCase(actions.LOGOUT,(state)=>{
+      Cookie.remove('user')
+      state.isLogged=false;
+      state.user=[];
+    })
 })
 
 

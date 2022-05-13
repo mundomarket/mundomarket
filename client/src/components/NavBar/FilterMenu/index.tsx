@@ -110,6 +110,7 @@ export default function DialogSelect() {
                 input={<OutlinedInput label="Categorias" id="demo-dialog-native" />}
               >
                 <option aria-label="None" value="" />
+                <option value='tecnologia'>Tecnologia</option>
                 <option value='ropa'>Ropa</option>
                 <option value='deporte'>Deportes</option>
                 <option value='cuidado personal'>Cuidado Personal</option>

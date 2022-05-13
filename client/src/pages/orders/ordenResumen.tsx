@@ -1,6 +1,5 @@
 import {
   Box,
-  
   Card,
   CardContent,
   Divider,
@@ -9,15 +8,11 @@ import {
   Link,
   Chip,
 } from "@mui/material";
-import { CartList, OrderSumary } from "../../components/cart";
-import {  PayPalButtons } from "@paypal/react-paypal-js";
+import { CartList, OrderSummary } from "../../components/cart";
 //import NextLink from 'next/link'
 
 //import { ShopLayout } from '../../components/layouts';
-import {
-  CreditCardOffOutlined,
-  CreditScoreOutlined,
-} from "@mui/icons-material";
+import { CreditScoreOutlined } from "@mui/icons-material";
 
 const OrderPage = () => {
   return (
@@ -74,28 +69,10 @@ const OrderPage = () => {
                 <Link underline="always">Editar</Link>
               </Box>
 
-              <OrderSumary />
+              <OrderSummary />
 
               <Box sx={{ mt: 3 }}>
-                <PayPalButtons
-                  createOrder={(data: any, actions: any) => {
-                    return actions.order.create({
-                      prchase_units: [
-                        {
-                          amo: {
-                            value: "1.99",
-                          },
-                        },
-                      ],
-                    });
-                  }}
-                  onApprove={(data: any, actions: any) => {
-                    return actions.order!.capture().then((details: any) => {
-                      const name = details.payer.name.given_name;
-                      alert(`Transaction completed by ${name}`);
-                    });
-                  }}
-                />
+                <h1>Pagar</h1>
                 <Chip
                   sx={{ my: 2 }}
                   label="La orden ya fue pagada"

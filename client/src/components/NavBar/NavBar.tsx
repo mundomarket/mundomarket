@@ -14,17 +14,18 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingCart from '@mui/icons-material/ShoppingCart';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { useDispatch } from 'react-redux';
-import {GETSEARCHBYNAME} from  '../../../actions'
-import { AppDispatch } from '../../../store';
+import { useDispatch,useSelector } from 'react-redux';
+import {GETSEARCHBYNAME,LOGOUT} from  '../../actions'
+import { AppDispatch, RootState } from '../../store';
 import { CardMedia, Icon} from '@mui/material';
 import { AttachMoney, Wallpaper } from '@mui/icons-material';
 import { useState } from 'react';
 import { Link,NavLink } from 'react-router-dom';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
-import FilterMenu from '../FilterMenu'
+import FilterMenu from './FilterMenu'
 import { useNavigate,useLocation } from 'react-router-dom';
 import '@fontsource/roboto/300.css';
+import { CartContext } from '../cart/CartContext';
 
 
 
@@ -71,6 +72,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 export default function PrimarySearchAppBar() {
+  const { numberOfItems } = React.useContext( CartContext );
+  const isLogged=useSelector((state:RootState)=>state.rootReducer.isLogged)
+ 
   const location=useLocation().pathname
   const navigate=useNavigate()
   const useAppDispatch = () => useDispatch<AppDispatch>();
@@ -122,9 +126,10 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={()=>navigate('/profile')}>Mi Perfil</MenuItem>
-      <MenuItem onClick={()=>navigate('/crearproducto')}>Vender</MenuItem>
-      <MenuItem onClick={()=>console.log(location)}>Cerrar Sesión</MenuItem>
+      {isLogged && <MenuItem onClick={()=>navigate('/profile')}>Mi Perfil</MenuItem>}
+      <MenuItem onClick={()=>navigate(`${isLogged? '/crearproducto':'/'}`)}>Vender</MenuItem>
+      {isLogged && <MenuItem onClick={()=>{dispatch(LOGOUT())
+      navigate('/')}}>Cerrar Sesión</MenuItem>}
     </Menu>
   );
 
@@ -242,10 +247,10 @@ export default function PrimarySearchAppBar() {
           </Search>:null}
           <Box sx={{ display: { xs: 'none', md: 'flex' },alignItems:'flex-start' }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={0} color="error">
+              <Badge badgeContent={numberOfItems} color="error">
                 {/*<Link to={`/user/${user._id}`}>*/}
                 
-                <NavLink to='/user/54544884' style={isActive => ({color: isActive ? "white" : "white"})}>
+                <NavLink to='/cart' style={isActive => ({color: isActive ? "white" : "white"})}>
                   <ShoppingCart />
                 </NavLink>
               </Badge>

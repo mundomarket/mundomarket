@@ -1,9 +1,9 @@
 //import { ShopLayout } from '../components/layouts';
 
 import React from "react";
-import { Typography,Divider, CardActionArea,Card, CardMedia, Box } from '@mui/material';
-import NavBar from '../../components/ui/NavBar/NavBar'
-import { initialData } from '../../database/products';
+import { Typography,Divider, Box } from '@mui/material';
+import NavBar from '../../components/NavBar/NavBar'
+//import { initialData } from '../../database/products';
 import { ProductList } from '../../components/products';
 
 import { useDispatch, useSelector } from "react-redux";
