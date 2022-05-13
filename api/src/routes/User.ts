@@ -1,7 +1,10 @@
 import {Router} from "express";
 import User from '../models/User'
-
 const route=Router()
+
+
+
+
 route.get('/list',async(req, res, next) =>{
     try {
         const users = await User.find({})

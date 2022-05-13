@@ -1,93 +1,100 @@
 import {Router} from "express";
 import User from '../models/User'
 import Token from '../models/Token'
-
+import nodemailer from "nodemailer"
+import randomstring from "randomstring"
+import config from "../config/sendEmail"
+import bcryptjs from "bcryptjs"
 const route=Router() 
 
 
-route.get("/forgotPassword", async (req:any, res:any, next:any) => {
-    res.send('reset password')
-});
+//======================Envio de email=================
 
-route.post("/forgotPassword", function(req:any, res:any, next:any){
-   User.findOne({email: req.body.email}, function(err:any,user:any){
-      if(!user) return res.send("usuario invalido")
-      user.resetPassword(function(err:any){
-        if(err) return next(err)
-        console.log("session forgotPassword")
-      })
-      return res.send("reset password")
-   })
-});
-
-route.get('/resetPassword/:token', function(req, res, next){
-    Token.findOne({ token: req.params.token }, function (err:any, token:any){
-      if (!token) return res.send({ type: 'not-verified', msg: 'No existe un usuario asociado al token. Verifique que su token no haya expirado.'});
-  
-      User.findById(token._userId, function(err:any, user:any){
-        if (!user) return res.send({ msg: 'No existe un usuario asociado al token.'});
-        return res.send('session/resetPassword');
-      });
-    });
-  });
-
-
-
- route.post('/resetPassword', async(req, res, next)=>{
-    //const {email, newPassword} = req.body
+const sendResetPasswordMail=async(email:any,name:any,token:any) => {
+    try{
+       const transporter=nodemailer.createTransport({
+        host:"smtp.mailtrap.io",
+        port: 2525, 
       
-    /*  if(req.body.password !== req.body.confirm_password) {
-      res.render('session/resetPassword', {errors: {confirm_password: { message: 'no coincide el password ingresado'}}, usuario: new Usuario({email: req.body.email})});
-      return;
-    }  */
-
- /*    const email= {email: req.body.email}
-    const password  = {password: req.body.password}
-
-       User.findOneAndUpdate(email, password, function (err:any, user:any) {
-            console.log("esto es user", user)
-            user.password = req.body.password;
-            user.save(function(err:any){
-            if (err) {
-                console.log(err)
-            return res.send("error al actualizar la password");
-            }else{
-                user.resetPassword()
-                res.send("password actualizada")
-          //res.redirect('/login');
-        }});
-    });  */ 
- 
-
-    try {
-    const email= {email: req.body.email}
-    const password  = {password: req.body.password}
-
-    const user =await  User.findOneAndUpdate(email, password)
-    if(!user) res.send("usuario no encontrado")
-    else {
-        await user.resetPassword()
-        res.send("password actualizada")
-    }
-    } catch (error) {
-        next(error)
-    } 
-        
-        /* function (err:any, nuevoUsuario:any){
-        if(err) return res.send(err)
-        else {
-            nuevoUsuario.email_Welcome();
-            nuevoUsuario.save()
-            return res.send("usuario creado con exito")
+        auth: {
+            user: 'ad88b19df93a4f',
+            pass: 'd3f77c0c5c70e1'
         }
-    })    
-    */
-
+      
+        
+      
+       })
    
- 
-  });
- 
+ const mailOptions={
+  from:'mundomarket@mundomarket.com',
+  to:config.emailUser,
+  subject:"For reset Password",
+  html:`<p> Hello, ` + name +  `. Please  copy the link and <a href="http://localhost:3000/password/reset?token=`+token+`">reset your password</a>`
+}
+transporter.sendMail(mailOptions,function(error,info){
+  if(error){
+    console.log(error)
+  }else{
+    console.log("Mail has been sent:-", info.response)
+  }
+});
 
+    }catch(e){
+      console.log(e)
+    }
+}
 
+//==============Segurizar password======================
+const securePassword=async(password:any)=>{
+  try{
+      const passwordHash=await bcryptjs.hash(password,10);
+      return passwordHash;
+  }catch(e){
+    console.log(e)
+  }
+}
+
+//===============FORGOT PASSWORD========================
+route.post("/forgot",async(req:any,res:any)=>{
+ 
+ try{
+  const {email}=req.body
+
+     const userData=await User.findOne({email:email})
+     if(userData){
+        const randomString=randomstring.generate();
+        console.log(randomString)
+       const data=  await User.updateOne({email:email},{$set:{token:randomString}})
+       sendResetPasswordMail(userData.name,userData.email,randomString); 
+       
+       res.status(200).send({success:true,msg:"Please chek yout inbox of mail and reset your password"})
+
+     } else{
+       res.status(400).send({success:false,msg:"This email does not exists"})
+     }  
+
+ }catch(e){
+   console.log(e)
+ }
+
+})
+//================RESET PASSWORD==================================
+route.get("/reset",async(req:any,res:any)=>{
+
+  try{
+      const token=req.query.token;
+      const tokenData=await User.findOne({token:token})
+      if(tokenData){
+          const password=req.body.password
+          const newPassword=await securePassword(password)
+         const userData=await User.findByIdAndUpdate({_id:tokenData._id},{$set:{password:newPassword, token:""}},{new:true})
+          res.status(200).send({success:true,msg:"User Password has been reset",data:userData})
+        }else{
+        res.status(400).send({success:false, msg:"This link has been expired"})
+      }
+  }catch(e){
+    console.log(e)
+  }
+})
 
 export default route

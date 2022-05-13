@@ -38,7 +38,11 @@ const userSchema= new Schema({
     product:[{
         type: Schema.Types.ObjectId, 
         ref: 'Product' 
-    }]
+    }],
+    token:{
+        type:String,
+        default:""
+    }
     // una relacion con mis productos
     // cada producto tiene un user, y un user puede muchos productos..
     })
@@ -55,26 +59,28 @@ userSchema.methods.validPassword = function(password:any){
     return bcrypt.compareSync(password, this.password);
 }
 
-userSchema.methods.resetPassword = function(cb:any) {
-    const token = new Token({_userId: this.id, token: crypto.randomBytes(16).toString('hex')});
-    const email_destination = this.email;
-    token.save( (err:any)=>{
-        if(err) { return console.log(err.message)}
+// userSchema.methods.resetPassword = function(cb:any) {
+//     const token = new Token({_userId: this.id, token: crypto.randomBytes(16).toString('hex')});
+//     const email_destination = this.email;
+//     token.save( (err:any)=>{
+//         if(err) { return console.log(err.message)}
+    
 
-        const emailOptions = {
-            from: 'mundomarket@mundomarket.com',
-            to: email_destination,
-            subject: "check e-mail",
-            text: 'Verifique su passsword haciendo click aqui: \n'+ 'http://localhost:3000'+ '\/token/resetPassword\/' + token.token 
-        };
-
-        
-        mailer.sendMail(emailOptions, (err:any)=>{
-            if(err){return console.log(err.message)};
-            console.log("A verifiication email has been sent to ", email_destination)
-        })
-    })
-}
+//         const emailOptions = {
+//             from: 'mundomarket@mundomarket.com',
+//             to: email_destination,
+//             subject: "check e-mail",
+//             text: 'Verifique su passsword haciendo click aqui: \n'+ 'http://localhost:3000'+ '\/token/resetPassword\/' + token.token 
+//         };
+    
+// } 
+// }    
+//         mailer.sendMail(emailOptions, (err:any)=>{
+//             if(err){return console.log(err.message)};
+//             console.log("A verifiication email has been sent to ", email_destination)
+//         })
+//     })
+// }
 
 
  userSchema.methods.email_Welcome= function (cb:any){

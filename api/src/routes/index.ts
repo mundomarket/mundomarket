@@ -1,23 +1,26 @@
 import {Router} from "express";
-
 import user from'./User'
 import login from "./Login";
 import product from "./Products";
 import productCart from "./ProductCart";
 import categories from "./Categories";
 import token from "./Token";
-
 import forgot from './Forgot'
 //import productDelete from "./ProductDelete";
+const route=Router();
 
 
 
-const route=Router() ;
 
 route.use('/user',user) 
+//ruta de registro
 
 route.use('/login', login) 
-//ruta de login
+//ruta de login/logout
+
+
+route.use("/password",forgot)
+//ruta forgot/reset password
 
 route.use('/products', product)
 //ruta de productos
@@ -33,5 +36,5 @@ route.use('/token', token)
 
 
 
-//route.use('/fogotPassword', forgot)
+
 export default route

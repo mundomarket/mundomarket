@@ -10,7 +10,9 @@ const store = new session.MemoryStore;
 
 const app = express();
 
+
 app.use(express.static(__dirname + 'client/src/components'))
+app.use(morgan("dev"))
 app.use(session({
   cookie:{maxAge: 240 * 60 * 60 *1000},
   store: store,
