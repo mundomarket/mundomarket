@@ -69,9 +69,11 @@ route.post('/', verifyToken, async (req:any, res:any) => {
 
             const newProduct = new Product(req.body);
             const user = await User.findById(req.userId)
+
             newProduct.user = [user._id]
+
             console.log(newProduct)
-            // console.log(user)
+            
             await newProduct.save()
             return res.send('Product created')
         }
@@ -85,7 +87,7 @@ route.post('/', verifyToken, async (req:any, res:any) => {
 route.get("/:id", verifyToken,  async(req:any, res:any) => {
     let id:string=req.params.id;
     try {
-        let resultado:any[]|null=await Product.findById(id)
+        let resultado:any[]|null=await Product.findById(id).populate(['user'])
         res.send(resultado? resultado : "No se encuentra el producto" )
     } catch (error) {
         res.send({error: "No se encuentra el producto"})

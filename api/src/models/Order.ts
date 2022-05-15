@@ -1,20 +1,26 @@
 import {model,Schema} from "mongoose"
 
+// sujeta a cambios de acuerdo a la info que llega desde PayPal.
+
 
 const OrderSchema=new Schema({
+
     user : {
          type : Schema.Types.ObjectId,
          ref : 'User'
     },
 
-    cart : [
+    products : [
         {
-            _id: false,
             type : Schema.Types.ObjectId,
-            ref : 'Cart'         
+            ref : 'Product'  
 
         }    
         ],
+    
+    date : {
+        type : Date
+    },
 
     adress : {
         type : String,
@@ -25,6 +31,10 @@ const OrderSchema=new Schema({
         type : String,
         required : true
     },
+
+    infoPayPal : {
+        type : String
+    }
 
 
 })

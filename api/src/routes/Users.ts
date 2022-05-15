@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response, Router } from "express";
 import User from "../models/User"
 import * as authCtrl from '../controllers/auth.controllers';
+import { body } from 'express-validator'
 import { isAdmin, verifyToken } from "../controllers/authJwt";
 
 const route = Router()
@@ -18,22 +19,26 @@ route.get("/", [verifyToken, isAdmin], async (req: any, res: any, next: any) => 
 });
 
 
-route.get("/:id", verifyToken,  async(req:any, res:any) => {
-    const { id }= req.params;
+route.get("/:id", verifyToken, async (req: any, res: any) => {
+    const { id } = req.params;
     try {
         const found = await User.findById(id)
         return res.send(found)
     } catch (error) {
-        res.send({error: "Error : User not found"})
+        res.send({ error: "Error : User not found" })
     }
- 
+
 });
 
 
- 
-route.post('/signup', authCtrl.signUp) //registro de usuario. Solo el Dev crea al Admin 
+//registro de usuario. Solo el Dev crea al Admin 
+route.post('/signup', [ body("name", "ingrese un nombre valido").trim().notEmpty().escape(),
+                        body("email", "ingrese un email valido").trim().isEmail().normalizeEmail(),
+                        body("password", "ingrese una password valida").trim().escape()
+                      ], authCtrl.signUp) 
 
-route.post('/login', authCtrl.logIn) //loggeo de Usuario y Admin registrado
+//loggeo de Usuario y Admin registrado                      
+route.post('/login', authCtrl.logIn) 
 
 
 
@@ -47,7 +52,7 @@ route.delete('/:id', [verifyToken, isAdmin], async (req: Request, res: Response,
     try {
         const { id } = req.params;
         // const {  } = req.body
-        const found = await User.findByIdAndRemove({_id: id})
+        const found = await User.findByIdAndRemove({ _id: id })
         res.json({ message: `User : ${found.name} - ID : ${found._id} successfully deleted` })
     } catch (err) {
         next(err)
@@ -58,10 +63,10 @@ route.put('/:id', verifyToken, async (req: Request, res: Response, next: NextFun
 
     try {
         const { id } = req.params;
-        await User.findByIdAndUpdate({_id: id}, req.body);
-        const updatedUser = await User.findById({_id: id})
+        await User.findByIdAndUpdate({ _id: id }, req.body);
+        const updatedUser = await User.findById({ _id: id })
         res.send(updatedUser)
-    } catch(err){
+    } catch (err) {
         next(err)
     }
 

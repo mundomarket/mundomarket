@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken';
 import config from '../config';
 import Role from '../models/Role';
+import { validationResult } from 'express-validator'
 
 
 const encryptPassword = async (password: string) => {
@@ -21,25 +22,32 @@ const comparePasswords = async (savedPassword: string, receivedPassword: string)
 
 export const signUp = async (req: Request, res: Response) => {
     const { name, email, password, avatar, country, city, adress, phone, cuil } = req.body;
+    const errors =  validationResult(req)
+    if(!errors.isEmpty()){
+        return res.json(errors.array())
+    }
+
 
     const found = await User.find({ email });
 
     if (found.length > 0) {
         res.send('There is an account already created with this email')
     } else {
-        // no olvidar verficar el mail antes de guardar!
-        // comprobar CUIL en el front? ver función 
+        
         const newUser = new User({ name, email, password: await encryptPassword(password), avatar, country, city, adress, phone, cuil });
 
         //le agrega el rol 'User' de manera predet. Solo el dev crea admin/s. 
         const role = await Role.findOne({ name: 'user' }); //si quiero crear un Admin, puedo cambiar el string 'user' por 'admin'
         newUser.roles = [role._id]
 
+        // verificación cuenta vía mail
+        newUser.email_Welcome();
 
+        //aunque se haya guardado, nnecesita confirmar la cuenta para poder logearse
         await newUser.save();
 
-        // const token = jwt.sign({ id: newUser._id }, config.SECRET_JWT, { expiresIn: 86400 /*24hs*/ })
         // no creo token para esperar la confirmación del mail y luego logeo manual
+        // const token = jwt.sign({ id: newUser._id }, config.SECRET_JWT, { expiresIn: 86400 /*24hs*/ })
 
         // https://rajaraodv.medium.com/securing-react-redux-apps-with-jwt-tokens-fcfe81356ea0
         res.json({ user: newUser.name})
@@ -58,6 +66,7 @@ export const logIn = async (req: Request, res: Response) => {
 
     // ban => ver modelo User
     if(found.suspendedAccount) return res.status(401).json({ message: 'Your account it´s temporary suspended.' })
+    if(!found.verified) return res.status(401).json({message : 'You need to verify your account first.'})
 
     const matchPassword = await comparePasswords(password, found.password);
 

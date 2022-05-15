@@ -1,6 +1,9 @@
 import { NextFunction, Request, Response, Router } from "express";
 import Order from "../models/Order";
+import Role from "../models/Role";
 import { verifyToken, isAdmin } from "../controllers/authJwt";
+import User from "../models/User";
+const ObjectId = require('mongoose').Types.ObjectId; 
 const route = Router()
 
 
@@ -8,10 +11,19 @@ const route = Router()
 
 route.get("/", verifyToken, async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const orders: string[] = await Order.find();
-        res.send(orders.length ? orders : "There are no orders in DB")
+
+        const actualUser = await User.findById(req.userId);
+        const roles = await Role.find({_id: {$in : actualUser.roles}});
+        const allOrders = await Order.find().populate(['products', 'user']);    
+        if(roles[0].name === 'user'){
+            return res.send(allOrders)
+        } else {
+            const userOrders = allOrders.filter(order => order.user._id.toString() === actualUser._id.toString()); //el problema está como formulamos las relaciones entre las tablas        
+            return res.send(userOrders)
+        }
+
     } catch (error) {
-        res.send({ error: "There are no orders in DB" })
+        next(error)
     }
 });
 
@@ -19,7 +31,7 @@ route.get("/", verifyToken, async (req: Request, res: Response, next: NextFuncti
 route.get("/:id", verifyToken,  async(req:any, res:any) => {
     const { id } = req.params
     try {
-        const found:any[]|null=await Order.findById(id)
+        const found:any[]|null=await Order.findById(id).populate({path: 'user', model : 'User'})
         res.send(found? found : "Order not found" )
     } catch (error) {
         res.send({error: "Order not found"})
@@ -30,41 +42,21 @@ route.get("/:id", verifyToken,  async(req:any, res:any) => {
 
 
 
-// route.post('/', [verifyToken, isAdmin], async (req: Request, res: Response, next: NextFunction) => {
-//     try {
-//         const { name } = req.body
+route.post('/', verifyToken, async (req: Request, res: Response, next: NextFunction) => {
+    try {
+    // req.userId => id del usuario logueado actualmente, se puede usar para ubicarlo rápidamente
+    //const {  } = req.body
 
-//         const found = await Category.findOne({ name: { $regex: name, $options: 'i' } })
-
-//         if (found) return res.send(`There is a category with a similar name : ${found.name}`)
-       
-//         const newCategory = new Order({name});
-//         await newCategory.save();
-//         return res.send(`New category ${newCategory.name} created!`)
+    // cuando agregue productos al Cart, debo pushearlos!(?)
+    // https://stackoverflow.com/questions/29078753/how-to-reference-another-schema-in-my-mongoose-schema/29079951
+        const newCategory = new Order({name});
+        await newCategory.save();
+        return res.send(`New category ${newCategory.name} created!`)
         
-//     } catch (err) {
-//         next(err)
-//     }
-// });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    } catch (err) {
+        next(err)
+    }
+});
 
 
 route.delete('/:id', [verifyToken, isAdmin], async (req: Request, res: Response, next: NextFunction) => {
