@@ -8,13 +8,12 @@ const route = Router()
 
 
 
-
 route.get("/", verifyToken, async (req: Request, res: Response, next: NextFunction) => {
     try {
 
         const actualUser = await User.findById(req.userId);
         const roles = await Role.find({_id: {$in : actualUser.roles}});
-        const allOrders = await Order.find().populate(['products', 'user']);    
+        const allOrders = await Order.find().populate(['products', 'user']); //ver que onda acá. si prouducts es un array, es indistinto que esté acá   
         if(roles[0].name === 'user'){
             return res.send(allOrders)
         } else {
@@ -44,20 +43,43 @@ route.get("/:id", verifyToken,  async(req:any, res:any) => {
 
 route.post('/', verifyToken, async (req: Request, res: Response, next: NextFunction) => {
     try {
-    // req.userId => id del usuario logueado actualmente, se puede usar para ubicarlo rápidamente
-    //const {  } = req.body
 
-    // cuando agregue productos al Cart, debo pushearlos!(?)
-    // https://stackoverflow.com/questions/29078753/how-to-reference-another-schema-in-my-mongoose-schema/29079951
-        const newCategory = new Order({name});
-        await newCategory.save();
-        return res.send(`New category ${newCategory.name} created!`)
+    const newOrder = new Order(req.body); //adress, paymentId, totalPrice, products : [{},{}]
+
+    newOrder.user = [req.userId]       
+    
+    await newOrder.save()
+
+    // const order = await Order.findByIdAndUpdate({_id: newOrder._id},
+    // {$push: {"products": {$each: req.body.products}}}, {upsert:true});
+    
+    const updatedUser = await User.findByIdAndUpdate(
+        req.userId,
+        {$push: {"orders": newOrder._id}},
+        {upsert: true, new : true})
+
+    console.log(updatedUser)
+    
+    return res.send(newOrder)
         
     } catch (err) {
         next(err)
     }
 });
 
+
+route.put('/:id', verifyToken, async (req: Request, res: Response, next: NextFunction) => {
+
+    try {
+        const { id } = req.params;
+        await Order.findByIdAndUpdate({_id: id}, req.body);
+        const updatedOrder = await Order.findById({_id: id});
+        res.send(updatedOrder);
+    } catch(err){
+        next(err)
+    }
+
+});
 
 route.delete('/:id', [verifyToken, isAdmin], async (req: Request, res: Response, next: NextFunction) => {
 

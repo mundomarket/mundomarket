@@ -66,9 +66,8 @@ route.post('/', verifyToken, async (req:any, res:any) => {
         }
         else {
             const newProduct = new Product(req.body);
-            const user = await User.findById(req.userId)
 
-            newProduct.user = [user._id]            
+            newProduct.user = [req.userId]            
            
             await newProduct.save()
             
