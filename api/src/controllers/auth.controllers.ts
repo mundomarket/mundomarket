@@ -37,7 +37,7 @@ export const signUp = async (req: Request, res: Response) => {
         const newUser = new User({ name, email, password: await encryptPassword(password), avatar, country, city, adress, phone, cuil });
 
         //le agrega el rol 'User' de manera predet. Solo el dev crea admin/s. 
-        const role = await Role.findOne({ name: 'user' }); //si quiero crear un Admin, puedo cambiar el string 'user' por 'admin'
+        const role = await Role.findOne({ name: 'admin' }); //si quiero crear un Admin, puedo cambiar el string 'user' por 'admin'
         newUser.roles = [role._id]
 
         // verificación cuenta vía mail

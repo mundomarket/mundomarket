@@ -10,7 +10,7 @@ const route = Router()
 // Leer a todos los usuarios => Admin
 route.get("/", [verifyToken, isAdmin], async (req: any, res: any, next: any) => {
     try {
-        const users: any = await User.find()
+        const users: any = await User.find().populate(['orders', 'roles', 'products'])
         res.json(users)
     } catch (error) {
         next(error)
@@ -22,7 +22,7 @@ route.get("/", [verifyToken, isAdmin], async (req: any, res: any, next: any) => 
 route.get("/:id", verifyToken, async (req: any, res: any) => {
     const { id } = req.params;
     try {
-        const found = await User.findById(id)
+        const found = await User.findById(id).populate(['orders', 'roles', 'products'])
         return res.send(found)
     } catch (error) {
         res.send({ error: "Error : User not found" })

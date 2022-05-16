@@ -65,16 +65,19 @@ route.post('/', verifyToken, async (req:any, res:any) => {
             res.send('You can´t post the same product twice')
         }
         else {
-            console.log(req.userId)
-
             const newProduct = new Product(req.body);
             const user = await User.findById(req.userId)
 
-            newProduct.user = [user._id]
-
-            console.log(newProduct)
-            
+            newProduct.user = [user._id]            
+           
             await newProduct.save()
+            
+            const updatedUser = await User.findByIdAndUpdate(
+                req.userId,
+                {$push: {"products": newProduct._id}},
+                {upsert: true, new : true})
+
+            console.log(updatedUser)
             return res.send('Product created')
         }
 
