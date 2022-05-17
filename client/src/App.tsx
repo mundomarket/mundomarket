@@ -50,7 +50,7 @@ function App() {
           <Routes>
 
             <Route path='/' element={isLogged?<Navigate replace to='/home'/>:<Landing/>}/>
-            <Route path='/home' element={Home()}/>
+            <Route path='/home' element={<Home/>}/>
             <Route path='/product/:id' element={<Product/>}/>
             <Route path='/history/:id' element={<History/>}/>
             <Route path='/order/:id' element={<Order/>}/>
@@ -58,7 +58,7 @@ function App() {
             <Route path='/admin/users' element={<AdminUserList/>}/>
 
             <Route path='/summary' element={isLogged?<Summary/>:<Navigate replace to='/login'/>}/>
-            <Route path='/cart' element={Cart()}/>
+            <Route path='/cart' element={<Cart/>}/>
             <Route path='/login' element={isLogged?<Navigate replace to='/home'/>:<Login/>}/>
             <Route path='/register' element={isLogged?<Navigate replace to='/home'/>:<Register/>}/>
             <Route path='/crearproducto' element={isLogged?<CrearProducto/>:<NotFound/>}/>
