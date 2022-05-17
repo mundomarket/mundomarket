@@ -40,7 +40,6 @@ export default function Home() {
         <Divider sx={{m:2,marginBottom:3}}/>
 
         <ProductList
-           // products={initialData.products as any}
            products={productos}
         />
         </Box>

@@ -18,7 +18,7 @@ const RegisterPage = () => {
         email:"",
         password:"",
         name:"",
-        address:"",
+        adress:"",
         city:"",
         country:"",
         phone:"",
@@ -33,7 +33,7 @@ const RegisterPage = () => {
         email:false,
         password:false,
         name:false,
-        address:false,
+        adress:false,
         city:false,
         country:false,
         phone:false,
@@ -83,7 +83,7 @@ const RegisterPage = () => {
             email:false,
             password:false,
             name:false,
-            address:false,
+            adress:false,
             city:false,
             country:false,
             phone:false,
@@ -97,7 +97,7 @@ const RegisterPage = () => {
         
 
         setInput((prev) => ({...prev, [e.target.name]:e.target.value}))
-        input.address && input.phone && input.email && input.city && input.country && input.password?setDisabled(()=>false):setDisabled(()=>true)
+        input.adress && input.phone && input.email && input.city && input.country && input.password?setDisabled(()=>false):setDisabled(()=>true)
         if(e.target.name==='email'){
             if(!rgmail.test(e.target.value)){
                 setError((old)=>({...old,email:true}))
@@ -110,9 +110,9 @@ const RegisterPage = () => {
                 setDisabled(()=>true)
             }
         }
-        if(e.target.name==='address'){
+        if(e.target.name==='adress'){
             if(!rgdirec.test(e.target.value)){
-                setError((old)=>({...old,address:true}))
+                setError((old)=>({...old,adress:true}))
                 setDisabled(()=>true)
             }
         }
@@ -152,8 +152,8 @@ const RegisterPage = () => {
                     </Grid>
 
                     <Grid item xs={12}>
-                        <TextField error={error.address} name='address' label='Dirección' value={input.address} onChange={(e)=>handleChange(e)} variant="filled" fullWidth></TextField>
-                        {error.address && <Typography sx={{color:"red",fontSize:12}}>Debe ser una dirección</Typography>}
+                        <TextField error={error.adress} name='adress' label='Dirección' value={input.adress} onChange={(e)=>handleChange(e)} variant="filled" fullWidth></TextField>
+                        {error.adress && <Typography sx={{color:"red",fontSize:12}}>Debe ser una dirección</Typography>}
                     </Grid>
 
                     <Grid item xs={12}>

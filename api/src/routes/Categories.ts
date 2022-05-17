@@ -4,7 +4,7 @@ import { verifyToken, isAdmin } from "../controllers/authJwt";
 const route = Router()
 
 
-route.get("/", verifyToken, async (req: Request, res: Response, next: NextFunction) => {
+route.get("/", async (req: Request, res: Response, next: NextFunction) => {
     try {
         let cats: string[] = await Category.find();
         res.send(cats.length ? cats : "There are no categories in DB")

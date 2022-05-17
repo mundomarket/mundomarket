@@ -1,18 +1,36 @@
-import { FC, useContext } from 'react';
+import { FC, useContext, useEffect } from 'react';
 //import NextLink from 'next/link';
 import { Box, Button, CardActionArea, CardMedia, Grid, Link, Typography, Chip, Card } from '@mui/material';
 import { ItemCounter } from '../itemCounter';
 import { CartContext } from '../cart/CartContext';
 import { ICartProduct } from './cartInterface';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { CreditScoreOutlined } from '@mui/icons-material';
+import { IProduct } from '../products/productInterface';
+
+
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch,RootState } from '../../store/index';
+import {GETDETAIL} from '../../actions'
 
 
 interface Props {
     editable?: boolean;
+    prodcutInDb?: IProduct
 }
 
-export const CartList: FC<Props> = ({ editable = false }) => {
+const useAppDispatch = () => useDispatch<AppDispatch>();
+
+export const CartList: FC<Props> = ({ editable = false, prodcutInDb }) => {
+
+    /*const dispatch=useAppDispatch()
+    const {id} = useParams()
+    useEffect(()=>{
+      dispatch(GETDETAIL(id))
+    },[dispatch,id])
+    const productDb=useSelector((State:RootState) => State.rootReducer.detail); 
+
+*/
 
     const { cart, updateCartQuantity, removeCartProduct } = useContext(CartContext);
     const onNewCartQuantityValue = (product: ICartProduct, newQuantityValue: number) => {

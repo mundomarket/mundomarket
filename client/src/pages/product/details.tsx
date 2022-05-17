@@ -43,19 +43,13 @@ const ProductPage = () => {
     },[dispatch,id])
 
     //const products = useSelector((State) => State.products);
-    const product=useSelector((State:RootState) =>State.rootReducer.detail); 
+    const product=useSelector((State:RootState) => State.rootReducer.producto); 
 
     useEffect(()=>{
         dispatch(GETRECOMMENDED(product.category))
       },[product,dispatch])
 
 
-    const [orderFinal,setOrderFinal]=useState(order)
-
-
-      
-
-     // const router = useRouter();
       const { addProductToCart} = useContext( CartContext )
       const { cart } = React.useContext( CartContext );
       

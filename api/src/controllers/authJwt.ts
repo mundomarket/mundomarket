@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 import config from '../config'
 import Role from "../models/Role";
 import User from "../models/User";
+var parse=require('parse-headers')
 
 export const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
     try {

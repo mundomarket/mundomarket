@@ -1,18 +1,41 @@
 import { Box, Button, Card, CardContent, Divider, Grid, Typography } from '@mui/material';
-import { Link } from "react-router-dom";
+import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
 import { CartList, OrderSummary } from '../../components/cart';
 import NavBar from '../../components/NavBar/NavBar'
 import {useContext} from 'react'
 import {CartContext} from '../../components/cart/CartContext'
 
+import { PayPalButtons } from "@paypal/react-paypal-js";
+import { useRouter } from 'next/router';
 
-//import { ShopLayout } from '../../components/layouts';
+import { AppDispatch,RootState } from '../../store/index';
+import { useDispatch, useSelector } from "react-redux";
+
+import {CREATEORDER, GETORDER} from '../../actions'
+
+import { CartState } from '../../components/cart';
+import { cartReducer } from '../../components/cart';
+
+const useAppDispatch = () => useDispatch<AppDispatch>();
 
 const SummaryPage=()=>{
-    const { cart, updateCartQuantity, removeCartProduct } = useContext(CartContext);
-    console.log(cart)
+const usuario=useSelector((State:RootState)=>State.rootReducer.user)
+
+const navegar = useNavigate()    
+const dispatch=useAppDispatch()
+const { cart,total } = useContext(CartContext);
+const order = {products:cart, adress: "juan 3339", isPaid: false, totalPrice: total }
+
+const crearOrden = async ()=> {
+    let ordenNueva = await dispatch(CREATEORDER(order))
+    await dispatch(GETORDER(ordenNueva.payload))
+    navegar(`/order/${ordenNueva.payload}`)
+}
+
+
+
+
     return(
-        //<ShopLayout title='Resumen de orden' pageDescription={'Resumen de la orden'} imageFullUrl={undefined}>
            <>
         <NavBar/>
         <Typography variant='h1' component='h1' sx={{mt:8}}> Resumen de la orden</Typography>
@@ -31,23 +54,23 @@ const SummaryPage=()=>{
                             <Box display='flex' justifyContent='space-between'>
                                 <Typography variant='subtitle1'> Dirección de entrega</Typography>
                               
-                                    <Link to="/home">
+                                    <Link to="/modifyuser">
                                         Editar
                                     </Link>
                           
                             </Box>
 
                             
-                            <Typography>Gabriel Goliger</Typography>
-                            <Typography>Rambla gandhi 359</Typography>
-                            <Typography>Montevideo Uruguay</Typography>
-                            <Typography>099944268</Typography>
+                            <Typography>{usuario.name}</Typography>
+                            <Typography>{usuario.adress}</Typography>
+                            <Typography>{usuario.city}</Typography>
+                            <Typography>{usuario.phone}</Typography>
 
                             <Divider sx={{my:1}}/>
 
                             <Box display='flex' justifyContent='end'>
                                 
-                                    <Link to="/home">
+                                    <Link to="/cart">
                                         Editar
                                     </Link>
 
@@ -56,19 +79,23 @@ const SummaryPage=()=>{
 
                             <OrderSummary/>
 
-                            <Box sx={{mt:3}}>
-                                <Button color='secondary' className='circular-btn' fullWidth>
-                                    Confirmar Orden
-                                </Button>
+                            <Box sx={{mt:3}} >
+                               
+                           
+            
+                                    <Button color='secondary' className='circular-btn' fullWidth onClick={()=>crearOrden()}>
+                                        Crear Orden
+                                    </Button>
+                       
 
                             </Box>
-
+                            
                             
                         </CardContent>
                         
                     </Card>
                 </Grid>
-
+               
             </Grid>
 
 

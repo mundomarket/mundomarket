@@ -22,13 +22,10 @@ import { AttachMoney, Wallpaper } from '@mui/icons-material';
 import { useState } from 'react';
 import { Link,NavLink } from 'react-router-dom';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
-import FilterMenu from './FilterMenu'
+import FilterMenu from '../../components/NavBar/FilterMenu'
 import { useNavigate,useLocation } from 'react-router-dom';
 import '@fontsource/roboto/300.css';
-import { CartContext } from '../cart/CartContext';
-import KeyIcon from '@mui/icons-material/Key';
-
-const logo=require('./Mundo-Market2.png')
+import { CartContext } from '../../components/cart/CartContext';
 
 
 
@@ -77,7 +74,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function PrimarySearchAppBar() {
   const { numberOfItems } = React.useContext( CartContext );
   const isLogged=useSelector((state:RootState)=>state.rootReducer.isLogged)
-  const user=useSelector((state:RootState)=>state.rootReducer.user)
 
  
   const location=useLocation().pathname
@@ -131,7 +127,6 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {!isLogged && <MenuItem onClick={()=>navigate('/login')}>Iniciar Sesión</MenuItem>}
       {isLogged && <MenuItem onClick={()=>navigate('/profile')}>Mi Perfil</MenuItem>}
       <MenuItem onClick={()=>navigate(`${isLogged? '/crearproducto':'/'}`)}>Vender</MenuItem>
       {isLogged && <MenuItem onClick={()=>{dispatch(LOGOUT())
@@ -156,13 +151,7 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      {!isLogged && <MenuItem onClick={()=>navigate('/login')}>
-      <IconButton size="large" color="inherit">
-            <KeyIcon/>
-        </IconButton>
-        <p>Iniciar Sesión</p>
-        </MenuItem>}
-      <MenuItem onClick={()=>navigate('/cart')}>
+      <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={0} color="error">
             <ShoppingCart />
@@ -182,7 +171,7 @@ export default function PrimarySearchAppBar() {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      {isLogged && <MenuItem onClick={()=>navigate('/profile')}>
+      <MenuItem onClick={()=>navigate('/profile')}>
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -193,8 +182,8 @@ export default function PrimarySearchAppBar() {
           <AccountCircle />
         </IconButton>
         <p>Profile</p>
-      </MenuItem>}
-      {isLogged && <MenuItem onClick={()=>navigate('/crearproducto')}>
+      </MenuItem>
+      <MenuItem onClick={()=>navigate('/crearproducto')}>
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -205,17 +194,7 @@ export default function PrimarySearchAppBar() {
           <AttachMoney />
         </IconButton>
         <p>Vender</p>
-      </MenuItem>}
-      {isLogged && <MenuItem onClick={()=>{dispatch(LOGOUT())
-      navigate('/')}}>
-        <IconButton
-          size="large"
-          color="inherit"
-        >
-          <KeyIcon />
-        </IconButton>
-        <p>Cerrar Sesión</p>
-        </MenuItem>}
+      </MenuItem>
     </Menu>
   );
 
@@ -250,14 +229,11 @@ export default function PrimarySearchAppBar() {
             </NavLink>
           </Typography>
           
-          {/* <Box sx={{}}>
-          <img
-              src={logo}
+
+          {/* <img
+              src={'wallpaper.jpg'}
               alt='logo'
-              width={'50%'}
-              height={30}
-                            />
-          </Box> */}
+                            /> */}
 
           <Box sx={{ flexGrow: 1 }} />
           {location==='/home'?<Search>
@@ -272,7 +248,7 @@ export default function PrimarySearchAppBar() {
           </Search>:null}
           <Box sx={{ display: { xs: 'none', md: 'flex' },alignItems:'flex-start' }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={numberOfItems} color="error">
+              <Badge badgeContent={numberOfItems>9?'+9':numberOfItems} color="error">
 
                 {/*<Link to={`/user/${user._id}`}>*/}
                 

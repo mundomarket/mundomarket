@@ -1,27 +1,71 @@
 import axios from "axios"
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit"
 import { Orders } from "../components/NavBar/FilterMenu"
+import { useNavigate } from "react-router-dom"
+import Cookie from 'js-cookie'
 const api='http://localhost:3000'
 //const api='https://mundomarket.herokuapp.com'
+
+const token=Cookie.get('x-access-token')?JSON.parse(Cookie.get('x-access-token')!):''
+
 
 export const GETPRODUCTS=createAsyncThunk('GET_PRODUCTS',async ()=>{
     const result=await axios(`${api}/products`)
     return result.data
 })
 
+export const GETUSERS=createAsyncThunk('GET_USERS',async ()=>{
+  const result=await axios(`${api}/users`)
+  return result.data
+})
+
+export const GETORDERS=createAsyncThunk('GET_ORDERS',async ()=>{
+  const result=await axios.get(`${api}/orders`,{headers:{
+    'x-access-token':`${token}`
+  }})
+  return result.data
+})
+
+export const CREATEORDER=createAsyncThunk('CREATE_ORDER',async (data:any)=>{
+  const result=await axios.post(`${api}/orders`,data,{headers:{
+    'x-access-token':`${token}`
+  }})
+  return result.data._id
+
+})
+
+export const PAYORDER=createAsyncThunk('PAY_ORDER',async (data:any)=>{
+  const result=await axios.post(`${api}/orders/pay`,data,{headers:{
+    'x-access-token':`${token}`
+  }})
+  return result.data
+
+})
+
+
 export const GETUSERPRODUCTS=createAsyncThunk('GET_USER_PRODUCTS',async (id: string | undefined)=>{
-  const result=await axios(`${api}/products`)
+  const result=await axios(`${api}/products`,{headers:{
+    'x-access-token':`${token}`
+  }})
   return result.data
 })
 
 export const GETDETAIL=createAsyncThunk('GET_DETAIL',async (id: string | undefined)=>{
     const result=await axios(`${api}/products/${id}`) 
-    console.log(result.data)
     return result.data
 })
 
+export const GETORDER=createAsyncThunk('GET_ORDER',async (id: string | undefined)=>{
+  const result=await axios.get(`${api}/orders/${id}`,{headers:{
+    'x-access-token':`${token}`
+  }}) 
+  return result.data
+})
+
 export const POSTPRODUCT=createAsyncThunk('POST_PRODUCT',async (value: {} | undefined)=>{
-  const result=await axios.post(`${api}/products`,value)
+  const result=await axios.post(`${api}/products`,value,{headers:{
+    'x-access-token':`${token}`
+  }})
   return result.data
 })
 
@@ -46,18 +90,20 @@ export const GETORDENAMIENTOS=createAsyncThunk('GET_ORDENAMIENTOS',async (input:
 
 export const REGISTERUSER=createAsyncThunk('REGISTERUSER',async (input:{})=>{
 
-  await axios.post(`http://localhost:3000/users/signup`,input)
+  await axios.post(`${api}/users/signup`,input)
 
 })
 
 export const LOGINUSER=createAsyncThunk('LOGINUSER',async (input:{})=>{
-  const login=await axios.post(`http://localhost:3000/users/login`,input)
+  const login=await axios.post(`${api}/users/login`,input)
   return login.data
 })
 
 export const LOGOUT=createAction('LOGOUT')
 
 export const MODIFYUSER=createAsyncThunk('MODIFYUSER',async (input:any)=>{
-  const user=await axios.put(`http://localhost:3000/users/${input._id}`,input)
+  const user=await axios.put(`${api}/users/${input._id}`,input,{headers:{
+    'x-access-token':`${token}`
+  }})
   return user.data
 })

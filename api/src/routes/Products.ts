@@ -87,6 +87,7 @@ route.post('/', verifyToken, async (req:any, res:any) => {
 
 
 route.get("/:id",  async(req:any, res:any) => {
+    console.log(req.userId)
     let id:string=req.params.id;
     try {
         let resultado:any[]|null=await Product.findById(id).populate(['user'])
