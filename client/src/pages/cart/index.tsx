@@ -4,6 +4,9 @@ import { CartList, OrderSummary } from '../../components/cart';
 import NavBar from '../../components/NavBar/NavBar'
 
 const CartPage=()=>{
+
+
+
     return(
         <>
             <NavBar/>
@@ -24,7 +27,7 @@ const CartPage=()=>{
                             <Box sx={{mt:3}}>
                                 <NavLink  to='/summary'>
                                 <Button color='secondary' className='circular-btn' fullWidth>
-                                    Realizar Compra
+                                    Ir al checkout
                                 </Button>
                                 </NavLink>
 

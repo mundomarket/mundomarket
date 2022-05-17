@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
+/*import type { NextApiRequest, NextApiResponse } from 'next'
 import { db } from './db'
 //import { ordenes, Product, User } from '';
 import { AppDispatch,RootState } from '../../../store/index'
@@ -17,7 +17,7 @@ type Data = {
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
 
 
-    const products=useSelector((State:RootState) => State.rootReducer.detail);
+    
 
     await db.connect();
     
@@ -58,4 +58,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
 
 }
+*/
 
+
+export {}

@@ -1,8 +1,12 @@
 import axios from "axios"
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit"
 import { Orders } from "../components/NavBar/FilterMenu"
-//const api='http://localhost:3000'
-const api='https://mundomarket.herokuapp.com'
+import { useNavigate } from "react-router-dom"
+const api='http://localhost:3000'
+//const api='https://mundomarket.herokuapp.com'
+
+
+
 
 export const GETPRODUCTS=createAsyncThunk('GET_PRODUCTS',async ()=>{
     const result=await axios(`${api}/products`)
@@ -15,9 +19,22 @@ export const GETUSERS=createAsyncThunk('GET_USERS',async ()=>{
 })
 
 export const GETORDERS=createAsyncThunk('GET_ORDERS',async ()=>{
-  const result=await axios(`${api}/orders`)
+  const result=await axios.get(`${api}/orders`)
   return result.data
 })
+
+export const CREATEORDER=createAsyncThunk('CREATE_ORDER',async (data:any)=>{
+  const result=await axios.post(`${api}/orders`,data)
+  return result.data._id
+
+})
+
+export const PAYORDER=createAsyncThunk('PAY_ORDER',async (data:any)=>{
+  const result=await axios.post(`${api}/orders/pay`,data)
+  return result.data
+
+})
+
 
 export const GETUSERPRODUCTS=createAsyncThunk('GET_USER_PRODUCTS',async (id: string | undefined)=>{
   const result=await axios(`${api}/products`)
@@ -27,6 +44,11 @@ export const GETUSERPRODUCTS=createAsyncThunk('GET_USER_PRODUCTS',async (id: str
 export const GETDETAIL=createAsyncThunk('GET_DETAIL',async (id: string | undefined)=>{
     const result=await axios(`${api}/products/${id}`) 
     return result.data
+})
+
+export const GETORDER=createAsyncThunk('GET_ORDER',async (id: string | undefined)=>{
+  const result=await axios.get(`${api}/orders/${id}`) 
+  return result.data
 })
 
 export const POSTPRODUCT=createAsyncThunk('POST_PRODUCT',async (value: {} | undefined)=>{

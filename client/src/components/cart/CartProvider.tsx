@@ -3,6 +3,7 @@ import Cookie from 'js-cookie';// yarn add js-cookie   y   yarn add -D @types/js
 import React, { PropsWithChildren } from 'react';
 import { ICartProduct } from './cartInterface';
 import { CartContext, cartReducer } from '../cart';
+import { IOrder } from '../../pages/orders/orderInterface';
 
 export interface CartState {
     cart: ICartProduct[];
@@ -99,6 +100,51 @@ export const CartProvider: FC<Props> = ({children}) => {
     }
 
 
+/*
+    const createOrder = async():Promise<{ hasError: boolean; message: string; }> => {
+
+       if ( !state.shippingAddress ) {
+            throw new Error('No hay dirección de entrega');
+        }
+
+        const body: IOrder = {
+            cart: state.cart
+            //numberOfItems: state.numberOfItems,
+           //total: state.total,
+            isPaid: false
+        }
+
+
+        try {
+            
+            const { data } = await tesloApi.post<IOrder>('/orders', body);
+
+            dispatch({ type: '[Cart] - Order complete' });
+
+            return {
+                hasError: false,
+                message: data._id!
+            }
+
+
+        } catch (error) {
+            if ( axios.isAxiosError(error) ) {
+                return {
+                    hasError: true,
+                    message: error.response?.data.message
+                }
+            }
+            return {
+                hasError: true,
+                message : 'Error no controlado, hable con el administrador'
+            }
+        }
+
+    }
+*/
+
+
+
     return (
         <CartContext.Provider value={{
             ...state,
@@ -107,6 +153,9 @@ export const CartProvider: FC<Props> = ({children}) => {
             addProductToCart,
             removeCartProduct,
             updateCartQuantity,
+
+            // Orders
+           // createOrder,
         }}>
             { children }
         </CartContext.Provider>

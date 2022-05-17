@@ -1,25 +1,46 @@
 import { useState, useEffect } from 'react';
 import useSWR from 'swr';
-import { AttachMoneyOutlined, CreditCardOffOutlined, CreditCardOutlined, DashboardOutlined, GroupOutlined, CategoryOutlined, CancelPresentationOutlined, ProductionQuantityLimitsOutlined, AccessTimeOutlined } from '@mui/icons-material';
+import { AttachMoneyOutlined, CreditCardOffOutlined, CreditCardOutlined, DashboardOutlined, GroupOutlined, CategoryOutlined, CancelPresentationOutlined, ProductionQuantityLimitsOutlined, AccessTimeOutlined, AddShoppingCart } from '@mui/icons-material';
 
 import { AdminLayout } from './AdminLayout'
 import { Grid, Typography } from '@mui/material'
 import { SummaryTile } from './SummaryTitle'
-import { DashboardSummaryResponse } from './interfaceDashborad';
+//import { DashboardSummaryResponse } from './interfaceDashborad';
+import { useDispatch, useSelector } from 'react-redux';
+import {GETUSERS, GETORDERS} from '../../actions'
+import { AppDispatch,RootState } from '../../store/index'
+import { GETPRODUCTS } from '../../actions/index';
+
+
+const useAppDispatch = () => useDispatch<AppDispatch>();
 
 
 const DashboardPage = () => {
 
-    const { data, error } = useSWR<DashboardSummaryResponse>('/api/dashboard', {
-        refreshInterval: 30 * 1000 // 30 segundos
-    });
 
-    const [refreshIn, setRefreshIn] = useState(30);
+    const products=useSelector((State:RootState) => State.rootReducer.productos);
+    const users=useSelector((State:RootState) => State.rootReducer.usuarios);
+    const orders=useSelector((State:RootState) => State.rootReducer.ordenes);
+
+
+    const dispatch=useAppDispatch()
+
+    const [refreshIn, setRefreshIn] = useState(25);
+
+    useEffect(()=>{
+      dispatch(GETUSERS())
+      dispatch(GETORDERS())
+      dispatch(GETPRODUCTS())
+    },[dispatch,refreshIn===0])
+
+    /*const { data, error } = useSWR<DashboardSummaryResponse>('/api/dashboard', {
+        refreshInterval: 30 * 1000 // 30 segundos
+    });*/
+
 
     useEffect(() => {
       const interval = setInterval(()=>{ //set interval es una funcion de js
-        console.log('Tick');
-        setRefreshIn( refreshIn => refreshIn > 0 ? refreshIn - 1: 30 );
+        setRefreshIn( refreshIn => refreshIn > 0 ? refreshIn - 1: 25 );
       }, 1000 );
     
       return () => clearInterval(interval)
@@ -27,7 +48,10 @@ const DashboardPage = () => {
     
 
 
-
+    let hightInventory = products.filter((p:any)=> p.stock>10)
+    let productsWithNoInventory = products.filter((p:any)=> p.stock===0)
+    
+/*
     if ( !error && !data ) {
         return <></>
     }
@@ -36,7 +60,7 @@ const DashboardPage = () => {
         console.log(error);
         return <Typography>Error al cargar la información</Typography>
     }
-
+*/
 /*
     const {
         numberOfOrders,
@@ -59,57 +83,55 @@ const DashboardPage = () => {
         <Grid container spacing={2}>
             
             <SummaryTile 
-               // title={ numberOfOrders }
-               title={ 2 }
+                title={ orders.length }
                 subTitle="Ordenes totales"
                 icon={ <CreditCardOutlined color="secondary" sx={{ fontSize: 40 }} /> }
             />
 
             <SummaryTile 
                // title={ paidOrders }
-               title={ 2 }
-                subTitle="Ordenes pagadas"
+                title={ 2 }
+                subTitle="Ordenes entregadas"
                 icon={ <AttachMoneyOutlined color="success" sx={{ fontSize: 40 }} /> }
             />
 
             <SummaryTile 
                // title={ notPaidOrders }
                title={ 2 }
-                subTitle="Ordenes pendientes"
+                subTitle="Ordenes sin entregar"
                 icon={ <CreditCardOffOutlined color="error" sx={{ fontSize: 40 }} /> }
             />
 
+        
             <SummaryTile 
-               // title={ numberOfClients }
-               title={ 2 }
+               title={ users.length }
                 subTitle="Clientes"
                 icon={ <GroupOutlined color="primary" sx={{ fontSize: 40 }} /> }
             />
 
             <SummaryTile 
-                //title={ numberOfProducts }
-                title={ 2 }
+                title={products.length }
                 subTitle="Productos"
                 icon={ <CategoryOutlined color="warning" sx={{ fontSize: 40 }} /> }
             />
 
             <SummaryTile 
-               // title={ productsWithNoInventory }
-               title={ 2 }
-                subTitle="Sin existencias"
+              
+               title={ productsWithNoInventory.length }
+                subTitle="Sin inventario"
                 icon={ <CancelPresentationOutlined color="error" sx={{ fontSize: 40 }} /> }
             />
 
             <SummaryTile 
-               // title={ lowInventory }
-               title={ 2 }
-                subTitle="Bajo inventario"
-                icon={ <ProductionQuantityLimitsOutlined color="warning" sx={{ fontSize: 40 }} /> }
+              
+               title={ hightInventory.length }
+                subTitle="Alto inventario"
+                icon={ <AddShoppingCart color="success" sx={{ fontSize: 40 }} /> }
             />
 
             <SummaryTile 
-               // title={ refreshIn }
-               title={ 2 }
+               
+               title={ refreshIn }
                 subTitle="Actualización en:"
                 icon={ <AccessTimeOutlined color="secondary" sx={{ fontSize: 40 }} /> }
             />

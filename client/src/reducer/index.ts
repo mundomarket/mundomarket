@@ -2,23 +2,30 @@
 import { createReducer } from '@reduxjs/toolkit'
 import * as actions from '../actions/index'
 import Cookie from 'js-cookie'
+import { useNavigate } from 'react-router-dom'
+
+
 
 interface Estado{
   isLogged:boolean,
   productos:any
+  producto:any
   usuarios:any
   ordenes:any
+  orden:any
   copiaproductos:any
-  detail:any
   recommended:any
   user:any
 }
-const initialState = { productos:[], usuarios:[], ordenes:[], detail:[],recommended:[],copiaproductos:[],
+const initialState = { productos:[], producto:[], usuarios:[], ordenes:[],orden:[],recommended:[],copiaproductos:[],
   isLogged:Cookie.get('user')?true:false,user:Cookie.get('user')?JSON.parse(Cookie.get('user')!):[] 
 } as Estado
 
 
 const rootReducer = createReducer(initialState, (builder) => {
+
+
+
   builder
     .addCase(actions.GETPRODUCTS.fulfilled, (state, action) => {
       state.productos=action.payload
@@ -36,12 +43,22 @@ const rootReducer = createReducer(initialState, (builder) => {
       
     })
 
+    .addCase(actions.GETORDER.fulfilled, (state, action) => {
+      state.orden=action.payload
+    })
+
+    .addCase(actions.PAYORDER.fulfilled, (state, action) => {
+    })
+
     .addCase(actions.GETDETAIL.fulfilled, (state, action) => {
-      state.detail=action.payload
+      state.producto=action.payload
     })
 
     .addCase(actions.POSTPRODUCT.fulfilled, (state, action) => {
       state.productos=action.payload
+    })
+
+    .addCase(actions.CREATEORDER.fulfilled, (state, action) => {
     })
 
     .addCase(actions.GETSEARCHBYNAME.fulfilled, (state, action) => {

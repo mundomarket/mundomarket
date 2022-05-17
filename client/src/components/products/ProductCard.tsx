@@ -18,8 +18,6 @@ interface Props{
 
 export const ProductCard: FC <Props> = ( {product}) =>{
 
-//export default function ProductCard({product:string}){
-
     const [isHovered, setIsHovered] = useState (false);
 
     const productImage = useMemo(()=>{
