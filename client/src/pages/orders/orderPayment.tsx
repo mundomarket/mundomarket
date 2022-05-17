@@ -34,25 +34,10 @@ const OrderPage=()=>{
     const dispatch=useAppDispatch()
     const { cart,total } = useContext(CartContext);
     const {id} = useParams()
-    const [isPaid,setIsPaid]=useState(false)
+    
 
     const order=useSelector((State:RootState) => State.rootReducer.orden);
-
-    //const [finalOrder,SetFinalOrder]=useState(order)
-
-    /*useEffect(()=>{
-        dispatch(GETORDER(id))
-        //SetFinalOrder(order)
-      },[dispatch,id])
-*/
-      /*const handlePrice= async ()=>{
-        const orderPrice=await dispatch(GETORDER(id))
-        return orderPrice.payload.totalPrice
-      }
-*/
-    console.log("orden:", order)
-
-
+    const [isPaid,setIsPaid]=useState(order.isPaid?true:false)
     const onOrderCompleted = async( details: OrderResponseBody ) => {
 
         

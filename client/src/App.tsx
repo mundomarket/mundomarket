@@ -52,7 +52,7 @@ function App() {
             <Route path='/' element={isLogged?<Navigate replace to='/home'/>:<Landing/>}/>
             <Route path='/home' element={Home()}/>
             <Route path='/product/:id' element={<Product/>}/>
-            <Route path='/history/:id' element={<History/>}/>
+            <Route path='/history' element={<History/>}/>
             <Route path='/order/:id' element={<Order/>}/>
             <Route path='/admin/dashboard' element={<Admin/>}/>
             <Route path='/admin/users' element={<AdminUserList/>}/>

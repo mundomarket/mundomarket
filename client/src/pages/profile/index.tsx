@@ -58,7 +58,7 @@ const Profile = () => {
                 <LocalMallIcon sx={{m:1,marginRight:2,height:30,width:30}}/>
                 <Box sx={{marginLeft:1,display:'flex',flexDirection:'column',alignItems:'flex-start'}}>
                     {/*to={`/product/${product._id}`}*/}
-                    <NavLink to='/history/345345' style={isActive => ({color: isActive ? "black" : "black"})}>
+                    <NavLink to='/history' style={isActive => ({color: isActive ? "black" : "black"})}>
                         <Typography variant='h6'>Mis Compras</Typography>
                     </NavLink>
                 <Typography variant='subtitle2'>Ver el historial o estado de mis compras</Typography>
