@@ -6,11 +6,11 @@ import NavBar from '../../components/NavBar/NavBar'
 
 //import { ShopLayout } from '../../components/layouts';
 
-const SummaryPage=()=>{
+const SummaryPage=({user}:{user:any})=>{
     return(
         //<ShopLayout title='Resumen de orden' pageDescription={'Resumen de la orden'} imageFullUrl={undefined}>
            <>
-        <NavBar/>
+        <NavBar user={user}/>
         <Typography variant='h1' component='h1' sx={{mt:8}}> Resumen de la orden</Typography>
 
             <Grid container>

@@ -56,10 +56,10 @@ const rows=[
  
 ]
 
-const HistoryPage= () => {
+const HistoryPage= ({user}:{user:any}) => {
     return (
         <>
-            <NavBar/>
+            <NavBar user={user}/>
             <Typography variant='h1'> Historial de ordenes</Typography>
 
             <Grid container>

@@ -3,10 +3,10 @@ import { NavLink } from 'react-router-dom';
 import { CartList, OrderSummary } from '../../components/cart';
 import NavBar from '../../components/NavBar/NavBar'
 
-const CartPage=()=>{
+const CartPage=({user}:{user:any})=>{
     return(
         <>
-            <NavBar/>
+            <NavBar user={user}/>
             <Typography variant='h1' component='h1'> Carrito</Typography>
 
             <Grid container>

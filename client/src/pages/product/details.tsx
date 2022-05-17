@@ -28,7 +28,7 @@ interface Props{
 
 //const product =  initialData.products[0];
 
-const ProductPage = () => {
+const ProductPage = ({user}:{user:any}) => {
 
 
 
@@ -127,7 +127,7 @@ const ProductPage = () => {
     return (
         
         <>
-            <NavBar/>
+            <NavBar user={user}/>
 
         <Box sx={{display:'flex',flexDirection:'column',alignItems:'center'}}>
             <Grid container spacing={8} mt={3} justifyContent={'space-evenly'}>

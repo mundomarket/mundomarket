@@ -4,6 +4,7 @@ import {Route,Routes} from 'react-router-dom'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import '../src/styles/globals.css'
 import { lightTheme } from './themes/light-theme';
+import { Navigate } from "react-router-dom";
 
 import Landing from './pages/landing';
 import Home from './pages/home'
@@ -21,10 +22,31 @@ import Prueba from './pages/product/Recommended'
 
 import { CartProvider } from '../src/components/cart/CartProvider';
 import { SWRConfig } from 'swr';
+import { useState, useEffect } from "react";
+import any from 'react/jsx-runtime';
 
 
 
 function App() {
+  const [user,setUser]= useState(null);
+  useEffect(()=>{
+    const getUser= async ()=>{
+      fetch("http://localhost:3000/oauth/login/success",{
+        method:"GET",
+        credentials:"include"        
+      }).then(response=>{
+        if(response.status === 200) return response.json();
+        throw new Error ("authentication has been failed!")
+      }).then((resObject)=>{
+        setUser(resObject.user);
+      })
+      .catch((err)=>{
+        console.log(err);
+      });
+    };
+    getUser();
+  },[])
+  console.log("Usuario:",user)
   return (
     <div className="App">
 
@@ -40,16 +62,16 @@ function App() {
           <Routes>
 
             <Route path='/' element={Landing()}/>
-            <Route path='/home' element={Home()}/>
-            <Route path='/product/:id' element={<Product/>}/>
-            <Route path='/history/:id' element={<History/>}/>
+            <Route path='/home' element={Home({user})} />
+            <Route path='/product/:id' element={<Product user={user}/>}/>
+            <Route path='/history/:id' element={<History user={user}/>}/>
             <Route path='/history/order/:id' element={<Order/>}/>
 
-            <Route path='/summary' element={Summary()}/>
-            <Route path='/cart' element={Cart()}/>
+            <Route path='/summary' element={Summary({user})}/>
+            <Route path='/cart' element={Cart({user})}/>
             <Route path='/login' element={Login()}/>
             <Route path='/register' element={Register()}/>
-            <Route path='/crearproducto' element={CrearProducto()}/>
+            <Route path='/crearproducto' element={CrearProducto({user})}/>
             <Route path='/profile' element={<Profile/>}/>
 
             <Route path='/prueba' element={<Prueba/>}/>

@@ -42,6 +42,9 @@ const LoginPage = () => {
             dispatch(LOGINUSER(input))
             setInvalid(()=>true)
     }
+    const google=()=>{
+        window.open("http://localhost:3000/oauth/google","_self");//back
+    };
     return(
             <AuthLayout title ={'Ingresar'}>
             <Box sx={{display:'flex',flexDirection:'column',border:'1px solid gray',borderRadius:2,width:{xs:200,sm:320},bgcolor:'white',boxShadow:10}}>
@@ -58,6 +61,10 @@ const LoginPage = () => {
                     Entrar como Invitado
                 </Button>
                 <Divider>o</Divider>
+                <Button color = "secondary" className='circular-btn' size='small' sx={{marginY:1,marginX:{xs:2,sm:4}}}
+                onClick={google}>
+                    Google
+                </Button>
                 
                 <Typography  fontSize={14}><Link to="/forgot">Olvidaste tu Contraseña?</Link></Typography>
                 <Typography fontSize={14} sx={{marginBottom:1}}>No tienes cuenta? <Link to='/register'>Crear</Link></Typography>

@@ -20,7 +20,7 @@ import { AppDispatch, RootState } from '../../store';
 import { CardMedia, Icon} from '@mui/material';
 import { AttachMoney, Wallpaper } from '@mui/icons-material';
 import { useState } from 'react';
-import { Link,NavLink } from 'react-router-dom';
+import { Link,Navigate,NavLink } from 'react-router-dom';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import FilterMenu from './FilterMenu'
 import { useNavigate,useLocation } from 'react-router-dom';
@@ -71,7 +71,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar({user}:{user:any}) {
   const { numberOfItems } = React.useContext( CartContext );
   const isLogged=useSelector((state:RootState)=>state.rootReducer.isLogged)
 
@@ -133,7 +133,9 @@ export default function PrimarySearchAppBar() {
       navigate('/')}}>Cerrar Sesión</MenuItem>}
     </Menu>
   );
-
+  const logout=()=>{
+    window.open("http://localhost:3000/oauth/logout","_self")
+  }
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
@@ -195,6 +197,29 @@ export default function PrimarySearchAppBar() {
         </IconButton>
         <p>Vender</p>
       </MenuItem>
+      {user ? (
+      <MenuItem onClick={logout}>
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+        </IconButton>
+        <p>Logout</p>
+      </MenuItem>):(
+      <MenuItem onClick={()=>navigate('/')}>
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+        </IconButton>
+        <p>Login</p>
+      </MenuItem>)}
     </Menu>
   );
 
@@ -202,6 +227,7 @@ export default function PrimarySearchAppBar() {
     <Box  position='fixed' width='100%' z-index='10000' top='0px' sx={{ zIndex: 'tooltip'}} >
       <AppBar position="static" sx={{ bgcolor: "#232324" }} >
         <Toolbar>
+          
           {/* <IconButton
             size="large"
             edge="start"
