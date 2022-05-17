@@ -43,14 +43,14 @@ const ProductPage = () => {
     },[dispatch,id])
 
     //const products = useSelector((State) => State.products);
-    const product=useSelector((State:RootState) => State.rootReducer.detail); 
+    const product=useSelector((State:RootState) =>State.rootReducer.detail); 
 
     useEffect(()=>{
         dispatch(GETRECOMMENDED(product.category))
       },[product,dispatch])
 
 
-
+    const [orderFinal,setOrderFinal]=useState(order)
 
 
       
