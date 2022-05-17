@@ -10,7 +10,7 @@ passport.use(new GoogleStrategy({
     callbackURL: "/oauth/google/callback"//back   
   },
   function(accessToken:any, refreshToken:any, profile:any, done:any) {
-    console.log("profile",profile)
+    //console.log("profile",profile)
     done(null,profile)
   }
 ));

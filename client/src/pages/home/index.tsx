@@ -15,7 +15,7 @@ import { TypedUseSelectorHook } from "react-redux";
 const useAppDispatch = () => useDispatch<AppDispatch>();
 //const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 
-export default function Home({user}:{user:any}) {
+export default function Home() {
   
   const dispatch=useAppDispatch()
 
@@ -28,7 +28,7 @@ export default function Home({user}:{user:any}) {
   return (
     <div>
         <Box position='fixed' width='100%' sx={{ zIndex: 'tooltip' }}>
-          <NavBar user={user}/>
+          <NavBar/>
         </Box>
         
         <Box sx={{marginY:10}}>

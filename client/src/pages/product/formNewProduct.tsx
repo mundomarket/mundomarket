@@ -11,7 +11,7 @@ import NavBar from '../../components/NavBar/NavBar'
 const regex=/^[0-9]+$/
 
 
-export default function FormP({user}:{user:any}) {
+export default function FormP() {
 
     const [formData,SetFormData]=useState({})//almacena el formulario para luego ser enviado al servidor
 
@@ -147,7 +147,7 @@ export default function FormP({user}:{user:any}) {
   return (
 
 <div>
-    <NavBar user={user}/>
+    <NavBar />
 
     <Box display='flex' justifyContent='center'>
       <div id='formnuevo'>

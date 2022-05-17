@@ -7,10 +7,7 @@ import ShoppingCartSharpIcon from '@mui/icons-material/ShoppingCartSharp';
 import '@fontsource/roboto/300.css';
 import { AppDispatch,RootState } from '../../store/index';
 import {useDispatch,useSelector} from "react-redux"
-import {LOGINUSER} from "../../actions/index"
-
-
-
+import {LOGINUSER, LOGINUSERGOOGLE} from "../../actions/index"
 
 
 const LoginPage = () => {
@@ -43,8 +40,11 @@ const LoginPage = () => {
             setInvalid(()=>true)
     }
     const google=()=>{
-        window.open("http://localhost:3000/oauth/google","_self");//back
-    };
+        dispatch(LOGINUSERGOOGLE())
+    }
+    // const google=()=>{
+    //     window.open("http://localhost:3000/oauth/google","_self");//back
+    // };
     return(
             <AuthLayout title ={'Ingresar'}>
             <Box sx={{display:'flex',flexDirection:'column',border:'1px solid gray',borderRadius:2,width:{xs:200,sm:320},bgcolor:'white',boxShadow:10}}>

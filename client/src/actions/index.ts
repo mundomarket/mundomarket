@@ -56,3 +56,23 @@ export const LOGINUSER=createAsyncThunk('LOGINUSER',async (input:{})=>{
 
 export const LOGOUT=createAction('LOGOUT')
 
+export const LOGINUSERGOOGLE=createAsyncThunk('LOGINUSERGOOGLE',async ()=>{
+  window.open(`http://localhost:3000/oauth/google`,"_self")
+})
+
+export const LOGINUSERGOOGLESUCCESS=createAsyncThunk('LOGINUSERGOOGLESUCCESS',async ()=>{//getUser
+  console.log("login1");
+  try {
+    const login= await axios.get(`http://localhost:3000/oauth/login/success`,{
+            withCredentials: true  
+          });
+          
+          console.log("login2",login);
+            if(login.status === 200) {
+              console.log("login3:",login.data)
+              return login.data
+            };
+  } catch (error) {
+    console.log("error",error) 
+  }
+})

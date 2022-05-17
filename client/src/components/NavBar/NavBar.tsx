@@ -71,11 +71,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
-export default function PrimarySearchAppBar({user}:{user:any}) {
+export default function PrimarySearchAppBar() {
   const { numberOfItems } = React.useContext( CartContext );
   const isLogged=useSelector((state:RootState)=>state.rootReducer.isLogged)
-
- 
+  const user=useSelector((state:RootState)=>state.rootReducer.user)
   const location=useLocation().pathname
   const navigate=useNavigate()
   const useAppDispatch = () => useDispatch<AppDispatch>();
@@ -134,7 +133,9 @@ export default function PrimarySearchAppBar({user}:{user:any}) {
     </Menu>
   );
   const logout=()=>{
+    dispatch(LOGOUT());
     window.open("http://localhost:3000/oauth/logout","_self")
+    navigate("/");
   }
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
@@ -222,7 +223,8 @@ export default function PrimarySearchAppBar({user}:{user:any}) {
       </MenuItem>)}
     </Menu>
   );
-
+  {console.log("usuarioooooooooooooo:",user)}
+  {console.log("islogin", isLogged)}
   return (
     <Box  position='fixed' width='100%' z-index='10000' top='0px' sx={{ zIndex: 'tooltip'}} >
       <AppBar position="static" sx={{ bgcolor: "#232324" }} >

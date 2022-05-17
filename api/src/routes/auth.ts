@@ -1,7 +1,7 @@
 const passport = require("passport");
 const router= require("express").Router();
-const CLIENT_URL = "http://localhost:3001/home"//front
-console.log("entre")
+const CLIENT_URL = "http://localhost:3001"//front
+
 router.get("/login/failed", (req:any,res:any)=>{
 res.status(401).json({
     success: false,
@@ -9,7 +9,7 @@ res.status(401).json({
 });
 });
 router.get("/login/success", (req:any, res:any) => {
-    console.log("req.user",req.user)
+    //console.log("req.user",req.user)
     if (req.user) {
       res.status(200).json({
         success: true,

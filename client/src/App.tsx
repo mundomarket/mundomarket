@@ -25,27 +25,37 @@ import { SWRConfig } from 'swr';
 import { useState, useEffect } from "react";
 import any from 'react/jsx-runtime';
 
+import { AppDispatch,RootState } from './store/index';
+import {useDispatch,useSelector} from "react-redux"
 
+import {LOGINUSERGOOGLESUCCESS} from './actions/index';
 
 function App() {
-  const [user,setUser]= useState(null);
+  const isLogged=useSelector((state:RootState)=>state.rootReducer.isLogged)
+  const user=useSelector((state:RootState)=>state.rootReducer.user)
+  const useAppDispatch = () => useDispatch<AppDispatch>();
+  const dispatch=useAppDispatch()
   useEffect(()=>{
-    const getUser= async ()=>{
-      fetch("http://localhost:3000/oauth/login/success",{
-        method:"GET",
-        credentials:"include"        
-      }).then(response=>{
-        if(response.status === 200) return response.json();
-        throw new Error ("authentication has been failed!")
-      }).then((resObject)=>{
-        setUser(resObject.user);
-      })
-      .catch((err)=>{
-        console.log(err);
-      });
-    };
-    getUser();
+    //console.log("entre al useEffect")
+    dispatch(LOGINUSERGOOGLESUCCESS());
   },[])
+  // useEffect(()=>{
+  //   const getUser= async ()=>{
+  //     fetch("http://localhost:3000/oauth/login/success",{
+  //       method:"GET",
+  //       credentials:"include"        
+  //     }).then(response=>{
+  //       if(response.status === 200) return response.json();
+  //       throw new Error ("authentication has been failed!")
+  //     }).then((resObject)=>{
+  //       setUser(resObject.user);
+  //     })
+  //     .catch((err)=>{
+  //       console.log(err);
+  //     });
+  //   };
+  //   getUser();
+  // },[])
   console.log("Usuario:",user)
   return (
     <div className="App">
@@ -62,16 +72,16 @@ function App() {
           <Routes>
 
             <Route path='/' element={Landing()}/>
-            <Route path='/home' element={Home({user})} />
-            <Route path='/product/:id' element={<Product user={user}/>}/>
-            <Route path='/history/:id' element={<History user={user}/>}/>
+            <Route path='/home' element={Home()} />
+            <Route path='/product/:id' element={<Product/>}/>
+            <Route path='/history/:id' element={<History/>}/>
             <Route path='/history/order/:id' element={<Order/>}/>
 
-            <Route path='/summary' element={Summary({user})}/>
-            <Route path='/cart' element={Cart({user})}/>
+            <Route path='/summary' element={Summary()}/>
+            <Route path='/cart' element={Cart()}/>
             <Route path='/login' element={Login()}/>
             <Route path='/register' element={Register()}/>
-            <Route path='/crearproducto' element={CrearProducto({user})}/>
+            <Route path='/crearproducto' element={CrearProducto()}/>
             <Route path='/profile' element={<Profile/>}/>
 
             <Route path='/prueba' element={<Prueba/>}/>

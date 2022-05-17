@@ -77,8 +77,16 @@ const rootReducer = createReducer(initialState, (builder) => {
     .addCase(actions.LOGOUT,(state)=>{
       Cookie.remove('user')
       state.isLogged=false;
-      state.user=[];
+      state.user=null;
     })
+    .addCase(actions.LOGINUSERGOOGLESUCCESS.fulfilled, (state, action) => {
+      if(action.payload.message==='successfull'){
+        //const userPay=action.payload.user;
+        state.isLogged=true;
+        state.user=action.payload.user;
+        Cookie.set('user',JSON.stringify( state.user ))
+      }
+  })
 })
 
 
