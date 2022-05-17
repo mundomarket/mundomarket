@@ -2,11 +2,15 @@ import { Box, Button, Card, CardContent, Divider, Grid, Typography } from '@mui/
 import { Link } from "react-router-dom";
 import { CartList, OrderSummary } from '../../components/cart';
 import NavBar from '../../components/NavBar/NavBar'
+import {useContext} from 'react'
+import {CartContext} from '../../components/cart/CartContext'
 
 
 //import { ShopLayout } from '../../components/layouts';
 
 const SummaryPage=()=>{
+    const { cart, updateCartQuantity, removeCartProduct } = useContext(CartContext);
+    console.log(cart)
     return(
         //<ShopLayout title='Resumen de orden' pageDescription={'Resumen de la orden'} imageFullUrl={undefined}>
            <>

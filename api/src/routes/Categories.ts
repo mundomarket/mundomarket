@@ -4,7 +4,7 @@ import { verifyToken, isAdmin } from "../controllers/authJwt";
 const route = Router()
 
 
-route.get("/", /*verifyToken,*/async (req: Request, res: Response, next: NextFunction) => {
+route.get("/", verifyToken, async (req: Request, res: Response, next: NextFunction) => {
     try {
         let cats: string[] = await Category.find();
         res.send(cats.length ? cats : "There are no categories in DB")
@@ -14,7 +14,7 @@ route.get("/", /*verifyToken,*/async (req: Request, res: Response, next: NextFun
 });
 
 
-route.post('/', /*[verifyToken, isAdmin],*/ async (req: Request, res: Response, next: NextFunction) => {
+route.post('/', [verifyToken, isAdmin], async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { name } = req.body
 
@@ -23,7 +23,6 @@ route.post('/', /*[verifyToken, isAdmin],*/ async (req: Request, res: Response, 
         if (found) return res.send(`There is a category with a similar name : ${found.name}`)
        
         const newCategory = new Category({name});
-        // return res.send(newCategory)
         await newCategory.save();
         return res.send(`New category ${newCategory.name} created!`)
         
@@ -33,6 +32,29 @@ route.post('/', /*[verifyToken, isAdmin],*/ async (req: Request, res: Response, 
 });
 
 
+route.put('/:id', [verifyToken, isAdmin], async (req: Request, res: Response, next: NextFunction) => {
+    
+    try {
+        const { id } = req.params;
+        await Category.findByIdAndUpdate({_id: id}, req.body);
+        const updatedCategory = await Category.findById({_id: id})
+        res.send(updatedCategory)
+    } catch(err){
+        next(err)
+    }
+
+});
+
+route.delete('/:id', [verifyToken, isAdmin], async (req: Request, res: Response, next: NextFunction) => {
+
+    try {
+        const { id } = req.params;
+        const found = await Category.findByIdAndRemove({_id: id })
+        res.json({ message: `Category : ${found.name} successfully deleted` })
+    } catch (err) {
+        next(err)
+    }
+});
 
 
 export default route

@@ -1,23 +1,29 @@
 import {Router} from "express";
-import users from'./User'
 
+import user from "./Users";
 import product from "./Products";
-import productCart from "./ProductCart";
 import category from "./Categories";
-import user from "./User";
-import productdetail from "./Product_detail";
-import auth from './Auth';
-import productDelete from "./Product_delete";
+import token_confirmed from "./Token_confirm";
+import order from './Orders';
+import conversation from "./Conversations";
+import message from "./Messages";
 
-const route=Router()
 
-route.use('/auth', auth) //creación de usuario e inicio de sesión => solo se crean Users, los Admins son creados por el Dev
-route.use("/users", user) //CRUD de usuario - ADMIN LEE Y BORRA => implementar ban y permaban? seee
-route.use("/products", product)
-route.use("/products-cart", productCart) 
-route.use("/categories",category) //admin
-route.use("/products",productdetail) //todos
-route.use("/delete",productDelete) //admin o usuario registrado
+const route=Router() ;
+
+route.use("/users", user) //CRUD de usuario - ADMIN lee y borra => implementar ban y permaban?
+route.use('/auth/tokenConfirmed', token_confirmed)   //GET http://localhost:3000/auth/tokenConfirmed/:tokenId
+
+route.use("/products", product) //CRUD - User y Admin
+route.use("/categories",category) // CRUD - Admin
+// route.use("/products-cart", productCart) // CRUD - User y Admin
+route.use("/orders", order) 
+
+route.use('/conversations', conversation)
+route.use('/messages', message)
+
+
+
 
 
 export default route

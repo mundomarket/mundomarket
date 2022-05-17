@@ -1,7 +1,7 @@
 import React from "react";
 import {useState} from 'react'
 import NavBar from '../../components/NavBar/NavBar'
-import { Box,Typography,Avatar,Divider,IconButton,TextField } from "@mui/material";
+import { Box,Typography,Avatar,Divider,IconButton,TextField, Input } from "@mui/material";
 import {useSelector,useDispatch} from 'react-redux'
 import {RootState,AppDispatch} from '../../store'
 import EditIcon from '@mui/icons-material/Edit';
@@ -36,6 +36,8 @@ const ModifyUser=()=>{
         phone:false,
         cuil:false
     })
+    const[images,setImages]=useState('');//array de strings de url de imagenes 
+    const[upLoading,setUpLoading]=useState(false)
 
     const handleChange=(campo:string)=>{
         setEditable((old)=>({...old,[campo]:true}))
@@ -46,12 +48,47 @@ const ModifyUser=()=>{
     const Edit=(e:any)=>{
         setField((old)=>({...old,[e.target.name]:e.target.value}))
     }
+
+    const handleDelete=(e:any)=>{
+        e.preventDefault()
+        setImages('')
+        setField((input)=>({...input,avatar:''}))
+      //eliminar el elemento que tenga la misma url 
+      }
+      
+      const handleUpload= async (e:any)=>{
+        
+        const pic = e.target.files[0];
+        if (pic===undefined)  return  0
+        setUpLoading(true);
+        const formData=new FormData();
+        formData.append('file',pic);
+        formData.append('upload_preset','images');
+        
+         await fetch('https://api.cloudinary.com/v1_1/dnlooxokf/upload',{
+          method: 'POST',
+          body: formData,
+        })
+          .then((res)=>res.json())
+          .then((res)=> {
+            setImages(()=>res.url);
+            setField((input)=>({...input,avatar:res.url}))
+            setUpLoading(false);
+          })
+          .catch(error=>console.log(error));
+      };
+
     return(
         <>
         <NavBar/>
-        <Box sx={{marginY:10,marginX:{xs:2,sm:'auto'},bgcolor:'white',border:'1px solid black',display:'flex',justifyContent:'space-around',flexDirection:{xs:'column',sm:'row'},borderRadius:3,alignItems:'center',maxWidth:700}}>
-            <Box sx={{display:'flex',justifyContent:'center',width:200,height:200}}>
+        <Box sx={{marginY:10,marginX:{xs:2,sm:'auto'},bgcolor:'white',boxShadow:2,display:'flex',justifyContent:'space-around',flexDirection:{xs:'column',sm:'row'},borderRadius:3,alignItems:'center',maxWidth:700}}>
+            <Box sx={{display:'flex',justifyContent:'center',width:200,height:300,flexDirection:'column'}}>
                 <Avatar src={user.avatar} alt={user.name} sx={{width:200,height:200}}/>
+
+                <Box>
+                {<Input aria-label="Archivo" type="file" name="imagen" onChange={handleUpload}/>}
+                {upLoading && <p>Subiendo Foto...</p> }
+                </Box>
             </Box>
 
             <Box sx={{display:'flex',flexDirection:'column'}}>

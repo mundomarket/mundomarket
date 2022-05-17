@@ -1,4 +1,4 @@
-import {model,Schema,Types} from "mongoose"
+import {model,Schema} from "mongoose"
 
 
 const productSchema=new Schema({
@@ -6,20 +6,21 @@ const productSchema=new Schema({
         type:String,
         required:true, 
         unique: true        
+
     },
     price:{
         type:Number,
-        // required:true,
+        required:true,
         default:0
     },
     description:{
         type:String,
-       // required:true,
+        required:true,
         maxLength: 1000
     },
     stock:{
         type:Number,
-      //  required:true,
+        required:true,
         default:0
     },
     imageProduct:{
@@ -27,34 +28,35 @@ const productSchema=new Schema({
     },
     review:{
         type:Number,
-       // required:true,
+        required:true,
         default:0
         
     },
     rating:{
         type:Number,
-       // required:true,
+        required:true,
         default:0
     },
     category:{
         type: String,
         ref:"Category",
-       // required:true
+        required:true
     },
 
     inCart : {
         type : Boolean,
         default : false
     },
+    
     envio:{
         type:String,
-       // required:false
+        required:false
     },
-    user:{
-        type: Schema.Types.ObjectId, 
-        ref: 'User',
-        required: true,
-    }
+    
+    user : {
+        type : Schema.Types.ObjectId,
+        ref : 'User'
+   },
 })
 
 const Product=model("Product",productSchema)

@@ -1,5 +1,5 @@
 // Authorization
-// verifica token (user registrado) y rol
+// verifica token (user registrado y logueado) y rol
 
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";

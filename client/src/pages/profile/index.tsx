@@ -24,14 +24,14 @@ const Profile = () => {
         <>
         <NavBar/>
         <Container sx={{m:'auto',display:'flex',flexDirection:'column',bgcolor:'transparent',width:500,marginTop:10}}>
-            <Box sx={{m:1,border:'1px solid gray',p:1,borderRadius:3,display:'flex',bgcolor:'white',boxShadow:2}}>
+            <Box sx={{m:1,p:1,borderRadius:3,display:'flex',bgcolor:'white',boxShadow:2}}>
                 <Avatar src={user.avatar} alt='-' sx={{m:1,marginRight:2,height:45,width:45}}/>
                 <Divider orientation="vertical" flexItem />
                 <Box sx={{m:'auto'}}>
                 <Typography variant='h4'>{user.name}</Typography>
                 </Box>
             </Box>
-            <Box className='LinkedBlack' sx={{m:1,border:'1px solid gray',p:1,borderRadius:3,display:'flex',flexDirection:'column',bgcolor:'white',boxShadow:2}}>
+            <Box className='LinkedBlack' sx={{m:1,p:1,borderRadius:3,display:'flex',flexDirection:'column',bgcolor:'white',boxShadow:2}}>
                 
                 <Link to='/modifyuser'>
                 <Box sx={{display:'flex'}}>

@@ -28,6 +28,8 @@ import '@fontsource/roboto/300.css';
 import { CartContext } from '../cart/CartContext';
 import KeyIcon from '@mui/icons-material/Key';
 
+const logo=require('./Mundo-Market2.png')
+
 
 
 
@@ -248,11 +250,14 @@ export default function PrimarySearchAppBar() {
             </NavLink>
           </Typography>
           
-
-          {/* <img
-              src={'wallpaper.jpg'}
+          {/* <Box sx={{}}>
+          <img
+              src={logo}
               alt='logo'
-                            /> */}
+              width={'50%'}
+              height={30}
+                            />
+          </Box> */}
 
           <Box sx={{ flexGrow: 1 }} />
           {location==='/home'?<Search>

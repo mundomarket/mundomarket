@@ -104,7 +104,4 @@ route.delete("/:productId", async (req, res)=>{
       })
       .catch((error:string) => res.json({ mensaje: "Hubo un error" }));
     });
-
-
-    
 export default route;

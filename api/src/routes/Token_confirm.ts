@@ -23,7 +23,7 @@ route.get("/:tokenId", async(req:any, res:any, next:any)=>{
     console.log(user)
     if(!user) return res.send("no se encontro el user")
     if(user.verificado) return res.send('usuario verificado')  
-    const verificarUser = await User.findByIdAndUpdate(user.id, {cuentaConfirmada: true})
+    const verificarUser = await User.findByIdAndUpdate(user.id, {verified: true})
     return res.send("token verificado")
    } catch (error) {
        next(error)

@@ -47,7 +47,7 @@ function App() {
             <Route path='/history/:id' element={<History/>}/>
             <Route path='/history/order/:id' element={<Order/>}/>
 
-            <Route path='/summary' element={isLogged?<Summary/>:<Navigate replace to='/home'/>}/>
+            <Route path='/summary' element={<Summary/>}/>
             <Route path='/cart' element={Cart()}/>
             <Route path='/login' element={isLogged?<Navigate replace to='/home'/>:<Login/>}/>
             <Route path='/register' element={isLogged?<Navigate replace to='/home'/>:<Register/>}/>

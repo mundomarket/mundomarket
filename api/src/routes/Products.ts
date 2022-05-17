@@ -1,11 +1,15 @@
 import { Router } from "express";
 import Product from "../models/Product"
 import {verifyToken, isAdmin} from '../controllers/authJwt'
+import { Request, Response, NextFunction } from "express";
+import User from "../models/User";
 const route= Router()
 
 
-route.get("/list", async (req:any, res:any,next:any) => {
- 
+
+
+route.get("/", async (req:any, res:any,next:any) => {
+
     const {name, names, sort, filterName, filterOrder} = req.query
     
     if(name){
@@ -42,7 +46,7 @@ route.get("/list", async (req:any, res:any,next:any) => {
         
         try {
             //http://localhost:3000/products
-            const allProduct  = await Product.find()
+            const allProduct  = await Product.find({})
             return res.json(allProduct)
         } catch (error) {
             next(error)
@@ -61,17 +65,66 @@ route.post('/', verifyToken, async (req:any, res:any) => {
             res.send('You can´t post the same product twice')
         }
         else {
-
             const newProduct = new Product(req.body);
-            console.log(newProduct)
+
+            newProduct.user = [req.userId]            
+           
             await newProduct.save()
+            
+            const updatedUser = await User.findByIdAndUpdate(
+                req.userId,
+                {$push: {"products": newProduct._id}},
+                {upsert: true, new : true})
+
+            console.log(updatedUser)
             return res.send('Product created')
         }
 
     } catch (err) {
         res.send(err)
     }
-})
+});
+
+
+route.get("/:id",  async(req:any, res:any) => {
+    let id:string=req.params.id;
+    try {
+        let resultado:any[]|null=await Product.findById(id).populate(['user'])
+        res.send(resultado? resultado : "No se encuentra el producto" )
+    } catch (error) {
+        res.send({error: "No se encuentra el producto"})
+    }
+ 
+});
+
+
+route.put('/:id', verifyToken, async (req: Request, res: Response, next: NextFunction) => {
+
+    try {
+        const { id } = req.params;
+        await Product.findByIdAndUpdate({_id: id}, req.body);
+        const updatedProduct = await Product.findById({_id: id});
+        res.send(updatedProduct);
+    } catch(err){
+        next(err)
+    }
+
+});
+
+
+route.delete("/:id", verifyToken, async (req:any, res:any, next:any)=>{
+    try {
+        const id = req.query.id
+        if(id){
+        await Product.findByIdAndDelete(id)
+        return res.send("Removed product")
+        }
+        res.send("Product ID needed")
+ 
+    } catch (error) {
+        next(error)
+    }
+ });
 
 
              
