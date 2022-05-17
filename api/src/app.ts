@@ -1,11 +1,11 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
-import router from "./Routes/index"
+import router from "./routes/index"
 import session from 'express-session'
 import passport from "passport";
 import User from './models/User'
-
+require("./passport");
 
 
 
@@ -50,7 +50,10 @@ passport.deserializeUser(async(user:any, done)=>{
 
 
 
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:3001",
+  credentials: true,
+}));
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -59,6 +62,7 @@ app.use(router);
 app.use((req:any, res:any, next:any) => {
     const error: any = new Error("Not found");
     error.status = 404;
+    console.log("aqui error 404  ooooooooooooooooooooo")
     next(error);
   }
   );

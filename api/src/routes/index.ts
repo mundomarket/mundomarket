@@ -15,9 +15,8 @@ import product_detail from './Product_detail'
 import product_delete from './Product_delete'
 import productCart from "./ProductCart";
 import categories from "./Categories";
-
+const authRoute= require("./auth")
 const route=Router() ;
-
 function loggedIn(req:any,res:any,next:any){
     if(req.user){
         next()
@@ -26,7 +25,6 @@ function loggedIn(req:any,res:any,next:any){
         res.send("usuario sin loggearse")
     }
 }
-
 // all users
 route.use('/users',users)                 //GET http://localhost:3000/user/list
 
@@ -34,6 +32,7 @@ route.use('/users',users)                 //GET http://localhost:3000/user/list
 route.use('/auth/register',register)                 //POST http://localhost:3000/auth/register/
 route.use('/auth/tokenConfirmed', token_confirmed)   //GET http://localhost:3000/auth/tokenConfirmed/:tokenId
 route.use('/auth/login', login)                      //POST http://localhost:3000/auth/login
+route.use('/oauth', authRoute)
 //falta forgotpassword
 
 
