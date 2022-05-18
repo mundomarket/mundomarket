@@ -7,7 +7,7 @@ import ShoppingCartSharpIcon from '@mui/icons-material/ShoppingCartSharp';
 import '@fontsource/roboto/300.css';
 import { AppDispatch,RootState } from '../../store/index';
 import {useDispatch,useSelector} from "react-redux"
-import {LOGINUSER} from "../../actions/index"
+import {LOGINUSER, LOGINUSERGOOGLE} from "../../actions/index"
 
 
 
@@ -38,6 +38,9 @@ const LoginPage = () => {
             dispatch(LOGINUSER(input))
             setTimeout(()=>setInvalid(()=>true),500)
     }
+    const google=()=>{
+        dispatch(LOGINUSERGOOGLE())
+    }
     return(
             <AuthLayout title ={'Ingresar'}>
             <Box sx={{display:'flex',flexDirection:'column',border:'1px solid gray',borderRadius:2,width:{xs:200,sm:320},bgcolor:'white',boxShadow:10}}>
@@ -54,6 +57,10 @@ const LoginPage = () => {
                     Entrar como Invitado
                 </Button>
                 <Divider>o</Divider>
+                <Button color = "secondary" className='circular-btn' size='small' sx={{marginY:1,marginX:{xs:2,sm:4}}}
+                onClick={google}>
+                    Google
+                </Button>
                 
                 <Typography fontSize={14}>Olvidaste tu Contraseña?</Typography>
                 <Typography fontSize={14} sx={{marginBottom:1}}>No tienes cuenta? <Link to='/register'>Crear</Link></Typography>

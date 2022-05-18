@@ -11,7 +11,7 @@ var parse=require('parse-headers')
 export const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const token: any = req.headers['x-access-token'];
-
+        console.log(token)
         if (!token) return res.status(403).json({ message: 'No token provided' })
 
         const decoded: any = jwt.verify(token, config.SECRET_JWT)

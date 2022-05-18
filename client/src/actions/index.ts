@@ -107,3 +107,26 @@ export const MODIFYUSER=createAsyncThunk('MODIFYUSER',async (input:any)=>{
   }})
   return user.data
 })
+
+export const LOGINUSERGOOGLE=createAsyncThunk('LOGINUSERGOOGLE',async ()=>{
+  window.open(`${api}/oauth/google`,"_self")
+})
+
+export const LOGINUSERGOOGLESUCCESS=createAsyncThunk('LOGINUSERGOOGLESUCCESS',async ()=>{//getUser
+  console.log("login1");
+  try {
+    const login= await axios.get(`${api}/oauth/login/success`,{
+             withCredentials: true  
+        //   headers:{
+        //  "x-access-token": Cookie.get('token')&&JSON.parse(Cookie.get('token')!)
+        //     }
+       });          
+          console.log("login2",login);
+            if(login.status === 200) {
+              console.log("login3:",login.data)
+              return login.data
+            };
+  } catch (error) {
+    console.log("error",error) 
+  }
+})
