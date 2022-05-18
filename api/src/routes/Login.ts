@@ -1,4 +1,3 @@
-
 import {Router} from "express";
 import User from '../models/User'
 import {body, validationResult} from 'express-validator'

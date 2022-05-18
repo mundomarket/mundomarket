@@ -29,7 +29,6 @@ app.get('/crear-session', (req:any, res:any)=>{
   req.session.user = "emma"
   res.redirect('/protegido')
 })
-
 app.get('/chau', (req:any,res)=>{
   req.session.destroy()
   res.redirect('protegido')

@@ -69,14 +69,12 @@ userSchema.methods.resetPassword = function(cb:any) {
     const email_destination = this.email;
     token.save( (err:any)=>{
         if(err) { return console.log(err.message)}
-
         const emailOptions = {
             from: 'mundomarket@mundomarket.com',
             to: email_destination,
             subject: "check e-mail",
             text: 'Verifique su passsword haciendo click aqui: \n'+ 'http://localhost:3000'+ '\/token/resetPassword\/' + token.token 
         };
-
         
         mailer.sendMail(emailOptions, (err:any)=>{
             if(err){return console.log(err.message)};
@@ -110,4 +108,3 @@ userSchema.methods.email_Welcome= function (cb:any){
 
 const User= model("User",userSchema)
 export default User
-
