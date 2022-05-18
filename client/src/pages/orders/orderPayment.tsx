@@ -10,7 +10,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from '../../store';
 import { useParams } from 'react-router-dom';
-import { GETORDER, PAYORDER } from '../../actions';
+import { GETORDER, PAYORDER,GETDETAIL } from '../../actions';
 import { IOrder } from './orderInterface';
 
 export type OrderResponseBody = {
@@ -31,19 +31,33 @@ const useAppDispatch = () => useDispatch<AppDispatch>();
 
 const OrderPage=()=>{
 
+    const usuario=useSelector((State:RootState)=>State.rootReducer.user)
+
     const dispatch=useAppDispatch()
     const { cart,total } = useContext(CartContext);
     const {id} = useParams()
     
 
     const order=useSelector((State:RootState) => State.rootReducer.orden);
+    // const detalle=useSelector((State:RootState) => State.rootReducer.producto);
     const [isPaid,setIsPaid]=useState(order.isPaid?true:false)
+
+    // const producto=async(ide:any)=>{
+    //     await dispatch(GETDETAIL(ide))
+    // }
     const onOrderCompleted = async( details: OrderResponseBody ) => {
 
         
         if ( details.status !== 'COMPLETED' ) {
             return alert('No hay pago en Paypal');
         }
+
+        // order.products.forEach(async (product:any)=>{
+        //     await producto(product._id)
+        //     if(detalle.stock<product.quantity){
+        //         return alert(`No hay stock suficiente de ${product.name}`);
+        //     }
+        // })
     
         //setIsPaying(true);
     
@@ -51,7 +65,7 @@ const OrderPage=()=>{
             console.log("verifico idOrden:", order._id)
         
             dispatch(PAYORDER({transactionId: details.id, orderId: order._id}))
-            //dispatch(GETORDER(id))
+
             setIsPaid(()=>true)
     
         } catch (error) {
@@ -118,10 +132,10 @@ const OrderPage=()=>{
                             <Typography>{order.adress}</Typography>
                             <Typography>{order.user.country}</Typography>
                             <Typography>{order.user.phone}</Typography>*/}
-                            <Typography>{}</Typography>
-                            <Typography>{}</Typography>
-                            <Typography>{}</Typography>
-                            <Typography>{}</Typography>
+                            <Typography>{usuario.name}</Typography>
+                            <Typography>{usuario.adress}</Typography>
+                            <Typography>{usuario.city}</Typography>
+                            <Typography>{usuario.phone}</Typography>
 
                             <Divider sx={{my:1}}/>
 
@@ -155,13 +169,8 @@ const OrderPage=()=>{
                                             purchase_units: [
                                                 {
                                                     amount: {
-                                                        
-                                                        //value: `${setTimeout(()=>order.TotalPrice,1000)}`,
+                                                    
                                                         value: `${order.totalPrice}`,
-                                                        //value: `${total}`,
-                                                        //value: `${handlePrice()}`
-                                                        //value: `${finalOrder.totalPrice}`,
-                                                
                                                     },
                                                 },
                                             ],

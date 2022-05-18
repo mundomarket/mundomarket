@@ -109,11 +109,17 @@ const rootReducer = createReducer(initialState, (builder) => {
       Cookie.remove('user')
       state.isLogged=false;
       state.user=[];
+      state.ordenes=[]
     })
     .addCase(actions.MODIFYUSER.fulfilled,(state,action)=>{
+      if(state.user._id===action.payload._id){
       Cookie.set('user',JSON.stringify( action.payload ),{expires:0.08})
       state.user=action.payload
       alert('Cambios Guardados')
+      }
+      else{
+        state.user=Cookie.get('user')?JSON.parse(Cookie.get('user')!):[]
+      }
     })
 })
 

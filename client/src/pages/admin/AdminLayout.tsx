@@ -2,7 +2,6 @@ import { FC } from 'react';
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import  Navbar  from '../../components/NavBar/NavBar';
-import  AdminNavbar  from './AdminNavbar';
 
 
 interface Props {
@@ -17,7 +16,7 @@ export const AdminLayout:FC<Props> = ({ children, title, subTitle, icon }) => {
     <>
 
         <nav>
-            <AdminNavbar />
+            <Navbar />
         </nav>
 
 

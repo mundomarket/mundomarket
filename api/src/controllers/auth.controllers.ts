@@ -7,13 +7,13 @@ import Role from '../models/Role';
 import { validationResult } from 'express-validator'
 
 
-const encryptPassword = async (password: string) => {
+export const encryptPassword = async (password: string) => {
     const salt = await bcrypt.genSalt(10)
     return await bcrypt.hash(password, salt);
 }
 
 
-const comparePasswords = async (savedPassword: string, receivedPassword: string) => {
+export const comparePasswords = async (savedPassword: string, receivedPassword: string) => {
     return await bcrypt.compare(savedPassword, receivedPassword)
 }
 

@@ -11,7 +11,7 @@ import { IUser } from './interfaceUsers';
 //import { tesloApi } from '../../api';
 
 import { useDispatch, useSelector } from 'react-redux';
-import {GETUSERS, GETORDERS,GETPRODUCTS} from '../../actions'
+import {GETUSERS, GETORDERS,GETPRODUCTS, MODIFYUSER} from '../../actions'
 import { AppDispatch,RootState } from '../../store/index'
 import { AdminLayout } from './AdminLayout';
 
@@ -20,20 +20,23 @@ import { AdminLayout } from './AdminLayout';
 const useAppDispatch = () => useDispatch<AppDispatch>();
 
 const UsersPage = () => {
-
-    const usuarios=useSelector((State:RootState) => State.rootReducer.usuarios);
-
     const dispatch=useAppDispatch()
 
     useEffect(()=>{
-      dispatch(GETUSERS())
-    },[dispatch])
+        dispatch(GETUSERS())
+      },[dispatch])
+
+    const usuarios=useSelector((State:RootState) => State.rootReducer.usuarios);
+    console.log("usuarios:",usuarios)
+      //  console.log("usuarios:",usuarios[0]._id)
 
 
+/*
 
 
     const { data, error } = useSWR<IUser[]>('/api/users');
     const [ users, setUsers ] = useState<IUser[]>([]);
+    
 
 
     useEffect(() => {
@@ -54,7 +57,7 @@ const UsersPage = () => {
         }));
 
         setUsers(updatedUsers);
-/*
+
         try {
             
             await tesloApi.put('/admin/users', {  userId, role: newRole });
@@ -64,14 +67,14 @@ const UsersPage = () => {
             console.log(error);
             alert('No se pudo actualizar el role del usuario');
                 }
-*/
+
     }
 
-
+*/
     const columns: GridColDef[] = [
         { field: 'name', headerName: 'Nombre completo', width: 300 },
         { field: 'email', headerName: 'Correo', width: 250 },
-       // { field: 'products', headerName: 'Publicaciones', width: 250 },
+        { field: 'products', headerName: 'Publicaciones', width: 250 },
         {
             field: 'role', 
             headerName: 'Rol', 
@@ -79,14 +82,18 @@ const UsersPage = () => {
             renderCell: ({row}: GridValueGetterParams) => {
                 return (
                     <Select
-                        defaultValue={row.roles}
-                        value={ row.roles }
+                       // defaultValue={row.roles}
+                        value={ row.rol }
                         label="Rol"
-                        onChange={ ({ target }) => onRoleUpdated( row.id, target.value ) }
+                        onChange={ (e) => {
+                            dispatch(MODIFYUSER({_id:row.id,roles: e.target.value==='admin'?['6278836b2eda1997d8769ad3']:['6278836b2eda1997d8769ad2']}))
+                            window.location.reload()
+                        } }
                         sx={{ width: '300px' }}
                     >
-                        <MenuItem value='admin'> Admin </MenuItem>
-                        <MenuItem value='user'> Client </MenuItem>
+                        <MenuItem value='admin'> {row.id==='62818cd236553e4c1b72eb35'?"Super Admin":'Admin'} </MenuItem>
+                        {row.id==='62818cd236553e4c1b72eb35'?[]:<MenuItem value='user'> User </MenuItem>}
+    
                     </Select>
                 )
             }
@@ -97,15 +104,21 @@ const UsersPage = () => {
             width: 300,
             renderCell: ({row}: GridValueGetterParams) => {
                 return (
-                    <Select
-                        value={ row.roles }
-                        label="Rol"
-                        onChange={ ({ target }) => onRoleUpdated( row.id, target.value ) }
-                        sx={{ width: '300px' }}
-                    >
-                        <MenuItem value='online'> online </MenuItem>
-                        <MenuItem value='bloqueado'> bloqueado </MenuItem>
-                    </Select>
+
+                        <Select
+                            value={ row.estado?'bloqueado':'online' }
+                            label="state"
+                            onChange={ (e)=> {
+                                dispatch(MODIFYUSER({_id:row.id,suspendedAccount: e.target.value==='online'?false:true}))
+                                window.location.reload()
+                            }   }
+                            sx={{ width: '300px' }}
+                        >
+                            <MenuItem value='online'> online </MenuItem>
+                            {row.id==='62818cd236553e4c1b72eb35'?[]:<MenuItem value='bloqueado'> bloqueado </MenuItem>}
+                        </Select>
+
+
                 )
             }
         },
@@ -114,12 +127,13 @@ const UsersPage = () => {
     const rows = usuarios.map( (user:any) => ({
         id: user._id,
         email: user.email,
-       // products: user.product.length,
+        products: user.products.length,
         name: user.name,
-        roles: user.role
+        rol: user.roles[0]?.name,
+        estado: user.suspendedAccount
     }))
 
-
+console.log(rows)
   return (
     <Box >
 
@@ -129,12 +143,12 @@ const UsersPage = () => {
         icon={ <GroupOutlined /> }
         >
         <Grid container className='fadeIn'>
-            <Grid item xs={12} sx={{ height:650, width: '100%' }}>
+            <Grid item xs={12} sx={{ height:750, width: 40000 }}>
                 <DataGrid 
                     rows={ rows }
                     columns={ columns }
-                    pageSize={ 10 }
-                    rowsPerPageOptions={ [10] }
+                    pageSize={ 20 }
+                    rowsPerPageOptions={ [20] }
                 />
 
             </Grid>

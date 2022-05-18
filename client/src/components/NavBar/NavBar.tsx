@@ -27,6 +27,7 @@ import { useNavigate,useLocation } from 'react-router-dom';
 import '@fontsource/roboto/300.css';
 import { CartContext } from '../cart/CartContext';
 import KeyIcon from '@mui/icons-material/Key';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
 const logo=require('./Mundo-Market2.png')
 
@@ -73,11 +74,20 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-
+const verifyAdmin=(user:any)=>{
+  if(!user.roles){
+    return false
+  }
+  else{
+    if(user.roles[0].name==='admin')return true;
+    else return false
+  }
+}
 export default function PrimarySearchAppBar() {
   const { numberOfItems } = React.useContext( CartContext );
   const isLogged=useSelector((state:RootState)=>state.rootReducer.isLogged)
   const user=useSelector((state:RootState)=>state.rootReducer.user)
+  const isAdmin=verifyAdmin(user)
 
  
   const location=useLocation().pathname
@@ -132,6 +142,7 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       {!isLogged && <MenuItem onClick={()=>navigate('/login')}>Iniciar Sesión</MenuItem>}
+      {isAdmin && <MenuItem onClick={()=>navigate('/admin/dashboard')}>Dashboard</MenuItem>}
       {isLogged && <MenuItem onClick={()=>navigate('/profile')}>Mi Perfil</MenuItem>}
       <MenuItem onClick={()=>navigate(`${isLogged? '/crearproducto':'/'}`)}>Vender</MenuItem>
       {isLogged && <MenuItem onClick={()=>{dispatch(LOGOUT())

@@ -33,7 +33,21 @@ import { PayPalScriptProvider} from "@paypal/react-paypal-js";
 
 
 function App() {
+  const verifyAdmin=(user:any)=>{
+    if(!user.roles){
+      return false
+    }
+    else{
+      if(user.roles[0].name==='admin')return true;
+      else return false
+    }
+  }
   const isLogged=useSelector((state:RootState)=>state.rootReducer.isLogged)
+  const user=useSelector((state:RootState)=>state.rootReducer.user)
+  const isAdmin=verifyAdmin(user)
+
+
+
   return (
     <div className="App">
 <PayPalScriptProvider options={{ "client-id": 'AQ0xQs7KJfypFz2RqDQlSnT9qYlzBaGyXFsPaTVDQIbgpvD8n1TXUV5Qh-h6vzVdlzd4QjGDFdqOJrup' || '' }}>
@@ -52,10 +66,10 @@ function App() {
             <Route path='/' element={isLogged?<Navigate replace to='/home'/>:<Landing/>}/>
             <Route path='/home' element={Home()}/>
             <Route path='/product/:id' element={<Product/>}/>
-            <Route path='/history' element={<History/>}/>
+            <Route path='/history' element={isLogged?<History/>:<NotFound/>}/>
             <Route path='/order/:id' element={<Order/>}/>
-            <Route path='/admin/dashboard' element={<Admin/>}/>
-            <Route path='/admin/users' element={<AdminUserList/>}/>
+            <Route path='/admin/dashboard' element={isAdmin?<Admin/>:<NotFound/>}/>
+            <Route path='/admin/users' element={isAdmin?<AdminUserList/>:<NotFound/>}/>
 
             <Route path='/summary' element={<Summary/>}/>
             <Route path='/cart' element={Cart()}/>

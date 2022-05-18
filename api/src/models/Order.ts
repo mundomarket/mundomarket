@@ -10,19 +10,12 @@ const OrderSchema=new Schema({
          ref : 'User'
     },
 
-    products : [
-        // {
-        //     type : Schema.Types.ObjectId,
-        //     ref : 'Product'
-        //     // {"48ba21a389sg1eg2","2837930hca2a"}  
-
-        // }
-        //o un array vacío y pusheo lo que me llega del front. puedo hacer una búsqueda por nombre exacta para vincular si no me llega el ObjectId    
-        ],
+    products : [],
     
-    date : {
-        type : Date
-    },
+    // date : {
+    //     type : Date,
+    //     // default : Date.now()
+    // },
 
     adress : {
         type : String,
@@ -45,7 +38,10 @@ const OrderSchema=new Schema({
     }
 
 
-})
+},
+ {
+     timestamps : true
+ })
 
 const Order=model("Order",OrderSchema)
 

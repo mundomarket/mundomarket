@@ -10,18 +10,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import {GETUSERS, GETORDERS} from '../../actions'
 import { AppDispatch,RootState } from '../../store/index'
 import { GETPRODUCTS } from '../../actions/index';
-
+import { Link } from 'react-router-dom';
 
 const useAppDispatch = () => useDispatch<AppDispatch>();
 
-
 const DashboardPage = () => {
-
 
     const products=useSelector((State:RootState) => State.rootReducer.productos);
     const users=useSelector((State:RootState) => State.rootReducer.usuarios);
     const orders=useSelector((State:RootState) => State.rootReducer.ordenes);
-
+    let ordenesPagas = orders.filter((order:any)=>order.isPaid===true)
 
     const dispatch=useAppDispatch()
 
@@ -33,10 +31,6 @@ const DashboardPage = () => {
       dispatch(GETPRODUCTS())
     },[dispatch,refreshIn===0])
 
-    /*const { data, error } = useSWR<DashboardSummaryResponse>('/api/dashboard', {
-        refreshInterval: 30 * 1000 // 30 segundos
-    });*/
-
 
     useEffect(() => {
       const interval = setInterval(()=>{ //set interval es una funcion de js
@@ -45,33 +39,10 @@ const DashboardPage = () => {
     
       return () => clearInterval(interval)
     }, []);
-    
 
 
     let hightInventory = products.filter((p:any)=> p.stock>10)
     let productsWithNoInventory = products.filter((p:any)=> p.stock===0)
-    
-/*
-    if ( !error && !data ) {
-        return <></>
-    }
-
-    if ( error ){
-        console.log(error);
-        return <Typography>Error al cargar la información</Typography>
-    }
-*/
-/*
-    const {
-        numberOfOrders,
-        paidOrders,
-        numberOfClients,
-        numberOfProducts,
-        productsWithNoInventory,
-        lowInventory,
-        notPaidOrders,
-    } = data!;
-*/
 
   return (
     <AdminLayout
@@ -89,29 +60,31 @@ const DashboardPage = () => {
             />
 
             <SummaryTile 
-               // title={ paidOrders }
-                title={ 2 }
-                subTitle="Ordenes entregadas"
+            
+                title={ ordenesPagas.length }
+                //title={ 2 }
+                subTitle="Ordenes pagadas"
                 icon={ <AttachMoneyOutlined color="success" sx={{ fontSize: 40 }} /> }
             />
-
+            
             <SummaryTile 
-               // title={ notPaidOrders }
-               title={ 2 }
-                subTitle="Ordenes sin entregar"
+               // onClick={()=>alert("hola")}
+
+                title={ orders.length-ordenesPagas.length }
+                subTitle="Ordenes sin pagar"
                 icon={ <CreditCardOffOutlined color="error" sx={{ fontSize: 40 }} /> }
             />
 
         
             <SummaryTile 
                title={ users.length }
-                subTitle="Clientes"
+                subTitle="Usuarios"
                 icon={ <GroupOutlined color="primary" sx={{ fontSize: 40 }} /> }
             />
 
             <SummaryTile 
                 title={products.length }
-                subTitle="Productos"
+                subTitle="Publicaciones"
                 icon={ <CategoryOutlined color="warning" sx={{ fontSize: 40 }} /> }
             />
 

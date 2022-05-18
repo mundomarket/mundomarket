@@ -9,12 +9,12 @@ import { GETORDERS,GETORDER } from '../../actions';
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch,RootState } from '../../store/index';
 
+const moment=require('moment')
+
 
 
 
 const useAppDispatch=()=>useDispatch<AppDispatch>();
-
-
 
 /*
 const rows=[
@@ -27,12 +27,6 @@ const rows=[
  
 ]
 */
-
-
-
-
-
-
 const HistoryPage= () => {
     const dispatch=useAppDispatch()
     const navigate=useNavigate()
@@ -46,8 +40,8 @@ const HistoryPage= () => {
         await dispatch(GETORDER(id))
         navigate(`/order/${id}`)
     }
-
-    const rows=orders.map((order:any)=>({id: order._id, paid:order.isPaid, fullname: order.user.name }))
+    const rows=orders.map((order:any)=>({id: order._id, paid:order.isPaid, fullname: order.user?.name,date:moment(order.updatedAt).format('YYYY-MM-DD, h:mm:ss a')
+}))
 
     const columns: GridColDef[]= [
         {field: 'id', headerName: 'ID', width:300},
@@ -63,6 +57,20 @@ const HistoryPage= () => {
                     params.row.paid
                     ? <Chip color="success" label="Pagado" variant="outlined"/>
                     :  <Chip color="error" label="Pago pendiente" variant="outlined" />
+                )
+                
+            }
+        },
+
+        {
+            field:'fecha',
+            headerName:'Fecha',
+            description: 'muestra la fecha de que se realizo la orden',
+            width: 200,
+            sortable:false,
+            renderCell: (params: GridValueGetterParams)=>{
+                return (
+                    params.row.date
                 )
                 
             }

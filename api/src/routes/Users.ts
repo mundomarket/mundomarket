@@ -8,7 +8,7 @@ const route = Router()
 
 
 // Leer a todos los usuarios => Admin
-route.get("/", [verifyToken, isAdmin], async (req: any, res: any, next: any) => {
+route.get("/",/* [verifyToken, isAdmin],*/ async (req: any, res: any, next: any) => {
     try {
         const users: any = await User.find().populate(['orders', 'roles', 'products'])
         res.json(users)
@@ -63,9 +63,15 @@ route.put('/:id', verifyToken, async (req: Request, res: Response, next: NextFun
 
     try {
         const { id } = req.params;
-        await User.findByIdAndUpdate({ _id: id }, req.body);
-        const updatedUser = await User.findById({ _id: id })
-        res.send(updatedUser)
+        if (req.body.password) {
+            const encryptedPassword = await authCtrl.encryptPassword(req.body.password)
+            await User.findByIdAndUpdate(id, { $set:{password : encryptedPassword}});
+            const updatedUser = await User.findById({ _id: id })
+            return res.send(updatedUser)
+        }
+            await User.findByIdAndUpdate({ _id: id }, req.body);
+            const updatedUser = await User.findById({ _id: id })
+            res.send(updatedUser)
     } catch (err) {
         next(err)
     }
