@@ -24,7 +24,7 @@ const usuario=useSelector((State:RootState)=>State.rootReducer.user)
 const navegar = useNavigate()    
 const dispatch=useAppDispatch()
 const { cart,total } = useContext(CartContext);
-const order = {products:cart, adress: "juan 3339", isPaid: false, totalPrice: total }
+const order = {products:cart, adress: usuario.adress, isPaid: false, totalPrice: total }
 
 const crearOrden = async ()=> {
     let ordenNueva = await dispatch(CREATEORDER(order))

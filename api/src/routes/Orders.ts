@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response, Router } from "express";
 import Order from "../models/Order";
 import Role from "../models/Role";
+import Product from "../models/Product";
 import { verifyToken, isAdmin } from "../controllers/authJwt";
 import User from "../models/User";
 import axios from 'axios';
@@ -14,8 +15,8 @@ route.get("/", verifyToken, async (req: Request, res: Response, next: NextFuncti
 
         const actualUser = await User.findById(req.userId);
         const roles = await Role.find({_id: {$in : actualUser.roles}});
-        const allOrders = await Order.find().populate(['products', 'user']); //ver que onda acá. si prouducts es un array, es indistinto que esté acá   
-        if(roles[0].name === 'user'){
+        const allOrders = await Order.find().populate(['products', 'user']);   
+        if(roles[0].name === 'admin'){
             return res.send(allOrders)
         } else {
             const userOrders = allOrders.filter(order => order.user._id.toString() === actualUser._id.toString());
@@ -173,6 +174,10 @@ route.post('/pay',async(req: Request, res: Response) => {
 
     dbOrder.paymentId = transactionId;
     dbOrder.isPaid = true;
+    dbOrder.products.forEach(async (producto:any)=>{
+        await Product.findByIdAndUpdate(producto._id,{stock:(producto.stock-producto.quantity)})
+        
+    })
     await dbOrder.save();
    // await db.disconnect();
 
