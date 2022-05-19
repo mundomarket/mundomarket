@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"
 import Cookie from 'js-cookie'
 
 //const api='http://localhost:3000'
-const api='http://mundomarket.herokuapp.com'
+const api='https://mundomarket.herokuapp.com'
 
 
 
