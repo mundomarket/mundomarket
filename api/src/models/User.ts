@@ -26,7 +26,7 @@ const userSchema = new Schema({
     },
     password:{
         type:String,
-        required: [true, "el password es requerido"]
+        required: [false, "el password es requerido"]
     },
 
     avatar:{
@@ -64,7 +64,10 @@ const userSchema = new Schema({
         type : String,
         required : true
     },
-
+    googleId : {
+        type : String,
+        required : false
+    },
     roles: [
         {
             type : Schema.Types.ObjectId,

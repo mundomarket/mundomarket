@@ -1,4 +1,4 @@
-import { Box,Divider, Typography, TextField, Button,FormControl } from '@mui/material';
+import { Box,Divider, Typography, TextField, Button,FormControl, IconButton } from '@mui/material';
 import { AuthLayout } from '../../components/layouts';
 import {Link} from 'react-router-dom'
 import { useState,useEffect } from 'react';
@@ -7,7 +7,8 @@ import ShoppingCartSharpIcon from '@mui/icons-material/ShoppingCartSharp';
 import '@fontsource/roboto/300.css';
 import { AppDispatch,RootState } from '../../store/index';
 import {useDispatch,useSelector} from "react-redux"
-import {LOGINUSER} from "../../actions/index"
+import {LOGINUSER, LOGINUSERGOOGLE,LOGINUSERGOOGLESUCCESS} from "../../actions/index"
+import GoogleIcon from '@mui/icons-material/Google';
 
 
 
@@ -23,7 +24,10 @@ const LoginPage = () => {
         email:"",
         password:""
     })
-
+    // useEffect(()=>{
+    //     //console.log("entre al useEffect")
+    //     dispatch(LOGINUSERGOOGLESUCCESS());
+    //   },[])
     const handleChange=(e:any)=>{
         e.preventDefault();
         setError(()=>false)
@@ -38,6 +42,11 @@ const LoginPage = () => {
             dispatch(LOGINUSER(input))
             setTimeout(()=>setInvalid(()=>true),500)
     }
+    const google=()=>{
+        dispatch(LOGINUSERGOOGLE())
+        dispatch(LOGINUSERGOOGLESUCCESS())
+    }
+    
     return(
             <AuthLayout title ={'Ingresar'}>
             <Box sx={{display:'flex',flexDirection:'column',border:'1px solid gray',borderRadius:2,width:{xs:200,sm:320},bgcolor:'white',boxShadow:10}}>
@@ -54,6 +63,12 @@ const LoginPage = () => {
                     Entrar como Invitado
                 </Button>
                 <Divider>o</Divider>
+                <IconButton color = "primary" className='circular-btn' size='small' sx={{marginY:1,marginX:{xs:2,sm:4},borderRadius:20}}
+                onClick={google}>
+                    <GoogleIcon/>
+                    Google
+                </IconButton>
+                
                 <Typography fontSize={14}>Olvidaste tu Contraseña?</Typography>
                 <Typography fontSize={14} sx={{marginBottom:1}}>No tienes cuenta? <Link to='/register'>Crear</Link></Typography>
             </Box>

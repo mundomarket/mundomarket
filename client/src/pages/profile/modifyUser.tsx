@@ -40,9 +40,11 @@ const ModifyUser=()=>{
     const[upLoading,setUpLoading]=useState(false)
 
     const handleChange=(campo:string)=>{
+        console.log("campo",campo)
         setEditable((old)=>({...old,[campo]:true}))
     }
     const handleSave=(campo:string)=>{
+        console.log("guardado",[campo], "campo", campo)
         setEditable((old)=>({...old,[campo]:false}))
     }
     const Edit=(e:any)=>{

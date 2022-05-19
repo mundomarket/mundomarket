@@ -106,6 +106,7 @@ const rootReducer = createReducer(initialState, (builder) => {
     })
     .addCase(actions.LOGOUT,(state)=>{
       Cookie.remove('x-access-token')
+      Cookie.remove('token')
       Cookie.remove('user')
       state.isLogged=false;
       state.user=[];
@@ -121,6 +122,19 @@ const rootReducer = createReducer(initialState, (builder) => {
         state.user=Cookie.get('user')?JSON.parse(Cookie.get('user')!):[]
       }
     })
-
+    .addCase(actions.LOGINUSERGOOGLESUCCESS.fulfilled, (state, action) => {
+      console.log(action.payload)
+      //if(action.payload.message==='successfull'){
+        //const userPay=action.payload.user;
+        state.isLogged=true;
+        state.user=action.payload.user;
+        console.log("cokie:",Cookie.get('token'))
+        Cookie.set('x-access-token',JSON.stringify( Cookie.get('token')),{expires:0.08})
+        Cookie.set('user',JSON.stringify( action.payload.user ),{expires:0.08})
+      //}
+  })
 })
+
+
+
 export default rootReducer

@@ -17,7 +17,6 @@ import Register from './pages/auth/register'
 import CrearProducto from './pages/product/formNewProduct'
 import Profile from './pages/profile';
 import NotFound from './pages/notfound'
-import {useSelector} from 'react-redux'
 import Admin from './pages/admin/pageAdmin';
 import AdminUserList from './pages/admin/pageUsers';
 import ModifyPassword from './pages/profile/modifyPassword';
@@ -29,6 +28,10 @@ import {RootState} from './store'
 import ModifyUser from './pages/profile/modifyUser';
 
 import { PayPalScriptProvider} from "@paypal/react-paypal-js";
+import { useEffect } from "react";
+import { AppDispatch} from './store/index';
+import {useDispatch,useSelector} from "react-redux"
+import {LOGINUSERGOOGLESUCCESS} from './actions/index';
 
 
 
@@ -48,6 +51,9 @@ function App() {
 
 
 
+  const useAppDispatch = () => useDispatch<AppDispatch>();
+  const dispatch=useAppDispatch()
+  
   return (
     <div className="App">
 <PayPalScriptProvider options={{ "client-id": 'AQ0xQs7KJfypFz2RqDQlSnT9qYlzBaGyXFsPaTVDQIbgpvD8n1TXUV5Qh-h6vzVdlzd4QjGDFdqOJrup' || '' }}>

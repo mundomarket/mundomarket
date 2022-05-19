@@ -60,7 +60,7 @@ route.delete('/:id', [verifyToken, isAdmin], async (req: Request, res: Response,
 });
 
 route.put('/:id', verifyToken, async (req: Request, res: Response, next: NextFunction) => {
-
+    console.log("entre al modificar")
     try {
         const { id } = req.params;
         if (req.body.password) {
@@ -73,7 +73,7 @@ route.put('/:id', verifyToken, async (req: Request, res: Response, next: NextFun
             const updatedUser = await User.findById({ _id: id })
             res.send(updatedUser)
     } catch (err) {
-        next(err)
+        next(err+" errooooooooooooooooooooooor")
     }
 
 });

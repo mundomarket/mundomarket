@@ -7,6 +7,7 @@ import token_confirmed from "./Token_confirm";
 import order from './Orders';
 import conversation from "./Conversations";
 import message from "./Messages";
+const authRoute= require("./auth")
 
 
 const route=Router() ;
@@ -17,6 +18,7 @@ route.use('/auth/tokenConfirmed', token_confirmed)   //GET http://localhost:3000
 route.use("/products", product) //CRUD - User y Admin
 route.use("/categories",category) // CRUD - Admin
 // route.use("/products-cart", productCart) // CRUD - User y Admin
+route.use('/oauth', authRoute)
 route.use("/orders", order) 
 
 route.use('/conversations', conversation)

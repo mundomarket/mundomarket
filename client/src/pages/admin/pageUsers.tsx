@@ -91,8 +91,8 @@ const UsersPage = () => {
                         } }
                         sx={{ width: '300px' }}
                     >
-                        <MenuItem value='admin'> {row.id==='62818cd236553e4c1b72eb35'?"Super Admin":'Admin'} </MenuItem>
-                        {row.id==='62818cd236553e4c1b72eb35'?[]:<MenuItem value='user'> User </MenuItem>}
+                        <MenuItem value='admin'> {row.id==='6285c17738027ef7de9d387b'?"Super Admin":'Admin'} </MenuItem>
+                        {row.id==='6285c17738027ef7de9d387b'?[]:<MenuItem value='user'> User </MenuItem>}
     
                     </Select>
                 )
@@ -115,7 +115,7 @@ const UsersPage = () => {
                             sx={{ width: '300px' }}
                         >
                             <MenuItem value='online'> online </MenuItem>
-                            {row.id==='62818cd236553e4c1b72eb35'?[]:<MenuItem value='bloqueado'> bloqueado </MenuItem>}
+                            {row.id==='6285c17738027ef7de9d387b'?[]:<MenuItem value='bloqueado'> bloqueado </MenuItem>}
                         </Select>
 
 
