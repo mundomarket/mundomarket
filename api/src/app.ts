@@ -31,7 +31,7 @@ passport.deserializeUser(async(user:any, done:any)=>{
 })
 
 app.use(cors({
-  origin: "http://localhost:3001",
+  origin: "https://mundomarket.vercel.app/",
   credentials: true,
 }));
 app.use(morgan("dev"));

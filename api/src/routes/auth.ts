@@ -4,7 +4,7 @@ import Token from '../models/Token'
 import crypto from "crypto"
 import User from "../models/User"
 import jwt from "jsonwebtoken";
-const CLIENT_URL = "http://localhost:3001"//front
+const CLIENT_URL = "https://mundomarket.vercel.app/"//front
 import config from '../config'
 
 router.get("/login/failed", (req:any,res:any)=>{
