@@ -50,9 +50,8 @@ router.get("/google/callback", passport.authenticate("google", {
     }else{
       res.cookie('x-access-token',tokenBus.token)
     }
-    res.redirect(CLIENT_URL+"/home")
   } else {
-    res.redirect(CLIENT_URL)
+    ()=>{console.log('hola')}
   }
 }
 );
