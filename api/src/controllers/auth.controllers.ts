@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import User from '../models/User';
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import config from '../config';
+import config from '../api.config';
 import Role from '../models/Role';
 import { validationResult } from 'express-validator'
 

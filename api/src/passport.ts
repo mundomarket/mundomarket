@@ -4,8 +4,8 @@ import Role from './models/Role';
 import passport from "passport";
 
 
-const GOOGLE_CLIENT_ID= "1012946720515-gl7k319pvkodekehls7rdg80tiabf0qp.apps.googleusercontent.com"
-const GOOGLE_CLIENT_SECRET= "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"
+const GOOGLE_CLIENT_ID= "457606853494-bn6f3miku0mepsieq0ugtf1098e6vnav.apps.googleusercontent.com"
+const GOOGLE_CLIENT_SECRET= "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"
 
 passport.use("google",new googleStrategy({
     clientID: GOOGLE_CLIENT_ID,

@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc",
     "dev": "ts-node-dev --files src/index.ts",
-    "server": "json-server --watch db.json"
+    "server": "json-server --watch db.json",
+    "start": "node ./dist/index.js"
   },
   "keywords": [],
   "author": "",

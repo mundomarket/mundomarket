@@ -3,7 +3,7 @@
 
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import config from '../config'
+import config from '../api.config'
 import Role from "../models/Role";
 import User from "../models/User";
 //var parse=require('parse-headers')
