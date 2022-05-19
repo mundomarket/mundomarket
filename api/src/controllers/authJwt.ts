@@ -9,13 +9,13 @@ import User from "../models/User";
 var parse=require('parse-headers')
 
 export const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
+    //console.log("reeeeeeeeeeeeeeeeeq:",req.headers['x-access-token'])
     try {
         const token: any = req.headers['x-access-token'];
-        console.log(token)
         if (!token) return res.status(403).json({ message: 'No token provided' })
 
         const decoded: any = jwt.verify(token, config.SECRET_JWT)
-
+        console.log("decoded.id",decoded.id)
         req.userId =  decoded.id
 
         const user = await User.findById(req.userId, { passsword: 0 })

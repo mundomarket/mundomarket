@@ -16,8 +16,7 @@ app.use(session({
   cookie:{maxAge: 240 * 60 * 60 *1000},
   saveUninitialized : false,  //true
   resave : false,  // true
-  secret : 'keyboard__cat/..5/' ,  
-  name: "session_cokie__name"
+  secret : 'keyboard__cat/..5/' 
 }))
 app.use(passport.initialize());
 app.use(passport.session());

@@ -60,14 +60,17 @@ route.delete('/:id', [verifyToken, isAdmin], async (req: Request, res: Response,
 });
 
 route.put('/:id', verifyToken, async (req: Request, res: Response, next: NextFunction) => {
-
+    console.log("entre al modificar")
     try {
         const { id } = req.params;
+        console.log("entre al modificar2", id)
         await User.findByIdAndUpdate({ _id: id }, req.body);
+        console.log("entre al buscar", id)
         const updatedUser = await User.findById({ _id: id })
+        console.log("modificando", id)
         res.send(updatedUser)
     } catch (err) {
-        next(err)
+        next(err+" errooooooooooooooooooooooor")
     }
 
 });
