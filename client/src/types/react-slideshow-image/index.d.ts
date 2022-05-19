@@ -37,3 +37,12 @@
         scale: number
     }
   }
+
+
+declare global {
+  interface Window {
+    somePropertyHere: any;
+    SpeechRecognition:any;
+    gtag: (...args: any[]) => void;
+  }
+}
