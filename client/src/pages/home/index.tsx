@@ -9,7 +9,7 @@ import { ProductList } from '../../components/products';
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { AppDispatch,RootState } from '../../store/index';
-import {GETPRODUCTS} from '../../actions'
+import {GETPRODUCTS,LOGINUSERGOOGLESUCCESS} from '../../actions'
 import { TypedUseSelectorHook } from "react-redux";
 
 const useAppDispatch = () => useDispatch<AppDispatch>();
@@ -21,6 +21,7 @@ export default function Home() {
 
   useEffect(()=>{
     dispatch(GETPRODUCTS())
+    dispatch(LOGINUSERGOOGLESUCCESS())
   },[dispatch])
   //const products = useSelector((State) => State.products);
   const productos=useSelector((State:RootState) => State.rootReducer.productos); 
