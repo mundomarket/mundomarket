@@ -42,9 +42,9 @@ const LoginPage = () => {
             dispatch(LOGINUSER(input))
             setTimeout(()=>setInvalid(()=>true),500)
     }
-    const google=()=>{
-        dispatch(LOGINUSERGOOGLE())
-        dispatch(LOGINUSERGOOGLESUCCESS())
+    const google=async ()=>{
+        await dispatch(LOGINUSERGOOGLE())
+        await dispatch(LOGINUSERGOOGLESUCCESS())
     }
     
     return(
