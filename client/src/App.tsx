@@ -20,7 +20,7 @@ import NotFound from './pages/notfound'
 import {useSelector} from 'react-redux'
 import Admin from './pages/admin/pageAdmin';
 import AdminUserList from './pages/admin/pageUsers';
-
+import ModifyPassword from './pages/profile/modifyPassword';
 import Prueba from './pages/product/Recommended'
 
 import { CartProvider } from '../src/components/cart/CartProvider';
@@ -70,7 +70,7 @@ function App() {
             <Route path='/order/:id' element={<Order/>}/>
             <Route path='/admin/dashboard' element={isAdmin?<Admin/>:<NotFound/>}/>
             <Route path='/admin/users' element={isAdmin?<AdminUserList/>:<NotFound/>}/>
-
+            <Route path='/modifypassword' element={isLogged?<ModifyPassword/>:<NotFound/>}/>
             <Route path='/summary' element={isLogged?<Summary/>:<Navigate replace to='/login'/>}/>
             <Route path='/cart' element={<Cart/>}/>
             <Route path='/login' element={isLogged?<Navigate replace to='/home'/>:<Login/>}/>

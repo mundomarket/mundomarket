@@ -44,6 +44,7 @@ const Profile = () => {
                 </Link>
                 <Divider/>
 
+                <Link to='/modifypassword'>
                 <Box sx={{display:'flex'}}>
                 <KeyIcon sx={{m:1,marginRight:2,height:30,width:30}}/>
                 <Box sx={{marginLeft:1,display:'flex',flexDirection:'column',alignItems:'flex-start'}}>
@@ -51,6 +52,7 @@ const Profile = () => {
                 <Typography variant='subtitle2'>Modificar contraseña</Typography>
                 </Box>
                 </Box>
+                </Link>
 
                 <Divider/>
 

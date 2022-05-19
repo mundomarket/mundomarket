@@ -121,6 +121,7 @@ const rootReducer = createReducer(initialState, (builder) => {
         state.user=Cookie.get('user')?JSON.parse(Cookie.get('user')!):[]
       }
     })
+    
 })
 
 

@@ -1,8 +1,9 @@
 //import { ShopLayout } from '../../components/layouts/ShopLayout';
-import { Avatar, Box , Typography, Button, Divider, Container,Rating} from '@mui/material';
+import { Avatar, Box , Typography, Divider, Container,Rating} from '@mui/material';
 import FmdGoodOutlinedIcon from '@mui/icons-material/FmdGoodOutlined';
 import '@fontsource/roboto/300.css';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
+import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 
 
 const sellerDetail = ({seller}:any) => {
@@ -13,12 +14,20 @@ const sellerDetail = ({seller}:any) => {
                 <Avatar src={seller?.avatar} alt='$' sx={{m:'auto',marginLeft:1,marginRight:2,height:45,width:45}}/>
                 <Divider orientation="vertical" flexItem />
                     <Box sx={{display:'flex'}}>
-                        <Box sx={{marginLeft:2,display:'flex',flexDirection:'column'}}>
-                            <Typography sx={{fontSize:'120%'}}>{seller?.name}</Typography>
+                        <Box sx={{marginLeft:2,display:'flex',flexDirection:'column',alignItems:'flex-start'}}>
+                        <Box sx={{display:'flex',alignItems:'center'}}>
+                                    <PersonOutlinedIcon/>
+                                    <Typography sx={{fontSize:'120%'}}>{seller?.name}</Typography>
+                                </Box>
                                 <Box sx={{display:'flex',alignItems:'center'}}>
                                     <FmdGoodOutlinedIcon/>
                                     <Typography sx={{fontSize:'120%'}}>{seller?.city}</Typography>
                                 </Box>
+                                <Box sx={{display:'flex',alignItems:'center'}}>
+                                    <PhoneOutlinedIcon/>
+                                    <Typography sx={{fontSize:'120%'}}>{seller?.phone}</Typography>
+                                </Box>
+                                
                         </Box>
                     </Box>
             </Box>
