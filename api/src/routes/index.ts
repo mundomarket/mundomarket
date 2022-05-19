@@ -13,7 +13,7 @@ const authRoute= require("./auth")
 const route=Router() ;
 
 route.use("/users", user) //CRUD de usuario - ADMIN lee y borra => implementar ban y permaban?
-route.use('/auth/tokenConfirmed', token_confirmed)   //GET http://localhost:3000/auth/tokenConfirmed/:tokenId
+route.use('/auth/tokenConfirmed', token_confirmed)   
 
 route.use("/products", product) //CRUD - User y Admin
 route.use("/categories",category) // CRUD - Admin
