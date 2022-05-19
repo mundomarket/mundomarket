@@ -28,10 +28,19 @@ import '@fontsource/roboto/300.css';
 import { CartContext } from '../cart/CartContext';
 import KeyIcon from '@mui/icons-material/Key';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import Button from '@mui/material/Button'
+import MicIcon from '@mui/icons-material/Mic';
+import MicOffIcon from '@mui/icons-material/MicOff';
 
 const logo=require('./Mundo-Market2.png')
 
+const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
 
+ const mic: any =new SpeechRecognition()
+
+mic.continuous = true;
+mic.interimResults = true;
+mic.lang = 'es-ES';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -88,13 +97,53 @@ export default function PrimarySearchAppBar() {
   const isLogged=useSelector((state:RootState)=>state.rootReducer.isLogged)
   const user=useSelector((state:RootState)=>state.rootReducer.user)
   const isAdmin=verifyAdmin(user)
+  const [listen,setListen]=useState(false)
 
- 
+  const handleVoiceClick=()=>{
+    setListen(prevState=>!prevState)
+  }
   const location=useLocation().pathname
   const navigate=useNavigate()
   const useAppDispatch = () => useDispatch<AppDispatch>();
   const dispatch=useAppDispatch()
   const [barValue,setBarValue]=useState('')
+
+  const handleListen=()=>{
+    if(listen){
+      mic.start();
+
+      mic.onend=()=>{
+        console.log("continue...");
+        mic.start();
+      }
+
+
+    }else{
+      mic.stop();
+      mic.onend=()=>{
+        console.log("Se le paró el micrófono");
+
+      }
+      setBarValue("")
+    }
+    mic.onstart=()=>{
+      console.log("Micrófono encendido...");
+
+    }
+    mic.onresult=(event:any)=>{
+
+      const transcript=Array.from(event.results)
+         .map((result:any)=>result[0])
+        .map((result:any)=>result.transcript).join("");
+        console.log(transcript)
+        setBarValue(transcript)
+        mic.onerror=(event:any)=>console.log(event.error)
+    }
+  }
+
+  React.useEffect(()=>{
+    handleListen();
+  },[listen])
 
   React.useEffect(()=>{
     dispatch(GETSEARCHBYNAME(barValue))
@@ -278,14 +327,21 @@ export default function PrimarySearchAppBar() {
 
           <Box sx={{ flexGrow: 1 }} />
           {location==='/home'?<Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Buscar Productos…"
-              inputProps={{ 'aria-label': 'search' }}
-              onChange={(e)=>setBarValue(()=>e.target.value)}
-            />
+          <SearchIconWrapper>
+
+
+          </SearchIconWrapper>
+          <Button onClick={handleVoiceClick}>
+            {listen?<MicIcon/>:<MicOffIcon/>}
+            {/* <img className={"micro-off"} src={listen ? micon :micoff } alt="micro"/> */}
+          </Button>
+
+          <StyledInputBase
+            placeholder={listen ? "Escuchando..." : "Buscar Productos…"}
+            inputProps={{ 'aria-label': 'search' }}
+            onChange={(e)=>setBarValue(()=>e.target.value)}
+
+          />
           </Search>:null}
           <Box sx={{ display: { xs: 'none', md: 'flex' },alignItems:'flex-start' }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
