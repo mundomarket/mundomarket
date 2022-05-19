@@ -300,7 +300,7 @@ export default function PrimarySearchAppBar() {
             <MenuIcon />
           </IconButton> */}
           {location==='/home'?<FilterMenu/>:null}
-          <Typography
+          {/* <Typography
             variant="h6"
             noWrap
             component="div"
@@ -314,16 +314,16 @@ export default function PrimarySearchAppBar() {
             >
             MundoMarket
             </NavLink>
-          </Typography>
+          </Typography> */}
           
-          {/* <Box sx={{}}>
+          <Box sx={{width:200,height:100,display:{xs:'none',sm:'block'}}}>
           <img
               src={logo}
               alt='logo'
-              width={'50%'}
-              height={30}
+              width={'100%'}
+              height={'100%'}
                             />
-          </Box> */}
+          </Box>
 
           <Box sx={{ flexGrow: 1 }} />
           {location==='/home'?<Search>
