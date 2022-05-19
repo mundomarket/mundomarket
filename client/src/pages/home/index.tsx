@@ -21,7 +21,6 @@ export default function Home() {
 
   useEffect(()=>{
     dispatch(GETPRODUCTS())
-    dispatch(LOGINUSERGOOGLESUCCESS())
   },[dispatch])
   //const products = useSelector((State) => State.products);
   const productos=useSelector((State:RootState) => State.rootReducer.productos); 
