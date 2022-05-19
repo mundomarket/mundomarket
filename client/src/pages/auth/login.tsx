@@ -63,11 +63,11 @@ const LoginPage = () => {
                     Entrar como Invitado
                 </Button>
                 <Divider>o</Divider>
-                <IconButton color = "primary" className='circular-btn' size='small' sx={{marginY:1,marginX:{xs:2,sm:4},borderRadius:20}}
+                {/* <IconButton color = "primary" className='circular-btn' size='small' sx={{marginY:1,marginX:{xs:2,sm:4},borderRadius:20}}
                 onClick={google}>
                     <GoogleIcon/>
                     Google
-                </IconButton>
+                </IconButton> */}
                 
                 {/* <Typography fontSize={14}>Olvidaste tu Contraseña?</Typography> */}
                 <Typography fontSize={14} sx={{marginBottom:1}}>No tienes cuenta? <Link to='/register'>Crear</Link></Typography>
