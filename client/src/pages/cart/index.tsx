@@ -4,9 +4,13 @@ import { CartList, OrderSummary } from '../../components/cart';
 import NavBar from '../../components/NavBar/NavBar'
 
 const CartPage=()=>{
+
+
+
     return(
         <>
             <NavBar/>
+            <Box sx={{marginX:10}}>
             <Typography variant='h1' component='h1'> Carrito</Typography>
 
             <Grid container>
@@ -24,7 +28,7 @@ const CartPage=()=>{
                             <Box sx={{mt:3}}>
                                 <NavLink  to='/summary'>
                                 <Button color='secondary' className='circular-btn' fullWidth>
-                                    Realizar Compra
+                                    Ir al checkout
                                 </Button>
                                 </NavLink>
 
@@ -37,7 +41,7 @@ const CartPage=()=>{
                 </Grid>
 
             </Grid>
-
+            </Box>
             
 
  

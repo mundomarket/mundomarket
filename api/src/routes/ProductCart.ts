@@ -4,11 +4,11 @@ import Product from "../models/Product"
 const route:Router=Router();
 
 
-route.get('/',async(req,res,next)=>{
+route.get('/',async(req,res,next)=>{ //=> ver si está logueado, middleware JWT
     
     try {
-        const allProducts = await Cart.find();
-        allProducts.length > 0 ? res.send(allProducts) :
+        const allProductsInCart = await Cart.find(/*{ user : req.user}*/); //buscarlo por ID
+        allProductsInCart.length > 0 ? res.send(allProductsInCart) :
         res.send('There are no products in the Cart');    
     } catch(err) {
         next(err);
@@ -20,7 +20,8 @@ route.get('/',async(req,res,next)=>{
 route.post('/:id', async(req,res,next)=>{
     try{
         const {name, image, price} = req.body
-
+        const { id } = req.params
+        //ambas búsquedas deberían ser por id
         const productInDb = await Product.findOne({name})
         const productInCart = await Cart.findOne({name})
 
@@ -103,7 +104,4 @@ route.delete("/:productId", async (req, res)=>{
       })
       .catch((error:string) => res.json({ mensaje: "Hubo un error" }));
     });
-
-
-    
 export default route;

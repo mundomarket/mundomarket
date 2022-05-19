@@ -43,19 +43,13 @@ const ProductPage = () => {
     },[dispatch,id])
 
     //const products = useSelector((State) => State.products);
-    const product=useSelector((State:RootState) => State.rootReducer.detail); 
+    const product=useSelector((State:RootState) => State.rootReducer.producto); 
 
     useEffect(()=>{
         dispatch(GETRECOMMENDED(product.category))
       },[product,dispatch])
 
 
-
-
-
-      
-
-     // const router = useRouter();
       const { addProductToCart} = useContext( CartContext )
       const { cart } = React.useContext( CartContext );
       
@@ -195,7 +189,7 @@ const ProductPage = () => {
                             <Typography variant='subtitle2'>Descripción:</Typography>
                             
                             <Typography variant='body2'>{product.description}</Typography>
-                            <SellerDetail/>
+                            <SellerDetail seller={product.user}/>
                         </Box>
 
                     </Box>

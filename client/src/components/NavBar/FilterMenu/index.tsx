@@ -124,15 +124,15 @@ export default function DialogSelect() {
           </Box>
 
           <Divider/>
-          <Box sx={{display:'flex',justifyContent:'space-around'}}>
+          {/* <Box sx={{display:'flex',justifyContent:'space-around'}}>
             <Rating sx={{m:1}} value={rating} name='rating' onChange={(e)=>handleChange(e)} size="large" />
-          </Box>
+          </Box> */}
 
-          <Divider/>
+          {/* <Divider/>
           <Box sx={{display:'flex',justifyContent:'space-around'}}>
                 <FormControlLabel control={<GreenSwitch/>} label="Con Envío" />
                 <FormControlLabel control={<GreenSwitch/>} label="En Cuotas" />
-          </Box>
+          </Box> */}
         </DialogContent>
         <DialogActions>
           <Button onClick={(e)=>handleClose(e)}>Cancel</Button>

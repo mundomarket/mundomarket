@@ -26,6 +26,10 @@ import FilterMenu from './FilterMenu'
 import { useNavigate,useLocation } from 'react-router-dom';
 import '@fontsource/roboto/300.css';
 import { CartContext } from '../cart/CartContext';
+import KeyIcon from '@mui/icons-material/Key';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+
+const logo=require('./Mundo-Market2.png')
 
 
 
@@ -70,10 +74,20 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-
+const verifyAdmin=(user:any)=>{
+  if(!user.roles){
+    return false
+  }
+  else{
+    if(user.roles[0].name==='admin')return true;
+    else return false
+  }
+}
 export default function PrimarySearchAppBar() {
   const { numberOfItems } = React.useContext( CartContext );
   const isLogged=useSelector((state:RootState)=>state.rootReducer.isLogged)
+  const user=useSelector((state:RootState)=>state.rootReducer.user)
+  const isAdmin=verifyAdmin(user)
 
  
   const location=useLocation().pathname
@@ -127,6 +141,8 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
+      {!isLogged && <MenuItem onClick={()=>navigate('/')}>Iniciar Sesión</MenuItem>}
+      {isAdmin && <MenuItem onClick={()=>navigate('/admin/dashboard')}>Dashboard</MenuItem>}
       {isLogged && <MenuItem onClick={()=>navigate('/profile')}>Mi Perfil</MenuItem>}
       <MenuItem onClick={()=>navigate(`${isLogged? '/crearproducto':'/'}`)}>Vender</MenuItem>
       {isLogged && <MenuItem onClick={()=>{dispatch(LOGOUT())
@@ -151,7 +167,19 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      {!isLogged && <MenuItem onClick={()=>navigate('/')}>
+      <IconButton size="large" color="inherit">
+            <KeyIcon/>
+        </IconButton>
+        <p>Iniciar Sesión</p>
+        </MenuItem>}
+        {isAdmin && <MenuItem onClick={()=>navigate('/admin/dashboard')}>
+      <IconButton size="large" color="inherit">
+            <DashboardIcon/>
+        </IconButton>
+        <p>Dashboard</p>
+        </MenuItem>}
+      <MenuItem onClick={()=>navigate('/cart')}>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={0} color="error">
             <ShoppingCart />
@@ -159,7 +187,7 @@ export default function PrimarySearchAppBar() {
         </IconButton>
         <p>Carrito</p>
       </MenuItem>
-      <MenuItem>
+      {/* <MenuItem>
         <IconButton
           size="large"
           aria-label="show 17 new notifications"
@@ -170,8 +198,8 @@ export default function PrimarySearchAppBar() {
           </Badge>
         </IconButton>
         <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={()=>navigate('/profile')}>
+      </MenuItem> */}
+      {isLogged && <MenuItem onClick={()=>navigate('/profile')}>
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -182,8 +210,8 @@ export default function PrimarySearchAppBar() {
           <AccountCircle />
         </IconButton>
         <p>Profile</p>
-      </MenuItem>
-      <MenuItem onClick={()=>navigate('/crearproducto')}>
+      </MenuItem>}
+      {isLogged && <MenuItem onClick={()=>navigate('/crearproducto')}>
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -194,7 +222,17 @@ export default function PrimarySearchAppBar() {
           <AttachMoney />
         </IconButton>
         <p>Vender</p>
-      </MenuItem>
+      </MenuItem>}
+      {isLogged && <MenuItem onClick={()=>{dispatch(LOGOUT())
+      navigate('/')}}>
+        <IconButton
+          size="large"
+          color="inherit"
+        >
+          <KeyIcon />
+        </IconButton>
+        <p>Cerrar Sesión</p>
+        </MenuItem>}
     </Menu>
   );
 
@@ -229,11 +267,14 @@ export default function PrimarySearchAppBar() {
             </NavLink>
           </Typography>
           
-
-          {/* <img
-              src={'wallpaper.jpg'}
+          {/* <Box sx={{}}>
+          <img
+              src={logo}
               alt='logo'
-                            /> */}
+              width={'50%'}
+              height={30}
+                            />
+          </Box> */}
 
           <Box sx={{ flexGrow: 1 }} />
           {location==='/home'?<Search>
@@ -248,7 +289,7 @@ export default function PrimarySearchAppBar() {
           </Search>:null}
           <Box sx={{ display: { xs: 'none', md: 'flex' },alignItems:'flex-start' }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={numberOfItems>9?'+9':numberOfItems} color="error">
+              <Badge badgeContent={numberOfItems} color="error">
 
                 {/*<Link to={`/user/${user._id}`}>*/}
                 
@@ -257,7 +298,7 @@ export default function PrimarySearchAppBar() {
                 </NavLink>
               </Badge>
             </IconButton>
-            <IconButton
+            {/* <IconButton
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
@@ -268,7 +309,7 @@ export default function PrimarySearchAppBar() {
                 </Badge>
             
 
-            </IconButton>
+            </IconButton> */}
             <IconButton
               size="large"
               edge="end"
