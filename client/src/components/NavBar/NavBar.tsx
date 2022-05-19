@@ -315,7 +315,7 @@ export default function PrimarySearchAppBar() {
             MundoMarket
             </NavLink>
           </Typography> */}
-          
+          <NavLink to='/home'>
           <Box sx={{width:200,height:100,display:{xs:'none',sm:'block'}}}>
           <img
               src={logo}
@@ -324,7 +324,7 @@ export default function PrimarySearchAppBar() {
               height={'100%'}
                             />
           </Box>
-
+          </NavLink>
           <Box sx={{ flexGrow: 1 }} />
           {location==='/home'?<Search>
           <SearchIconWrapper>
