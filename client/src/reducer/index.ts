@@ -2,7 +2,7 @@
 import { createReducer } from '@reduxjs/toolkit'
 import * as actions from '../actions/index'
 import Cookie from 'js-cookie'
-
+import axios from 'axios'
 
 
 interface Estado{

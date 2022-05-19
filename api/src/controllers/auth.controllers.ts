@@ -66,7 +66,7 @@ export const logIn = async (req: Request, res: Response) => {
 
     // ban => ver modelo User
     if(found.suspendedAccount) return res.status(401).json({ message: 'Your account it´s temporary suspended.' })
-    if(!found.verified) return res.status(401).json({message : 'You need to verify your account first.'})
+    //if(!found.verified) return res.status(401).json({message : 'You need to verify your account first.'})
 
     const matchPassword = await comparePasswords(password, found.password);
 

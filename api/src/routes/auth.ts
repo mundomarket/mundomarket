@@ -4,7 +4,7 @@ import Token from '../models/Token'
 import crypto from "crypto"
 import User from "../models/User"
 import jwt from "jsonwebtoken";
-const CLIENT_URL = "https://mundomarket.vercel.app/"//front
+const CLIENT_URL = "http://mundomarket.vercel.app"//front
 import config from '../config'
 
 router.get("/login/failed", (req:any,res:any)=>{
@@ -35,6 +35,7 @@ router.get("/google/callback", passport.authenticate("google", {
       //  failuredRedirect: "/login/failed"
       }),
   async function (req:any, res:any) {
+    console.log(req.user)
   if (req.user) {
     //creando token en bd
     const tokenBus= await Token.findOne({ _userId: req.user._id})
