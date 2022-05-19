@@ -65,15 +65,14 @@ const Profile = () => {
                 </Box>
                 </Box>
 
-                <Divider/>
 
-                <Box sx={{display:'flex'}}>
+                {/* <Box sx={{display:'flex'}}>
                 <CreditCardIcon sx={{m:1,marginRight:2,height:30,width:30}}/>
                 <Box sx={{marginLeft:1,display:'flex',flexDirection:'column',alignItems:'flex-start'}}>
                 <Typography variant='h6'>Mis Tarjetas</Typography>
                 <Typography variant='subtitle2'>Gestionar medios de pago</Typography>
                 </Box>
-                </Box>
+                </Box> */}
             </Box>
         </Container>
         </>

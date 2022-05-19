@@ -11,13 +11,12 @@ import User from "../models/User";
 export const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const token: any = req.headers['x-access-token'];
-
         if (!token) return res.status(403).json({ message: 'No token provided' })
 
         const decoded: any = jwt.verify(token, config.SECRET_JWT)
 
         req.userId =  decoded.id
-
+        console.log(req.userId)
         const user = await User.findById(req.userId, { passsword: 0 })
         if (!user) return res.status(404).json({ message: 'User Not Found' })
         next();

@@ -55,7 +55,7 @@ const LoginPage = () => {
                 </Button>
                 <Divider>o</Divider>
                 
-                <Typography fontSize={14}>Olvidaste tu Contraseña?</Typography>
+                {/* <Typography fontSize={14}>Olvidaste tu Contraseña?</Typography> */}
                 <Typography fontSize={14} sx={{marginBottom:1}}>No tienes cuenta? <Link to='/register'>Crear</Link></Typography>
             </Box>
         </AuthLayout>

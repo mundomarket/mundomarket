@@ -2,7 +2,6 @@
 import { createReducer } from '@reduxjs/toolkit'
 import * as actions from '../actions/index'
 import Cookie from 'js-cookie'
-import { useNavigate } from 'react-router-dom'
 
 
 
@@ -30,6 +29,7 @@ const rootReducer = createReducer(initialState, (builder) => {
     .addCase(actions.GETPRODUCTS.fulfilled, (state, action) => {
       state.productos=action.payload
       state.copiaproductos=action.payload
+      state.producto=[]
       
     })
 
@@ -115,7 +115,7 @@ const rootReducer = createReducer(initialState, (builder) => {
       if(state.user._id===action.payload._id){
       Cookie.set('user',JSON.stringify( action.payload ),{expires:0.08})
       state.user=action.payload
-      alert('Cambios Guardados')
+      window.location.replace('/')
       }
       else{
         state.user=Cookie.get('user')?JSON.parse(Cookie.get('user')!):[]

@@ -189,7 +189,7 @@ const ProductPage = () => {
                             <Typography variant='subtitle2'>Descripción:</Typography>
                             
                             <Typography variant='body2'>{product.description}</Typography>
-                            <SellerDetail/>
+                            <SellerDetail seller={product.user}/>
                         </Box>
 
                     </Box>

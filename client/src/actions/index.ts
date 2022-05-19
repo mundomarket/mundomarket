@@ -6,7 +6,7 @@ import Cookie from 'js-cookie'
 const api='http://localhost:3000'
 //const api='https://mundomarket.herokuapp.com'
 
-const token=Cookie.get('x-access-token')?JSON.parse(Cookie.get('x-access-token')!):''
+
 
 
 export const GETPRODUCTS=createAsyncThunk('GET_PRODUCTS',async ()=>{
@@ -20,6 +20,7 @@ export const GETUSERS=createAsyncThunk('GET_USERS',async ()=>{
 })
 
 export const GETORDERS=createAsyncThunk('GET_ORDERS',async ()=>{
+  const token=Cookie.get('x-access-token')?JSON.parse(Cookie.get('x-access-token')!):''
   const result=await axios.get(`${api}/orders`,{headers:{
     'x-access-token':`${token}`
   }})
@@ -27,6 +28,7 @@ export const GETORDERS=createAsyncThunk('GET_ORDERS',async ()=>{
 })
 
 export const CREATEORDER=createAsyncThunk('CREATE_ORDER',async (data:any)=>{
+  const token=Cookie.get('x-access-token')?JSON.parse(Cookie.get('x-access-token')!):''
   const result=await axios.post(`${api}/orders`,data,{headers:{
     'x-access-token':`${token}`
   }})
@@ -35,6 +37,7 @@ export const CREATEORDER=createAsyncThunk('CREATE_ORDER',async (data:any)=>{
 })
 
 export const PAYORDER=createAsyncThunk('PAY_ORDER',async (data:any)=>{
+  const token=Cookie.get('x-access-token')?JSON.parse(Cookie.get('x-access-token')!):''
   const result=await axios.post(`${api}/orders/pay`,data,{headers:{
     'x-access-token':`${token}`
   }})
@@ -44,6 +47,7 @@ export const PAYORDER=createAsyncThunk('PAY_ORDER',async (data:any)=>{
 
 
 export const GETUSERPRODUCTS=createAsyncThunk('GET_USER_PRODUCTS',async (id: string | undefined)=>{
+  const token=Cookie.get('x-access-token')?JSON.parse(Cookie.get('x-access-token')!):''
   const result=await axios(`${api}/products`,{headers:{
     'x-access-token':`${token}`
   }})
@@ -56,6 +60,7 @@ export const GETDETAIL=createAsyncThunk('GET_DETAIL',async (id: string | undefin
 })
 
 export const GETORDER=createAsyncThunk('GET_ORDER',async (id: string | undefined)=>{
+  const token=Cookie.get('x-access-token')?JSON.parse(Cookie.get('x-access-token')!):''
   const result=await axios.get(`${api}/orders/${id}`,{headers:{
     'x-access-token':`${token}`
   }}) 
@@ -63,6 +68,7 @@ export const GETORDER=createAsyncThunk('GET_ORDER',async (id: string | undefined
 })
 
 export const POSTPRODUCT=createAsyncThunk('POST_PRODUCT',async (value: {} | undefined)=>{
+  const token=Cookie.get('x-access-token')?JSON.parse(Cookie.get('x-access-token')!):''
   const result=await axios.post(`${api}/products`,value,{headers:{
     'x-access-token':`${token}`
   }})
@@ -102,6 +108,7 @@ export const LOGINUSER=createAsyncThunk('LOGINUSER',async (input:{})=>{
 export const LOGOUT=createAction('LOGOUT')
 
 export const MODIFYUSER=createAsyncThunk('MODIFYUSER',async (input:any)=>{
+  const token=Cookie.get('x-access-token')?JSON.parse(Cookie.get('x-access-token')!):''
   const user=await axios.put(`${api}/users/${input._id}`,input,{headers:{
     'x-access-token':`${token}`
   }})

@@ -10,6 +10,7 @@ const CartPage=()=>{
     return(
         <>
             <NavBar/>
+            <Box sx={{marginX:10}}>
             <Typography variant='h1' component='h1'> Carrito</Typography>
 
             <Grid container>
@@ -40,7 +41,7 @@ const CartPage=()=>{
                 </Grid>
 
             </Grid>
-
+            </Box>
             
 
  

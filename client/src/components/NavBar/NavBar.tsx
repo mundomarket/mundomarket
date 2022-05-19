@@ -141,7 +141,7 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {!isLogged && <MenuItem onClick={()=>navigate('/login')}>Iniciar Sesión</MenuItem>}
+      {!isLogged && <MenuItem onClick={()=>navigate('/')}>Iniciar Sesión</MenuItem>}
       {isAdmin && <MenuItem onClick={()=>navigate('/admin/dashboard')}>Dashboard</MenuItem>}
       {isLogged && <MenuItem onClick={()=>navigate('/profile')}>Mi Perfil</MenuItem>}
       <MenuItem onClick={()=>navigate(`${isLogged? '/crearproducto':'/'}`)}>Vender</MenuItem>
@@ -167,11 +167,17 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      {!isLogged && <MenuItem onClick={()=>navigate('/login')}>
+      {!isLogged && <MenuItem onClick={()=>navigate('/')}>
       <IconButton size="large" color="inherit">
             <KeyIcon/>
         </IconButton>
         <p>Iniciar Sesión</p>
+        </MenuItem>}
+        {isAdmin && <MenuItem onClick={()=>navigate('/admin/dashboard')}>
+      <IconButton size="large" color="inherit">
+            <DashboardIcon/>
+        </IconButton>
+        <p>Dashboard</p>
         </MenuItem>}
       <MenuItem onClick={()=>navigate('/cart')}>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
@@ -181,7 +187,7 @@ export default function PrimarySearchAppBar() {
         </IconButton>
         <p>Carrito</p>
       </MenuItem>
-      <MenuItem>
+      {/* <MenuItem>
         <IconButton
           size="large"
           aria-label="show 17 new notifications"
@@ -192,7 +198,7 @@ export default function PrimarySearchAppBar() {
           </Badge>
         </IconButton>
         <p>Notifications</p>
-      </MenuItem>
+      </MenuItem> */}
       {isLogged && <MenuItem onClick={()=>navigate('/profile')}>
         <IconButton
           size="large"
@@ -292,7 +298,7 @@ export default function PrimarySearchAppBar() {
                 </NavLink>
               </Badge>
             </IconButton>
-            <IconButton
+            {/* <IconButton
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
@@ -303,7 +309,7 @@ export default function PrimarySearchAppBar() {
                 </Badge>
             
 
-            </IconButton>
+            </IconButton> */}
             <IconButton
               size="large"
               edge="end"

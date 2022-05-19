@@ -19,7 +19,7 @@ const ModifyUser=()=>{
         avatar:user.avatar,
         name:user.name,
         email: user.email,
-        address:user.address,
+        adress:user.adress,
         city:user.city,
         country:user.country,
         phone:user.phone,
@@ -30,7 +30,7 @@ const ModifyUser=()=>{
         name:false,
         email: false,
         password: false,
-        address:false,
+        adress:false,
         city:false,
         country:false,
         phone:false,
@@ -117,12 +117,12 @@ const ModifyUser=()=>{
                 <Divider/>
 
                 <Box sx={{display:'flex',alignItems:'center',justifyContent:'center'}}>
-                    <Typography sx={{fontSize:'3vh',m:2}}>Dirección: {editable.address?
-                    <TextField name='address' variant='standard' size='small' placeholder={field.address} onChange={(e)=>Edit(e)}/>
-                    :field.address}
+                    <Typography sx={{fontSize:'3vh',m:2}}>Dirección: {editable.adress?
+                    <TextField name='adress' variant='standard' size='small' placeholder={field.adress} onChange={(e)=>Edit(e)}/>
+                    :field.adress}
                     </Typography>
-                    <IconButton onClick={(e)=>{editable.address?handleSave('address'):handleChange('address')}}>
-                        {editable.address?<CheckIcon/>:<EditIcon/>}
+                    <IconButton onClick={(e)=>{editable.adress?handleSave('adress'):handleChange('adress')}}>
+                        {editable.adress?<CheckIcon/>:<EditIcon/>}
                     </IconButton>
                 </Box>
 

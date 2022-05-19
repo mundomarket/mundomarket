@@ -38,7 +38,8 @@ const crearOrden = async ()=> {
     return(
            <>
         <NavBar/>
-        <Typography variant='h1' component='h1' sx={{mt:8}}> Resumen de la orden</Typography>
+        <Box sx={{marginX:10}}>
+        <Typography variant='h5' component='h1' sx={{mt:8,mb:2}}> Resumen de la orden</Typography>
 
             <Grid container>
                 <Grid item xs={12} sm={7}>
@@ -97,7 +98,7 @@ const crearOrden = async ()=> {
                 </Grid>
                
             </Grid>
-
+            </Box>
 
             </>
        // </ShopLayout>

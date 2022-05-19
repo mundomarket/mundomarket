@@ -12,7 +12,7 @@ import { AppDispatch, RootState } from '../../store';
 import { useParams } from 'react-router-dom';
 import { GETORDER, PAYORDER,GETDETAIL } from '../../actions';
 import { IOrder } from './orderInterface';
-
+import NavBar from '../../components/NavBar/NavBar'
 export type OrderResponseBody = {
     id: string;
     status:
@@ -85,8 +85,10 @@ const OrderPage=()=>{
 
 
     return(
-        <>
-            <Typography variant='h1' component='h1'> Orden: {order._id}</Typography>
+        <>  
+            <NavBar/>
+            <Box sx={{marginTop:7,marginX:10}}>
+            <Typography variant='h5' component='h1' sx={{mt:10}}> Orden: {order._id}</Typography>
             {isPaid===false?
                     <Chip
                         sx={{my:2}}
@@ -206,6 +208,7 @@ const OrderPage=()=>{
                 
 
             </Grid>
+            </Box>
             </>
 
     )
