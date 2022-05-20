@@ -22,43 +22,43 @@ import Prueba from "./pages/product/Recommended";
 import { CartProvider } from "../src/components/cart/CartProvider";
 import { SWRConfig } from "swr";
 
-import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+//import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 function App() {
   return (
     <div className="App">
-      <PayPalScriptProvider
+      {/* <PayPalScriptProvider
         options={{
           "client-id": process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || " ",
+        }}> */}
+      <SWRConfig
+        value={{
+          fetcher: (resource: RequestInfo, init: RequestInit | undefined) =>
+            fetch(resource, init).then((res) => res.json()),
         }}>
-        <SWRConfig
-          value={{
-            fetcher: (resource: RequestInfo, init: RequestInit | undefined) =>
-              fetch(resource, init).then((res) => res.json()),
-          }}>
-          <CartProvider>
-            <ThemeProvider theme={lightTheme}>
-              <CssBaseline />
-              <Routes>
-                <Route path="/" element={Landing()} />
-                <Route path="/home" element={Home()} />
-                <Route path="/product/:id" element={<Product />} />
-                <Route path="/history/:id" element={<History />} />
-                <Route path="/history/order/:id" element={<Order />} />
+        <CartProvider>
+          <ThemeProvider theme={lightTheme}>
+            <CssBaseline />
+            <Routes>
+              <Route path="/" element={Landing()} />
+              <Route path="/home" element={Home()} />
+              <Route path="/product/:id" element={<Product />} />
+              <Route path="/history/:id" element={<History />} />
+              <Route path="/history/order/:id" element={<Order />} />
 
-                <Route path="/summary" element={Summary()} />
-                <Route path="/cart" element={Cart()} />
-                <Route path="/login" element={Login()} />
-                <Route path="/register" element={Register()} />
-                <Route path="/crearproducto" element={CrearProducto()} />
-                <Route path="/profile" element={<Profile />} />
+              <Route path="/summary" element={Summary()} />
+              <Route path="/cart" element={Cart()} />
+              <Route path="/login" element={Login()} />
+              <Route path="/register" element={Register()} />
+              <Route path="/crearproducto" element={CrearProducto()} />
+              <Route path="/profile" element={<Profile />} />
 
-                <Route path="/prueba" element={<Prueba />} />
-              </Routes>
-            </ThemeProvider>
-          </CartProvider>
-        </SWRConfig>
-      </PayPalScriptProvider>
+              <Route path="/prueba" element={<Prueba />} />
+            </Routes>
+          </ThemeProvider>
+        </CartProvider>
+      </SWRConfig>
+      {/* </PayPalScriptProvider> */}
     </div>
   );
 }

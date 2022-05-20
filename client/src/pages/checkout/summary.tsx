@@ -1,4 +1,5 @@
 import {
+  Button,
   Box,
   Card,
   CardContent,
@@ -58,6 +59,9 @@ const SummaryPage = () => {
               </Box>
 
               <OrderSummary />
+
+              <Box sx={{ mt: 3 }}>
+                <Button color="secondary" className="circular-btn" fullWidth>
                 <PayPalButtons
                   createOrder={(data: any, actions: any) => {
                     return actions.order.create({
@@ -77,8 +81,8 @@ const SummaryPage = () => {
                     });
                   }}
                 />
-
-              <Box sx={{ mt: 3 }}>
+                  Confirmar Orden
+                </Button>
               </Box>
             </CardContent>
           </Card>
