@@ -5,28 +5,26 @@ import { CssBaseline, ThemeProvider } from '@mui/material'
 import '../src/styles/globals.css'
 import { lightTheme } from './themes/light-theme';
 
-import Landing from './pages/landing';
-import Home from './pages/home'
-import Product from './pages/product/details'
-import Summary from './pages/orders/orderSummary'
-import History from './pages/orders/history'
-import Order from './pages/orders/orderPayment'
-import Cart from './pages/cart'
-import Login from './pages/auth/login'
-import Register from './pages/auth/register'
-import CrearProducto from './pages/product/formNewProduct'
-import Profile from './pages/profile';
-import NotFound from './pages/notfound'
+import Landing from './pageLanding';
+import Home from './pageHome'
+import Product from './Products/pageProductDetails'
+import Summary from './Orders/pageOrderSummary'
+import History from './Orders/pageHistory'
+import Order from './Orders/pageOrderPayment'
+import Cart from './Cart/pageCart'
+import Login from './Login/login'
+import Register from './Login/register'
+import CrearProducto from './Products/pageCreateProduct'
+import Profile from './Profile';
+import NotFound from './Profile'
 import {useSelector} from 'react-redux'
-import Admin from './pages/admin/pageAdmin';
-import AdminUserList from './pages/admin/pageUsers';
+import Admin from './Admin/pageAdmin';
+import AdminUserList from './Admin/pageUsers';
 
-import Prueba from './pages/product/Recommended'
-
-import { CartProvider } from '../src/components/cart/CartProvider';
+import { CartProvider } from './Cart/CartProvider';
 import { SWRConfig } from 'swr';
 import {RootState} from './store'
-import ModifyUser from './pages/profile/modifyUser';
+import ModifyUser from './Profile/modifyUser';
 
 import { PayPalScriptProvider} from "@paypal/react-paypal-js";
 
