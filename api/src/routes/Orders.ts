@@ -10,16 +10,19 @@ const route = Router()
 
 import * as IPaypal from '../paypalInterface'
 
-route.get("/", verifyToken, async (req: Request, res: Response, next: NextFunction) => {
+route.get("/", verifyToken,  async (req: Request, res: Response, next: NextFunction) => {
     try {
 
         const actualUser = await User.findById(req.userId);
         const roles = await Role.find({_id: {$in : actualUser.roles}});
-        const allOrders = await Order.find().populate(['products', 'user']);   
+        const allOrders = await Order.find().populate(['products', 'user']); 
+        
         if(roles[0].name === 'admin'){
             return res.send(allOrders)
+
         } else {
-            const userOrders = allOrders.filter(order => order.user._id.toString() === actualUser._id.toString());
+            const userOrders = allOrders.filter(order => order.user?._id.toString() === actualUser._id.toString());
+            console.log("prueba",allOrders)  
             return res.send(userOrders)
         }
 
@@ -80,7 +83,7 @@ route.put('/:id', verifyToken, async (req: Request, res: Response, next: NextFun
 
 });
 
-route.delete('/:id', [verifyToken, isAdmin], async (req: Request, res: Response, next: NextFunction) => {
+route.delete('/:id',/* [verifyToken, isAdmin],*/ async (req: Request, res: Response, next: NextFunction) => {
 
     try {
         const { id } = req.params;

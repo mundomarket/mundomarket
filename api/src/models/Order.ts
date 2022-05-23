@@ -1,7 +1,9 @@
 import {model,Schema} from "mongoose"
 
 // sujeta a cambios de acuerdo a la info que llega desde PayPal.
-
+var mongoose = require('mongoose'),
+    autoIncrement = require('mongoose-auto-increment');
+    
 
 const OrderSchema=new Schema({
 
@@ -27,6 +29,11 @@ const OrderSchema=new Schema({
         default : false
     },
 
+    id2 : {
+        type : Number,
+        required : false
+    },
+
     paymentId: { //ver como puedo sacarlo de PayPal
         type : String,
         // required : true
@@ -42,6 +49,11 @@ const OrderSchema=new Schema({
  {
      timestamps : true
  })
+
+
+
+
+ 
 
 const Order=model("Order",OrderSchema)
 

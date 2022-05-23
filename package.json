@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "mongoose-auto-increment": "^2.0.0"
+  }
+}

@@ -12,7 +12,7 @@ import { useState, useEffect, useContext } from "react";
 import { AppDispatch,RootState } from '../store/index';
 import {GETDETAIL,GETRECOMMENDED} from '../actions'
 import { TypedUseSelectorHook } from "react-redux";
-import SellerDetail from './sellerDetail'
+import SellerDetail from './SellerDetail'
 import Recommended from './Recommended'
 import { IProduct } from './productInterface';
 

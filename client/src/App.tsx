@@ -9,7 +9,7 @@ import Landing from './pageLanding';
 import Home from './pageHome'
 import Product from './Products/pageProductDetails'
 import Summary from './Orders/pageOrderSummary'
-import History from './Orders/pageHistory'
+import History from './Orders/pageOrderHistory'
 import Order from './Orders/pageOrderPayment'
 import Cart from './Cart/pageCart'
 import Login from './Login/login'

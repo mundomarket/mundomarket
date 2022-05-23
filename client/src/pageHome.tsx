@@ -1,10 +1,10 @@
 //import { ShopLayout } from '../components/layouts';
 
 import React from "react";
-import { Typography,Divider, Box } from '@mui/material';
+import { Typography,Divider, Box, Grid } from '@mui/material';
 import NavBar from '../src/NavBar/NavBar'
 //import { initialData } from '../../database/products';
-import { ProductList } from './Products';
+import { ProductCard } from './Products';
 
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
@@ -34,15 +34,29 @@ export default function Home() {
         </Box>
         
         <Box sx={{marginY:10}}>
-        <Box sx={{display:'flex',flexDirection:'column',alignItems:'flex-start'}}>
-        <Typography variant='h5' sx={{marginLeft:3}}> PRODUCTOS </Typography>
-        </Box>
-        <Divider sx={{m:2,marginBottom:3}}/>
+          <Box sx={{display:'flex',flexDirection:'column',alignItems:'flex-start'}}>
+            <Typography variant='h5' sx={{marginLeft:3}}> PRODUCTOS </Typography>
+          </Box>
+          <Divider sx={{m:2,marginBottom:3}}/>
 
-        <ProductList
-           products={productos}
-        />
+          
         </Box>
+
+        {productos[0]?<Box sx={{marginX:3}}>
+        <Grid container spacing ={3} >
+            {
+                
+                productos.map((product:any) =>(
+                    <ProductCard
+                        key={product._id}
+                        product={product}
+                    />
+                ))
+
+            }
+        </Grid>
+        </Box>:<div><h1>No hay productos para esta busqueda</h1></div>
+}
     </div>
   )
 }
