@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from '../store';
 import { useParams } from 'react-router-dom';
 import { GETORDER, PAYORDER,GETDETAIL } from '../actions';
-import { IOrder } from './orderInterface';
+
 
 export type OrderResponseBody = {
     id: string;
@@ -178,7 +178,7 @@ const OrderPage=()=>{
                                     }}
                                     onApprove={(data, actions) => {
                                         return actions.order!.capture().then((details) => {
-                                            console.log({ details  })
+                                            console.log("detailss",{ details  })
                                                 onOrderCompleted( details );
                                                 
                                                // const name = details.payer.name!.given_name;

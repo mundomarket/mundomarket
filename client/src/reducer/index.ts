@@ -111,6 +111,7 @@ const rootReducer = createReducer(initialState, (builder) => {
       state.user=[];
       state.ordenes=[]
     })
+    
     .addCase(actions.MODIFYUSER.fulfilled,(state,action)=>{
       if(state.user._id===action.payload._id){
       Cookie.set('user',JSON.stringify( action.payload ),{expires:0.08})

@@ -295,7 +295,7 @@ export default function PrimarySearchAppBar() {
           <Box sx={{ flexGrow: 1 }} />
           {location==='/home'?<Search>
             <SearchIconWrapper>
-              <SearchIcon />
+              <SearchIcon />                        
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Buscar Productos…"

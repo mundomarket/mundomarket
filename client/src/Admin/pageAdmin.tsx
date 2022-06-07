@@ -48,9 +48,8 @@ const DashboardPage = () => {
     <AdminLayout
         title='Dashboard'
         subTitle='Estadisticas generales'
-        icon={ <DashboardOutlined /> }
-    >
-        
+        icon={ <DashboardOutlined /> }    >
+      
         <Grid container spacing={2}>
             
             <SummaryTile 
@@ -77,7 +76,7 @@ const DashboardPage = () => {
 
         
             <SummaryTile 
-               title={ users.length }
+                title={ users.length }
                 subTitle="Usuarios"
                 icon={ <GroupOutlined color="primary" sx={{ fontSize: 40 }} /> }
             />

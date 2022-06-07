@@ -8,40 +8,12 @@ const api='http://localhost:3000'
 
 const token=Cookie.get('x-access-token')?JSON.parse(Cookie.get('x-access-token')!):''
 
+/////////////////////////////////// PRODUCTOS //////////////////////////////////////////////////////////
 
 export const GETPRODUCTS=createAsyncThunk('GET_PRODUCTS',async ()=>{
     const result=await axios(`${api}/products`)
     return result.data
 })
-
-export const GETUSERS=createAsyncThunk('GET_USERS',async ()=>{
-  const result=await axios(`${api}/users`)
-  return result.data
-})
-
-export const GETORDERS=createAsyncThunk('GET_ORDERS',async ()=>{
-  const result=await axios.get(`${api}/orders`,{headers:{
-    'x-access-token':`${token}`
-  }})
-  return result.data
-})
-
-export const CREATEORDER=createAsyncThunk('CREATE_ORDER',async (data:any)=>{
-  const result=await axios.post(`${api}/orders`,data,{headers:{
-    'x-access-token':`${token}`
-  }})
-  return result.data._id
-
-})
-
-export const PAYORDER=createAsyncThunk('PAY_ORDER',async (data:any)=>{
-  const result=await axios.post(`${api}/orders/pay`,data,{headers:{
-    'x-access-token':`${token}`
-  }})
-  return result.data
-
-})
-
 
 export const GETUSERPRODUCTS=createAsyncThunk('GET_USER_PRODUCTS',async (id: string | undefined)=>{
   const result=await axios(`${api}/products`,{headers:{
@@ -53,13 +25,6 @@ export const GETUSERPRODUCTS=createAsyncThunk('GET_USER_PRODUCTS',async (id: str
 export const GETDETAIL=createAsyncThunk('GET_DETAIL',async (id: string | undefined)=>{
     const result=await axios(`${api}/products/${id}`) 
     return result.data
-})
-
-export const GETORDER=createAsyncThunk('GET_ORDER',async (id: string | undefined)=>{
-  const result=await axios.get(`${api}/orders/${id}`,{headers:{
-    'x-access-token':`${token}`
-  }}) 
-  return result.data
 })
 
 export const POSTPRODUCT=createAsyncThunk('POST_PRODUCT',async (value: {} | undefined)=>{
@@ -88,8 +53,14 @@ export const GETORDENAMIENTOS=createAsyncThunk('GET_ORDENAMIENTOS',async (input:
   return input
 })
 
-export const REGISTERUSER=createAsyncThunk('REGISTERUSER',async (input:{})=>{
+//////////////////////////////////// USUARIOS /////////////////////////////////////////////////////////
 
+export const GETUSERS=createAsyncThunk('GET_USERS',async ()=>{
+  const result=await axios(`${api}/users`)
+  return result.data
+})
+
+export const REGISTERUSER=createAsyncThunk('REGISTERUSER',async (input:{})=>{
   await axios.post(`${api}/users/signup`,input)
 
 })
@@ -107,3 +78,39 @@ export const MODIFYUSER=createAsyncThunk('MODIFYUSER',async (input:any)=>{
   }})
   return user.data
 })
+
+//////////////////////////////////// ORDENES /////////////////////////////////////////////////////////
+
+export const GETORDERS=createAsyncThunk('GET_ORDERS',async ()=>{
+  const result=await axios.get(`${api}/orders`,{headers:{
+    'x-access-token':`${token}`
+  }})
+  return result.data
+})
+
+
+export const CREATEORDER=createAsyncThunk('CREATE_ORDER',async (data:any)=>{
+  const result=await axios.post(`${api}/orders`,data,{headers:{
+    'x-access-token':`${token}`
+  }})
+  return result.data._id
+
+})
+
+export const PAYORDER=createAsyncThunk('PAY_ORDER',async (data:any)=>{
+  const result=await axios.post(`${api}/orders/pay`,data,{headers:{
+    'x-access-token':`${token}`
+  }})
+  return result.data
+})
+
+export const GETORDER=createAsyncThunk('GET_ORDER',async (id: string | undefined)=>{
+  const result=await axios.get(`${api}/orders/${id}`,{headers:{
+    'x-access-token':`${token}`
+  }}) 
+  return result.data
+})
+
+
+
+

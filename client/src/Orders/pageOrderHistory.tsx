@@ -41,6 +41,7 @@ const HistoryPage= () => {
         await dispatch(GETORDER(id))
         navigate(`/order/${id}`)
     }
+    
     const rows=orders.map((order:any)=>({id: order._id, paid:order.isPaid, fullname: order.user?.name,date:moment(order.updatedAt).format('YYYY-MM-DD, h:mm:ss a')
 }))
 

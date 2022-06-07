@@ -21,7 +21,7 @@ interface Props {
 
 const useAppDispatch = () => useDispatch<AppDispatch>();
 
-export const CartList: FC<Props> = ({ editable = false, prodcutInDb }) => {
+export const CartList: FC<Props> = ({ editable = false }) => {
 
     /*const dispatch=useAppDispatch()
     const {id} = useParams()
@@ -33,6 +33,7 @@ export const CartList: FC<Props> = ({ editable = false, prodcutInDb }) => {
 */
 
     const { cart, updateCartQuantity, removeCartProduct } = useContext(CartContext);
+
     const onNewCartQuantityValue = (product: ICartProduct, newQuantityValue: number) => {
         product.quantity = newQuantityValue;
         updateCartQuantity( product );
