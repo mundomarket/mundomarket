@@ -1,4 +1,3 @@
-//const cookieSession = require("cookie-session");
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
@@ -30,10 +29,13 @@ passport.deserializeUser(async(user:any, done:any)=>{
   return done(null, {id: userDb._id, name: userDb.name, email:userDb.email})
 })
 
-app.use(cors({
-  origin: "https://mundomarket.vercel.app",
-  credentials: true,
-}));
+// app.use(cors({
+//   origin: "http://localhost:3001/",
+//   //origin: "https://mundomarket.vercel.app",
+//   // credentials: true,
+// }));
+app.use(cors());
+
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

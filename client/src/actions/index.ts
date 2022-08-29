@@ -4,8 +4,8 @@ import { Orders } from "../components/NavBar/FilterMenu"
 import { useNavigate } from "react-router-dom"
 import Cookie from 'js-cookie'
 
-//const api='http://localhost:3000'
-const api='https://mundomarket.herokuapp.com'
+const api='http://localhost:3000'
+//const api='https://mundomarket.herokuapp.com'
 
 
 
@@ -96,7 +96,7 @@ export const GETORDENAMIENTOS=createAsyncThunk('GET_ORDENAMIENTOS',async (input:
 })
 
 export const REGISTERUSER=createAsyncThunk('REGISTERUSER',async (input:{})=>{
-
+  console.log(input)
   await axios.post(`${api}/users/signup`,input)
 
 })

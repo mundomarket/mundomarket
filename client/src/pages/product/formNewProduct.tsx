@@ -32,7 +32,6 @@ export default function FormP() {
     const handleUpload= async (e:any)=>{
       
       const pic = e.target.files[0];
-      console.log("valor buscado*",pic);
       if (pic===undefined)  return  0
       setUpLoading(true);
       const formData=new FormData();
@@ -46,7 +45,6 @@ export default function FormP() {
         .then((res)=>res.json())
         .then((res)=> {
           setImages(images=>[...images,res.url]);
-          console.log("respuesta",res)
           //setInput((input)=>({...input,imageProduct:[res.secure_url]}))
           setUpLoading(false);
         })
